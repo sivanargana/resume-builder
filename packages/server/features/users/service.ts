@@ -3,7 +3,8 @@ import { prisma } from "../../client"
 
 export const service = {
     async create(body:any){
-         return await prisma.user.create(body)
+        console.log({data:body})
+       return await prisma.user.create({data:body})
     },
     async read(){ 
        return await prisma.user.findMany()

@@ -3,7 +3,7 @@ import { service } from "./service"
 
 export const controller = {
     async create(req: Request, res: Response) {
-        return await service.create(req.body)
+        let  result = await service.create(req.body)
         res.json([])
     },
     async read(req: Request, res: Response) {

@@ -1,0 +1,11 @@
+### Read
+GET http://localhost:3000/api/users
+
+### Create
+POST http://localhost:3000/api/users
+Content-Type: application/json
+
+{
+  "email": "siva1@example.com",
+  "password": "Siva@1993"
+}
