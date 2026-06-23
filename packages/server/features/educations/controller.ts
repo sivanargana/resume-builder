@@ -2,9 +2,6 @@ import type { Request, Response } from "express";
 import { service } from "./service";
 import { Prisma } from "../../generated/prisma/client";
 
-const isUniqueEmailError = (err: unknown) =>
-  err instanceof Prisma.PrismaClientKnownRequestError && err.code === "P2002";
-
 const isNotFoundError = (err: unknown) =>
   err instanceof Prisma.PrismaClientKnownRequestError && err.code === "P2025";
 
@@ -19,31 +16,12 @@ const requireId = (req: Request, res: Response): string | null => {
 
 export const controller = {
   async create(req: Request, res: Response) {
-    try {
-      const result = await service.create(req.body);
-      res.status(201).json(result);
-    } catch (err) {
-      if (isUniqueEmailError(err)) {
-        res.status(409).json({ error: "Email already in use" });
-        return;
-      }
-      throw err;
-    }
+    const result = await service.create(req.body);
+    res.status(201).json(result);
   },
 
   async read(_req: Request, res: Response) {
     const result = await service.read();
-    res.json(result);
-  },
-
-  async readOne(req: Request, res: Response) {
-    const id = requireId(req, res);
-    if (id === null) return;
-    const result = await service.readOne(id);
-    if (!result) {
-      res.status(404).json({ error: "User not found" });
-      return;
-    }
     res.json(result);
   },
 
@@ -55,7 +33,7 @@ export const controller = {
       res.json(result);
     } catch (err) {
       if (isNotFoundError(err)) {
-        res.status(404).json({ error: "User not found" });
+        res.status(404).json({ error: "Education not found" });
         return;
       }
       throw err;
@@ -70,7 +48,7 @@ export const controller = {
       res.status(204).send();
     } catch (err) {
       if (isNotFoundError(err)) {
-        res.status(404).json({ error: "User not found" });
+        res.status(404).json({ error: "Education not found" });
         return;
       }
       throw err;
