@@ -8,6 +8,8 @@ const router = Router();
  * /api/users:
  *   post:
  *     summary: Create User
+ *     tags:
+ *         - Users
  *     requestBody:
  *       required: true
  *       content:
@@ -35,6 +37,8 @@ router.post("/",controller.create)
  * /api/users:
  *   get:
  *     summary: Get all users
+ *     tags:
+ *         - Users
  *     responses:
  *       200:
  *         description: Success
