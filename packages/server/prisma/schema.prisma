@@ -1,49 +1,52 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-// Get a free hosted Postgres database in seconds: `npx create-db`
 generator client {
   provider = "prisma-client"
   output   = "../generated/prisma"
 }
+
 datasource db {
-  provider = "mysql"
+  provider = "sqlite"
 }
+
 model User {
   id        String   @id @default(cuid())
   email     String   @unique
   password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
   profile   Profile?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 }
+
 model Profile {
-  id        String   @id @default(cuid())
-  userId    String   @unique
-  user      User     @relation(fields: [userId], references: [id])
-  firstName String
-  lastName  String?
-  phone     String?
-  headline  String?
-  summary   String?
-  skills    Skill[]
-  education Education[]
+  id         String       @id @default(cuid())
+  userId     String       @unique
+  firstName  String
+  lastName   String?
+  phone      String?
+  headline   String?
+  summary    String?
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+  education  Education[]
   experience Experience[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  user       User         @relation(fields: [userId], references: [id])
+  skills     Skill[]
 }
+
 model Skill {
   id        String  @id @default(cuid())
   name      String
   profileId String
   profile   Profile @relation(fields: [profileId], references: [id])
 }
+
 model Education {
-  id         String  @id @default(cuid())
-  degree     String
-  institute  String
-  profileId  String
-  profile    Profile @relation(fields: [profileId], references: [id])
+  id        String  @id @default(cuid())
+  degree    String
+  institute String
+  profileId String
+  profile   Profile @relation(fields: [profileId], references: [id])
 }
+
 model Experience {
   id          String  @id @default(cuid())
   company     String
