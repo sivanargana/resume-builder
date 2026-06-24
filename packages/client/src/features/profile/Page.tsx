@@ -1,16 +1,15 @@
+import { api } from "@/axios";
+import { Card, CardContent } from "@/components/ui/card";
 import { useQuery } from "@tanstack/react-query";
 export function Page() {
   const { data, isLoading, error } = useQuery({
     queryKey: ["profile"],
     queryFn: async () => {
-      let res = await fetch("http://localhost:3000/api/users");
-      if (!res.ok) {
-        throw new Error("Failed to fetch users");
-      }
-
-      return res.json();
+      return await api.get("profile/cmqqnfbsg0001jxosz73j6fo6");
     },
   });
+
+  console.log(data);
 
   return (
     <div>
@@ -18,9 +17,13 @@ export function Page() {
 
       {error && <p>Error: {error?.message}</p>}
 
-      {data?.map((user: any) => (
+      <Card>
+        <CardContent>wefewofef</CardContent>
+      </Card>
+
+      {/* {data?.data?.map((user: any) => (
         <div key={user.id}>{user.email}</div>
-      ))}
+      ))} */}
     </div>
   );
 }
