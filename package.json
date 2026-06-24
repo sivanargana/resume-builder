@@ -4,11 +4,13 @@
   "type": "module",
   "private": true,
   "scripts": {
+    "start":"bun run index.ts",
     "format": "bunx prettier . --write",
     "prepare": "husky"
   },
   "devDependencies": {
     "@types/bun": "latest",
+    "concurrently": "^10.0.3",
     "husky": "^9.1.7",
     "prettier": "3.8.4"
   },
