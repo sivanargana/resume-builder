@@ -1,8 +1,6 @@
 import { lazy } from "react";
 import { RouterProvider } from "react-router";
-
 import { createBrowserRouter } from "react-router";
-
 const router = createBrowserRouter([
   {
     path: "/",
@@ -36,7 +34,11 @@ const router = createBrowserRouter([
           },
           {
             path: "profile",
-            Component: lazy(() => import("./features/profile/Page")),
+            Component: lazy(() =>
+              import("./features/profile").then((module) => ({
+                default: module.ProfilePage,
+              })),
+            ),
           },
         ],
       },
