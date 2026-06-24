@@ -36,7 +36,7 @@ const router = createBrowserRouter([
           },
           {
             path: "profile",
-            element: <div>profile</div>,
+            Component: lazy(() => import("./features/profile/Page")),
           },
         ],
       },
