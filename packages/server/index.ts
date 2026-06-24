@@ -1,12 +1,17 @@
 import express from "express";
 import dotenv from "dotenv";
-import userRouter from "./features/users/routes";
 import swaggerUi from "swagger-ui-express";
-import { swaggerSpec } from "./swagger";
+import { swaggerSpec } from "./swagger"; 
+
+import { userRoutes } from "./features/users";
+import { skillsRoutes } from "./features/skills";
+import { educationRoutes } from "./features/education";
+import { experienceRoutes } from "./features/experience";
+import { profileRoutes } from "./features/profile";
+
 dotenv.config()
 const app = express();
 const port = process.env.PORT || 3000;
-
 app.use(express.json());
 
 app.use(
@@ -15,7 +20,11 @@ app.use(
    swaggerUi.setup(swaggerSpec)
 );
 
-app.use("/api/users", userRouter);
+app.use("/api/users",userRoutes);
+app.use("/api/skills",skillsRoutes);
+app.use("/api/education",educationRoutes);
+app.use("/api/experience",experienceRoutes);
+app.use("/api/profile",profileRoutes);
 
 app.listen(port, () => {
    console.log(`Server Running on http://localhost:${port}`)

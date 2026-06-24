@@ -6,9 +6,9 @@
   "scripts": {
     "start": "bun run index.ts",
     "dev": "bun --watch run index.ts",
-    "generate":"bunx --bun prisma generate",
-    "migrate":"bunx --bun prisma migrate dev",
-    "studio":"bunx --bun prisma studio"
+    "generate": "bunx --bun prisma generate",
+    "migrate": "bunx --bun prisma migrate dev",
+    "studio": "bunx --bun prisma studio"
   },
   "devDependencies": {
     "@types/bun": "latest",
@@ -27,6 +27,7 @@
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "swagger-jsdoc": "^6.3.0",
-    "swagger-ui-express": "^5.0.1"
+    "swagger-ui-express": "^5.0.1",
+    "zod": "^4.4.3"
   }
 }
