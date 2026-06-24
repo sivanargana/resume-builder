@@ -1,4 +1,4 @@
 export * from "./PublicLayout";
-export * from "./PrivateLayout";
-export * from "./UserLayout";
+export * from "./AccountLayout";
 export * from "./AdminLayout";
+export * from "./AuthLayout";

@@ -1,7 +1,7 @@
 import { Outlet } from "react-router";
 
-function PublicLayout() {
+function AccountLayout() {
   return <Outlet />;
 }
 
-export default PublicLayout;
+export default AccountLayout;
