@@ -1,7 +1,6 @@
-import type { Request, Response } from "express"
-import { service } from "./service"
+import type { Request, Response } from "express";
+import { service } from "./service";
 import { schema } from "./schema";
-
 
 export const controller = {
   // Create
@@ -13,27 +12,24 @@ export const controller = {
       });
     }
     try {
-      let result = await service.create(response.data)
-      res.status(201).json(result)
-    }
-    catch (err) {
-      return res.status(500).json({ errors: err })
+      let result = await service.create(response.data);
+      res.status(201).json(result);
+    } catch (err) {
+      return res.status(500).json({ errors: err });
     }
   },
   // Read
   async read(req: Request, res: Response) {
     try {
       let result = await service.read();
-      res.status(200).json(result)
-
+      res.status(200).json(result);
     } catch (err) {
-      return res.status(500).json({ errors: err })
-
+      return res.status(500).json({ errors: err });
     }
   },
   // Single
   async single(req: Request, res: Response) {
-      const response = schema.single.safeParse({ id: req.params.id});
+    const response = schema.single.safeParse({ id: req.params.id });
 
     if (!response.success) {
       return res.status(400).json({
@@ -42,16 +38,17 @@ export const controller = {
     }
     try {
       let result = await service.single(req.params.id);
-      res.status(200).json(result)
-
+      res.status(200).json(result);
     } catch (err) {
-      return res.status(500).json({ errors: err })
-
+      return res.status(500).json({ errors: err });
     }
   },
   // Update
   async update(req: Request, res: Response) {
-    const response = schema.update.safeParse({ id: req.params.id, ...req.body });
+    const response = schema.update.safeParse({
+      id: req.params.id,
+      ...req.body,
+    });
 
     if (!response.success) {
       return res.status(400).json({
@@ -60,10 +57,9 @@ export const controller = {
     }
     try {
       let result = await service.update(req.params.id, response.data);
-      res.status(200).json(result)
+      res.status(200).json(result);
     } catch (err) {
-      return res.status(500).json({ errors: err })
-
+      return res.status(500).json({ errors: err });
     }
   },
   // Delete
@@ -76,11 +72,10 @@ export const controller = {
       });
     }
     try {
-      let result = await service.delete(req.params.id)
-      res.status(204).json(result)
+      let result = await service.delete(req.params.id);
+      res.status(204).json(result);
     } catch (err) {
-      return res.status(500).json({ errors: err })
-
+      return res.status(500).json({ errors: err });
     }
   },
-}
+};

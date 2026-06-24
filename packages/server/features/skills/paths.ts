@@ -1,5 +1,3 @@
-
-
 export const paths = {
   "/api/skills": {
     get: {
@@ -27,7 +25,7 @@ export const paths = {
                 },
                 profileId: {
                   type: "string",
-                  format: "cuid"
+                  format: "cuid",
                 },
               },
             },
@@ -53,7 +51,7 @@ export const paths = {
           required: true,
           schema: {
             type: "string",
-            format: "cuid"
+            format: "cuid",
           },
         },
       ],
@@ -73,7 +71,7 @@ export const paths = {
           required: true,
           schema: {
             type: "string",
-            format: "cuid"
+            format: "cuid",
           },
         },
       ],
@@ -86,11 +84,11 @@ export const paths = {
               required: ["name", "profileId"],
               properties: {
                 name: {
-                  type: "string"
+                  type: "string",
                 },
                 profileId: {
                   type: "string",
-                  format: "cuid"
+                  format: "cuid",
                 },
               },
             },
@@ -113,7 +111,7 @@ export const paths = {
           required: true,
           schema: {
             type: "string",
-            format: "cuid"
+            format: "cuid",
           },
         },
       ],
@@ -124,5 +122,4 @@ export const paths = {
       },
     },
   },
-}
-
+};

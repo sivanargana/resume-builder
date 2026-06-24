@@ -12,9 +12,9 @@ export const schema = {
     profileId: z.string().cuid(),
   }),
   delete: z.object({
-    id: z.string().cuid()
+    id: z.string().cuid(),
   }),
   single: z.object({
-    id: z.string().cuid()
-  })
+    id: z.string().cuid(),
+  }),
 };

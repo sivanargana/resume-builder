@@ -1,5 +1,3 @@
-
-
 export const paths = {
   "/api/profile": {
     get: {
@@ -20,7 +18,14 @@ export const paths = {
           "application/json": {
             schema: {
               type: "object",
-              required: ["firstName", "lastName", "phone", "headline", "summary", "userId"],
+              required: [
+                "firstName",
+                "lastName",
+                "phone",
+                "headline",
+                "summary",
+                "userId",
+              ],
               properties: {
                 firstName: {
                   type: "string",
@@ -39,7 +44,7 @@ export const paths = {
                 },
                 userId: {
                   type: "string",
-                  format: "cuid"
+                  format: "cuid",
                 },
               },
             },
@@ -65,7 +70,7 @@ export const paths = {
           required: true,
           schema: {
             type: "string",
-            format: "cuid"
+            format: "cuid",
           },
         },
       ],
@@ -85,7 +90,7 @@ export const paths = {
           required: true,
           schema: {
             type: "string",
-            format: "cuid"
+            format: "cuid",
           },
         },
       ],
@@ -95,7 +100,14 @@ export const paths = {
           "application/json": {
             schema: {
               type: "object",
-              required: ["firstName", "lastName", "phone", "headline", "summary", "userId"],
+              required: [
+                "firstName",
+                "lastName",
+                "phone",
+                "headline",
+                "summary",
+                "userId",
+              ],
               properties: {
                 firstName: {
                   type: "string",
@@ -114,7 +126,7 @@ export const paths = {
                 },
                 userId: {
                   type: "string",
-                  format: "cuid"
+                  format: "cuid",
                 },
               },
             },
@@ -127,7 +139,7 @@ export const paths = {
         },
       },
     },
-    
+
     delete: {
       tags: ["Profile"],
       summary: "Delete profile",
@@ -138,7 +150,7 @@ export const paths = {
           required: true,
           schema: {
             type: "string",
-            format: "cuid"
+            format: "cuid",
           },
         },
       ],
@@ -149,5 +161,4 @@ export const paths = {
       },
     },
   },
-}
-
+};

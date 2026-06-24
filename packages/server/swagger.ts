@@ -1,4 +1,4 @@
-import swaggerJSDoc from "swagger-jsdoc"; 
+import swaggerJSDoc from "swagger-jsdoc";
 import { userPaths } from "./features/users";
 import { skillsPaths } from "./features/skills";
 import { educationPaths } from "./features/education";
@@ -14,16 +14,12 @@ export const swaggerSpec = swaggerJSDoc({
     },
 
     paths: {
-    // ...userPaths,
-    // ...skillsPaths,
-    // ...educationPaths,
-    // ...experiencePaths,
-    ...profilePaths
-
-   
-    }
-
-
+      ...userPaths,
+      ...skillsPaths,
+      ...educationPaths,
+      ...experiencePaths,
+      ...profilePaths,
+    },
   },
   apis: [],
 });

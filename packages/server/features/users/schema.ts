@@ -10,9 +10,9 @@ export const schema = {
     password: z.string(),
   }),
   delete: z.object({
-    id: z.string().cuid()
+    id: z.string().cuid(),
   }),
   single: z.object({
-    id: z.string().cuid()
-  })
+    id: z.string().cuid(),
+  }),
 };

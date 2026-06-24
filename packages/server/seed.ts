@@ -1,8 +1,5 @@
 import { prisma } from "./client";
 
- 
- 
-
 async function main() {
   // Clear database
   await prisma.skill.deleteMany();
@@ -50,10 +47,7 @@ async function main() {
             summary: `Experienced ${skills[i - 1]} Developer`,
 
             skills: {
-              create: [
-                { name: skills[i - 1] },
-                { name: "Git" },
-              ],
+              create: [{ name: skills[i - 1] }, { name: "Git" }],
             },
 
             education: {
@@ -83,4 +77,3 @@ main()
   .finally(async () => {
     await prisma.$disconnect();
   });
- 

@@ -1,5 +1,3 @@
-
-
 export const paths = {
   "/api/education": {
     get: {
@@ -20,7 +18,7 @@ export const paths = {
           "application/json": {
             schema: {
               type: "object",
-              required: ["degree","institute", "profileId"],
+              required: ["degree", "institute", "profileId"],
               properties: {
                 degree: {
                   type: "string",
@@ -30,7 +28,7 @@ export const paths = {
                 },
                 profileId: {
                   type: "string",
-                  format: "cuid"
+                  format: "cuid",
                 },
               },
             },
@@ -56,7 +54,7 @@ export const paths = {
           required: true,
           schema: {
             type: "string",
-            format: "cuid"
+            format: "cuid",
           },
         },
       ],
@@ -76,7 +74,7 @@ export const paths = {
           required: true,
           schema: {
             type: "string",
-            format: "cuid"
+            format: "cuid",
           },
         },
       ],
@@ -86,17 +84,17 @@ export const paths = {
           "application/json": {
             schema: {
               type: "object",
-              required: ["degree","institute", "profileId"],
+              required: ["degree", "institute", "profileId"],
               properties: {
                 degree: {
-                  type: "string"
+                  type: "string",
                 },
                 institute: {
-                  type: "string"
+                  type: "string",
                 },
                 profileId: {
                   type: "string",
-                  format: "cuid"
+                  format: "cuid",
                 },
               },
             },
@@ -119,7 +117,7 @@ export const paths = {
           required: true,
           schema: {
             type: "string",
-            format: "cuid"
+            format: "cuid",
           },
         },
       ],
@@ -130,5 +128,4 @@ export const paths = {
       },
     },
   },
-}
-
+};

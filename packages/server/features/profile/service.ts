@@ -1,14 +1,13 @@
-import { prisma } from "../../client"
-
+import { prisma } from "../../client";
 
 export const service = {
   async create(body: any) {
-    return await prisma.profile.create({ data: body })
+    return await prisma.profile.create({ data: body });
   },
   async read() {
-    return await prisma.profile.findMany()
+    return await prisma.profile.findMany();
   },
-  async single(id:any) {
+  async single(id: any) {
     return await prisma.profile.findUnique({
       where: { id },
       include: {
@@ -20,10 +19,14 @@ export const service = {
     });
   },
   async update(id: any, body: any) {
-      return await prisma.profile.upsert({ where: {id}, create: body,update:body })
+    return await prisma.profile.upsert({
+      where: { id },
+      create: body,
+      update: body,
+    });
   },
- 
+
   async delete(id: any) {
-    return await prisma.profile.delete({ where: {id} })
+    return await prisma.profile.delete({ where: { id } });
   },
-}
+};

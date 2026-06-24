@@ -1,20 +1,19 @@
-import { prisma } from "../../client"
-
+import { prisma } from "../../client";
 
 export const service = {
   async create(body: any) {
-    return await prisma.skill.create({ data: body })
+    return await prisma.skill.create({ data: body });
   },
   async read() {
-    return await prisma.skill.findMany()
+    return await prisma.skill.findMany();
   },
-  async single(id:any) {
-    return await prisma.skill.findUnique({where:{id}})
+  async single(id: any) {
+    return await prisma.skill.findUnique({ where: { id } });
   },
   async update(id: any, body: any) {
-    return await prisma.skill.update({ where: {id}, data: body })
+    return await prisma.skill.update({ where: { id }, data: body });
   },
   async delete(id: any) {
-    return await prisma.skill.delete({ where: {id} })
+    return await prisma.skill.delete({ where: { id } });
   },
-}
+};
