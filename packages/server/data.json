@@ -1,0 +1,124 @@
+{
+    "basicDetails":{
+        "name":"Siva Nargana",
+        "photo":"",
+        "workStatus":"Experienced",
+        "totalExperience":{
+            "years":12,
+            "months":0
+        },
+        "currentStalary":{
+            "amount":1300000,
+            "breakdown":"fixed"
+        },
+          "currentLocation":{
+            "country":"india",
+            "location":"hyderabad"
+        },
+        "mobile":"9676969175",
+        "email":"siva.nargana66@gmail.com",
+        "availability":"15 days or less"
+    },
+    "headline":"Frontend Developer | React.js | Angular | TypeScript",
+    "skills":[
+        "React.js",
+        "Javascript",
+        "Angular",
+        "HTML",
+        "CSS",
+        "TypeScript",
+        "Redux",
+        "Nextjs",
+        "Frontend Development",
+        "Rxjs",
+        "Rest",
+        "GIT",
+        "UI Development",
+        "API",
+        "API Integration",
+        "Responsive Web Design",
+        "Performance Optimization",
+        "State Management",
+        "Figma to Production",
+        "Reusable Components",
+        "Docker"
+    ],
+    "experience":[
+        {
+            "isCurrent":false,
+            "type":"fulltime",
+            "name":"Msrcosmos",
+            "jobTitle":"Frontend Developer",
+            "joining":{
+                "year":"2019",
+                "month":"Jul"
+            },
+              "relived":{
+                "year":"2026",
+                "month":"Mar"
+            },
+            "jobProfile":""
+
+
+        }
+    ],
+    "education":[
+        {
+            "education":"",
+            "university":"",
+            "course":"",
+            "specialization":"",
+            "type":"fulltime",
+            "duration":{
+                "startYear":"",
+                "endYear":""
+            },
+            "gradeSystem":"",
+            "marks":""
+        }
+    ],
+    "projects":[
+        {
+            "title":"",
+            "client":"",
+            "status":"",
+            "duration":{
+                "startYear":"",
+                "endYear":""
+            },
+            "details":"",
+            "location":"",
+            "site":"",
+            "type":"",
+            "teamSize":"",
+            "role":"",
+            "roleDescription":"",
+            "skillsUsed":""
+
+        }
+    ],
+    "profileSummary":"",
+    "languages":[
+        {
+            "name":"Telugu",
+            "proficiency":"beginner | proficient | expert",
+            "read":true,
+            "write":true,
+            "speak":true
+
+        },
+          {
+            "name":"English",
+            "proficiency":"beginner | proficient | expert",
+            "read":true,
+            "write":true,
+            "speak":true
+
+        }
+    ]
+    
+}
+
+
+
+

@@ -9,21 +9,37 @@ export function Page() {
     },
   });
 
-  console.log(data);
-
   return (
     <div>
       {isLoading && <p>Loading...</p>}
-
       {error && <p>Error: {error?.message}</p>}
-
       <Card>
-        <CardContent>wefewofef</CardContent>
+        <CardContent>wdqwdwqd</CardContent>
       </Card>
-
-      {/* {data?.data?.map((user: any) => (
-        <div key={user.id}>{user.email}</div>
-      ))} */}
+      <Card>
+        <CardContent>
+          <div className="text-red-500">skills</div>
+          {data?.data?.skills.map((user: any) => (
+            <div key={user.id}>{user.name}</div>
+          ))}
+        </CardContent>
+      </Card>
+      <Card>
+        <CardContent>
+          <div className="text-red-500">education</div>
+          {data?.data?.education.map((user: any) => (
+            <div key={user.id}>{user.degree}</div>
+          ))}
+        </CardContent>
+      </Card>
+      <Card>
+        <CardContent>
+          <div className="text-red-500">experience</div>
+          {data?.data?.experience.map((user: any) => (
+            <div key={user.id}>{user.company}</div>
+          ))}
+        </CardContent>
+      </Card>
     </div>
   );
 }

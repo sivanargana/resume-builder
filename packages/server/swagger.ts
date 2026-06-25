@@ -4,6 +4,7 @@ import { skillsPaths } from "./features/skills";
 import { educationPaths } from "./features/education";
 import { experiencePaths } from "./features/experience";
 import { profilePaths } from "./features/profile";
+import { authPaths } from "./features/auth";
 
 export const swaggerSpec = swaggerJSDoc({
   definition: {
@@ -14,11 +15,12 @@ export const swaggerSpec = swaggerJSDoc({
     },
 
     paths: {
-      ...userPaths,
-      ...skillsPaths,
-      ...educationPaths,
-      ...experiencePaths,
-      ...profilePaths,
+      ...authPaths,
+      // ...userPaths,
+      // ...skillsPaths,
+      // ...educationPaths,
+      // ...experiencePaths,
+      // ...profilePaths,
     },
   },
   apis: [],
