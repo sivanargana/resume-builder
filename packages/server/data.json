@@ -1,8 +1,12 @@
 {
+  "register": {
+    "fullName": "Siva Nargana",
+    "mobile": "9676969175",
+    "email": "siva.nargana66@gmail.com",
+    "workStatus": "Experienced"
+  },
   "basicDetails": {
-    "name": "Siva Nargana",
     "photo": "",
-    "workStatus": "Experienced",
     "totalExperience": {
       "years": 12,
       "months": 0
@@ -15,8 +19,7 @@
       "country": "india",
       "location": "hyderabad"
     },
-    "mobile": "9676969175",
-    "email": "siva.nargana66@gmail.com",
+
     "availability": "15 days or less"
   },
   "headline": "Frontend Developer | React.js | Angular | TypeScript",
@@ -45,19 +48,20 @@
   ],
   "experience": [
     {
-      "isCurrent": false,
-      "type": "fulltime",
-      "name": "Msrcosmos",
-      "jobTitle": "Frontend Developer",
-      "joining": {
-        "year": "2019",
-        "month": "Jul"
-      },
-      "relived": {
-        "year": "2026",
-        "month": "Mar"
-      },
-      "jobProfile": ""
+      "isCurrentEmployment": true,
+      "employmentType": "internship",
+      "companyName": "",
+      "jobTitle": "",
+      "department": "",
+      "location": "",
+      "joiningDate": "",
+      "workedTill": "",
+      "monthlyStipend": 0,
+      "currentSalary": 0,
+      "totalExperience": 0,
+      "skillsUsed": [],
+      "jobProfile": "",
+      "noticePeriod": ""
     }
   ],
   "education": [
