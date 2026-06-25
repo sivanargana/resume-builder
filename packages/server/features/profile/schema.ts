@@ -1,26 +1,28 @@
 import * as z from "zod";
+
+const basicDetails = z.object({
+  photo: z.string().optional(),
+  experienceYears: z.number().int(),
+  experienceMonths: z.number().int(),
+  salaryAmount: z.number().int(),
+  salaryBreakdown: z.enum(["fixed", "ctc"]),
+  country: z.string(),
+  location: z.string(),
+  availability: z.string(),
+});
+
 export const schema = {
-  create: z.object({
-    firstName: z.string(),
-    lastName: z.string(),
-    phone: z.string(),
-    headline: z.string(),
-    summary: z.string(),
+  read: z.object({
     userId: z.string().cuid(),
   }),
   update: z.object({
-    id: z.string().cuid(),
-    firstName: z.string(),
-    lastName: z.string(),
-    phone: z.string(),
-    headline: z.string(),
-    summary: z.string(),
     userId: z.string().cuid(),
-  }),
-  delete: z.object({
-    id: z.string().cuid(),
-  }),
-  single: z.object({
-    id: z.string().cuid(),
+    fullName: z.string(),
+    mobile: z.string(),
+    email: z.string().email(),
+    workStatus: z.enum(["Fresher", "Experienced"]),
+    basicDetails: basicDetails.optional(),
+    headline: z.string().optional(),
+    profileSummary: z.string().optional(),
   }),
 };

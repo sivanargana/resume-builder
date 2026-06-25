@@ -15,24 +15,27 @@ export const controller = {
       });
     }
     try {
-      let result = await service.login(response.data);
+      const result = await service.login(response.data);
 
       if (!result) {
         return res.status(404).json({ errors: "User Not Found" });
       }
 
-      // const isMatch = await bcrypt.compare(req.body.password, result.password);
+      const isMatch = await bcrypt.compare(
+        response.data.password,
+        result.password,
+      );
 
-      // if (!isMatch) {
-      //   return res.status(404).json({ errors: "Invalid credentials" });
-      // }
+      if (!isMatch) {
+        return res.status(401).json({ errors: "Invalid credentials" });
+      }
 
       let token = jwt.sign(
-        { email: result?.email },
+        { id: result.id, email: result.email },
         process.env.JWT_SECRET_KEY ?? "",
       );
 
-      res.status(201).json({ token });
+      res.status(200).json({ token });
     } catch (err) {
       return res.status(500).json({ errors: err });
     }

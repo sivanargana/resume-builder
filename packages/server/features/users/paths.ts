@@ -18,14 +18,21 @@ export const paths = {
           "application/json": {
             schema: {
               type: "object",
-              required: ["email", "password"],
+              required: [
+                "fullName",
+                "mobile",
+                "email",
+                "password",
+                "workStatus",
+              ],
               properties: {
-                email: {
+                fullName: { type: "string" },
+                mobile: { type: "string" },
+                email: { type: "string", format: "email" },
+                password: { type: "string", format: "password" },
+                workStatus: {
                   type: "string",
-                  format: "email",
-                },
-                password: {
-                  type: "string",
+                  enum: ["Fresher", "Experienced"],
                 },
               },
             },
@@ -51,6 +58,7 @@ export const paths = {
           required: true,
           schema: {
             type: "string",
+            format: "cuid",
           },
         },
       ],
@@ -70,6 +78,7 @@ export const paths = {
           required: true,
           schema: {
             type: "string",
+            format: "cuid",
           },
         },
       ],
@@ -79,14 +88,15 @@ export const paths = {
           "application/json": {
             schema: {
               type: "object",
-              required: ["email", "password"],
+              required: ["fullName", "mobile", "email", "workStatus"],
               properties: {
-                email: {
+                fullName: { type: "string" },
+                mobile: { type: "string" },
+                email: { type: "string", format: "email" },
+                password: { type: "string", format: "password" },
+                workStatus: {
                   type: "string",
-                  format: "email",
-                },
-                password: {
-                  type: "string",
+                  enum: ["Fresher", "Experienced"],
                 },
               },
             },
@@ -109,6 +119,7 @@ export const paths = {
           required: true,
           schema: {
             type: "string",
+            format: "cuid",
           },
         },
       ],

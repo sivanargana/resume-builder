@@ -1,7 +1,7 @@
 import { prisma } from "../../client";
 
 export const service = {
-  async login(body: any) {
-    return await prisma.user.findUnique({ where: body });
+  async login(body: { email: string }) {
+    return await prisma.user.findUnique({ where: { email: body.email } });
   },
 };

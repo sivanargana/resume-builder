@@ -7,22 +7,16 @@
   },
   "basicDetails": {
     "photo": "",
-    "totalExperience": {
-      "years": 12,
-      "months": 0
-    },
-    "currentStalary": {
-      "amount": 1300000,
-      "breakdown": "fixed"
-    },
-    "currentLocation": {
-      "country": "india",
-      "location": "hyderabad"
-    },
-
+    "experienceYears": 12,
+    "experienceMonths": 0,
+    "salaryAmount": 1300000,
+    "salaryBreakdown": "fixed",
+    "country": "india",
+    "location": "hyderabad",
     "availability": "15 days or less"
   },
   "headline": "Frontend Developer | React.js | Angular | TypeScript",
+  "profileSummary": "",
   "skills": [
     "React.js",
     "Javascript",
@@ -46,35 +40,32 @@
     "Reusable Components",
     "Docker"
   ],
-  "experience": [
+  "experiences": [
     {
       "isCurrentEmployment": true,
-      "employmentType": "internship",
+      "employmentType": "fulltime",
       "companyName": "",
       "jobTitle": "",
       "department": "",
       "location": "",
-      "joiningDate": "",
-      "workedTill": "",
-      "monthlyStipend": 0,
-      "currentSalary": 0,
-      "totalExperience": 0,
-      "skillsUsed": [],
+      "joiningDate": null,
+      "workedTill": null,
+      "monthlyStipend": null,
+      "currentSalary": null,
+      "totalExperience": null,
       "jobProfile": "",
       "noticePeriod": ""
     }
   ],
-  "education": [
+  "educations": [
     {
       "education": "",
       "university": "",
       "course": "",
       "specialization": "",
       "type": "fulltime",
-      "duration": {
-        "startYear": "",
-        "endYear": ""
-      },
+      "startYear": null,
+      "endYear": null,
       "gradeSystem": "",
       "marks": ""
     }
@@ -84,32 +75,29 @@
       "title": "",
       "client": "",
       "status": "",
-      "duration": {
-        "startYear": "",
-        "endYear": ""
-      },
+      "startYear": null,
+      "endYear": null,
       "details": "",
       "location": "",
       "site": "",
       "type": "",
-      "teamSize": "",
+      "teamSize": null,
       "role": "",
       "roleDescription": "",
       "skillsUsed": ""
     }
   ],
-  "profileSummary": "",
   "languages": [
     {
       "name": "Telugu",
-      "proficiency": "beginner | proficient | expert",
+      "proficiency": "proficient",
       "read": true,
       "write": true,
       "speak": true
     },
     {
       "name": "English",
-      "proficiency": "beginner | proficient | expert",
+      "proficiency": "proficient",
       "read": true,
       "write": true,
       "speak": true

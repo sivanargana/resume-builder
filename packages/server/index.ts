@@ -8,6 +8,8 @@ import { userRoutes } from "./features/users";
 import { skillsRoutes } from "./features/skills";
 import { educationRoutes } from "./features/education";
 import { experienceRoutes } from "./features/experience";
+import { projectRoutes } from "./features/project";
+import { languageRoutes } from "./features/language";
 import { profileRoutes } from "./features/profile";
 import { authRoutes } from "./features/auth";
 import { isAuthenticated } from "./middlewares/authentication";
@@ -26,6 +28,8 @@ app.use("/api/users", userRoutes);
 app.use("/api/skills", skillsRoutes);
 app.use("/api/education", educationRoutes);
 app.use("/api/experience", experienceRoutes);
+app.use("/api/project", projectRoutes);
+app.use("/api/language", languageRoutes);
 app.use("/api/profile", isAuthenticated, profileRoutes);
 
 app.listen(port, () => {

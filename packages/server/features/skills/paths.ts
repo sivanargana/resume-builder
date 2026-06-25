@@ -18,12 +18,12 @@ export const paths = {
           "application/json": {
             schema: {
               type: "object",
-              required: ["name", "profileId"],
+              required: ["name", "userId"],
               properties: {
                 name: {
                   type: "string",
                 },
-                profileId: {
+                userId: {
                   type: "string",
                   format: "cuid",
                 },
@@ -81,12 +81,12 @@ export const paths = {
           "application/json": {
             schema: {
               type: "object",
-              required: ["name", "profileId"],
+              required: ["name", "userId"],
               properties: {
                 name: {
                   type: "string",
                 },
-                profileId: {
+                userId: {
                   type: "string",
                   format: "cuid",
                 },

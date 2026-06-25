@@ -1,4 +1,5 @@
 import "dotenv/config";
+import bcrypt from "bcryptjs";
 import { prisma } from "./client";
 
 const FIRST_NAMES = [
@@ -257,6 +258,8 @@ async function main() {
   console.log("Seeding 20 users with full profiles...");
 
   const TOTAL_USERS = 20;
+  const DEFAULT_PASSWORD = "password123";
+  const hashedPassword = await bcrypt.hash(DEFAULT_PASSWORD, 10);
 
   for (let i = 0; i < TOTAL_USERS; i++) {
     const firstName = pick(FIRST_NAMES, i);
@@ -271,6 +274,7 @@ async function main() {
         fullName,
         mobile,
         email,
+        password: hashedPassword,
         workStatus,
         basicDetails: {
           create: {
@@ -429,6 +433,9 @@ async function main() {
 
   console.log("Done. Row counts:");
   console.log(counts);
+  console.log(
+    `\nAll seeded users can log in with password: ${DEFAULT_PASSWORD}`,
+  );
 }
 
 main()

@@ -18,18 +18,31 @@ export const paths = {
           "application/json": {
             schema: {
               type: "object",
-              required: ["company", "designation", "profileId"],
+              required: ["isCurrentEmployment", "employmentType", "userId"],
               properties: {
-                company: {
+                isCurrentEmployment: { type: "boolean" },
+                employmentType: {
                   type: "string",
+                  enum: [
+                    "fulltime",
+                    "internship",
+                    "contract",
+                    "parttime",
+                    "freelance",
+                  ],
                 },
-                designation: {
-                  type: "string",
-                },
-                profileId: {
-                  type: "string",
-                  format: "cuid",
-                },
+                companyName: { type: "string" },
+                jobTitle: { type: "string" },
+                department: { type: "string" },
+                location: { type: "string" },
+                joiningDate: { type: "string", format: "date-time" },
+                workedTill: { type: "string", format: "date-time" },
+                monthlyStipend: { type: "integer" },
+                currentSalary: { type: "integer" },
+                totalExperience: { type: "integer" },
+                jobProfile: { type: "string" },
+                noticePeriod: { type: "string" },
+                userId: { type: "string", format: "cuid" },
               },
             },
           },
@@ -84,18 +97,31 @@ export const paths = {
           "application/json": {
             schema: {
               type: "object",
-              required: ["company", "designation", "profileId"],
+              required: ["isCurrentEmployment", "employmentType", "userId"],
               properties: {
-                company: {
+                isCurrentEmployment: { type: "boolean" },
+                employmentType: {
                   type: "string",
+                  enum: [
+                    "fulltime",
+                    "internship",
+                    "contract",
+                    "parttime",
+                    "freelance",
+                  ],
                 },
-                designation: {
-                  type: "string",
-                },
-                profileId: {
-                  type: "string",
-                  format: "cuid",
-                },
+                companyName: { type: "string" },
+                jobTitle: { type: "string" },
+                department: { type: "string" },
+                location: { type: "string" },
+                joiningDate: { type: "string", format: "date-time" },
+                workedTill: { type: "string", format: "date-time" },
+                monthlyStipend: { type: "integer" },
+                currentSalary: { type: "integer" },
+                totalExperience: { type: "integer" },
+                jobProfile: { type: "string" },
+                noticePeriod: { type: "string" },
+                userId: { type: "string", format: "cuid" },
               },
             },
           },

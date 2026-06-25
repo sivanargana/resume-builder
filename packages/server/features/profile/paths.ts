@@ -1,68 +1,9 @@
 export const paths = {
-  "/api/profile": {
-    get: {
-      tags: ["Profile"],
-      summary: "Get all profile",
-      responses: {
-        200: {
-          description: "Success",
-        },
-      },
-    },
-    post: {
-      tags: ["Profile"],
-      summary: "Create profile",
-      requestBody: {
-        required: true,
-        content: {
-          "application/json": {
-            schema: {
-              type: "object",
-              required: [
-                "firstName",
-                "lastName",
-                "phone",
-                "headline",
-                "summary",
-                "userId",
-              ],
-              properties: {
-                firstName: {
-                  type: "string",
-                },
-                lastName: {
-                  type: "string",
-                },
-                phone: {
-                  type: "string",
-                },
-                headline: {
-                  type: "string",
-                },
-                summary: {
-                  type: "string",
-                },
-                userId: {
-                  type: "string",
-                  format: "cuid",
-                },
-              },
-            },
-          },
-        },
-      },
-      responses: {
-        201: {
-          description: "Created",
-        },
-      },
-    },
-  },
-
   "/api/profile/{id}": {
     get: {
       tags: ["Profile"],
-      summary: "Get profile by id",
+      summary:
+        "Get full profile by user id (user + basicDetails + headline + profileSummary + skills + educations + experiences + projects + languages)",
       parameters: [
         {
           name: "id",
@@ -75,14 +16,14 @@ export const paths = {
         },
       ],
       responses: {
-        200: {
-          description: "Success",
-        },
+        200: { description: "Success" },
+        404: { description: "Profile not found" },
       },
     },
     put: {
       tags: ["Profile"],
-      summary: "Update profile",
+      summary:
+        "Update user and 1:1 relations (basicDetails, headline, profileSummary)",
       parameters: [
         {
           name: "id",
@@ -100,33 +41,32 @@ export const paths = {
           "application/json": {
             schema: {
               type: "object",
-              required: [
-                "firstName",
-                "lastName",
-                "phone",
-                "headline",
-                "summary",
-                "userId",
-              ],
+              required: ["fullName", "mobile", "email", "workStatus"],
               properties: {
-                firstName: {
+                fullName: { type: "string" },
+                mobile: { type: "string" },
+                email: { type: "string", format: "email" },
+                workStatus: {
                   type: "string",
+                  enum: ["Fresher", "Experienced"],
                 },
-                lastName: {
-                  type: "string",
-                },
-                phone: {
-                  type: "string",
-                },
-                headline: {
-                  type: "string",
-                },
-                summary: {
-                  type: "string",
-                },
-                userId: {
-                  type: "string",
-                  format: "cuid",
+                headline: { type: "string" },
+                profileSummary: { type: "string" },
+                basicDetails: {
+                  type: "object",
+                  properties: {
+                    photo: { type: "string" },
+                    experienceYears: { type: "integer" },
+                    experienceMonths: { type: "integer" },
+                    salaryAmount: { type: "integer" },
+                    salaryBreakdown: {
+                      type: "string",
+                      enum: ["fixed", "ctc"],
+                    },
+                    country: { type: "string" },
+                    location: { type: "string" },
+                    availability: { type: "string" },
+                  },
                 },
               },
             },
@@ -134,30 +74,7 @@ export const paths = {
         },
       },
       responses: {
-        200: {
-          description: "Updated",
-        },
-      },
-    },
-
-    delete: {
-      tags: ["Profile"],
-      summary: "Delete profile",
-      parameters: [
-        {
-          name: "id",
-          in: "path",
-          required: true,
-          schema: {
-            type: "string",
-            format: "cuid",
-          },
-        },
-      ],
-      responses: {
-        204: {
-          description: "Deleted",
-        },
+        200: { description: "Updated" },
       },
     },
   },
