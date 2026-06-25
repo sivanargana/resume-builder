@@ -5,7 +5,7 @@ export function Page() {
   const { data, isLoading, error } = useQuery({
     queryKey: ["profile"],
     queryFn: async () => {
-      return await api.get("profile/cmqqnfbsg0001jxosz73j6fo6");
+      return await api.get("profile/cmqth1a560000r2osou18zuco");
     },
   });
 
