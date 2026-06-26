@@ -14,14 +14,7 @@ export const paths = {
           "application/json": {
             schema: {
               type: "object",
-              required: [
-                "name",
-                "proficiency",
-                "read",
-                "write",
-                "speak",
-                "userId",
-              ],
+              required: ["name", "proficiency", "read", "write", "speak", "userId"],
               properties: {
                 name: { type: "string" },
                 proficiency: {
@@ -72,14 +65,7 @@ export const paths = {
           "application/json": {
             schema: {
               type: "object",
-              required: [
-                "name",
-                "proficiency",
-                "read",
-                "write",
-                "speak",
-                "userId",
-              ],
+              required: ["name", "proficiency", "read", "write", "speak", "userId"],
               properties: {
                 name: { type: "string" },
                 proficiency: {

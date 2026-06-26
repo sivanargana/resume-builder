@@ -2,8 +2,7 @@ export const paths = {
   "/api/profile/{id}": {
     get: {
       tags: ["Profile"],
-      summary:
-        "Get full profile by user id (user + basicDetails + headline + profileSummary + skills + educations + experiences + projects + languages)",
+      summary: "Get full profile by user id (user + basicDetails + headline + profileSummary + skills + educations + experiences + projects + languages)",
       parameters: [
         {
           name: "id",
@@ -22,8 +21,7 @@ export const paths = {
     },
     put: {
       tags: ["Profile"],
-      summary:
-        "Update user and 1:1 relations (basicDetails, headline, profileSummary)",
+      summary: "Update user and 1:1 relations (basicDetails, headline, profileSummary)",
       parameters: [
         {
           name: "id",

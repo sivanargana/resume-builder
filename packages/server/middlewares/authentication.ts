@@ -1,11 +1,7 @@
 import type { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 
-export const isAuthenticated = (
-  req: Request & { user?: any },
-  res: Response,
-  next: NextFunction,
-) => {
+export const isAuthenticated = (req: Request & { user?: any }, res: Response, next: NextFunction) => {
   let authorization = req.headers.authorization;
   if (!authorization) {
     return res.status(401).json({ errors: "Unauthorised!" });

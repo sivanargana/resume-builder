@@ -2,13 +2,7 @@ import * as z from "zod";
 
 const experienceBase = {
   isCurrentEmployment: z.boolean(),
-  employmentType: z.enum([
-    "fulltime",
-    "internship",
-    "contract",
-    "parttime",
-    "freelance",
-  ]),
+  employmentType: z.enum(["fulltime", "internship", "contract", "parttime", "freelance"]),
   companyName: z.string().optional(),
   jobTitle: z.string().optional(),
   department: z.string().optional(),

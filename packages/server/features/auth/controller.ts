@@ -21,19 +21,13 @@ export const controller = {
         return res.status(404).json({ errors: "User Not Found" });
       }
 
-      const isMatch = await bcrypt.compare(
-        response.data.password,
-        result.password,
-      );
+      const isMatch = await bcrypt.compare(response.data.password, result.password);
 
       if (!isMatch) {
         return res.status(401).json({ errors: "Invalid credentials" });
       }
 
-      let token = jwt.sign(
-        { id: result.id, email: result.email },
-        process.env.JWT_SECRET_KEY ?? "",
-      );
+      let token = jwt.sign({ id: result.id, email: result.email }, process.env.JWT_SECRET_KEY ?? "");
 
       res.status(200).json({ token });
     } catch (err) {

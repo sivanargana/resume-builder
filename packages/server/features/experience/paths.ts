@@ -23,13 +23,7 @@ export const paths = {
                 isCurrentEmployment: { type: "boolean" },
                 employmentType: {
                   type: "string",
-                  enum: [
-                    "fulltime",
-                    "internship",
-                    "contract",
-                    "parttime",
-                    "freelance",
-                  ],
+                  enum: ["fulltime", "internship", "contract", "parttime", "freelance"],
                 },
                 companyName: { type: "string" },
                 jobTitle: { type: "string" },
@@ -102,13 +96,7 @@ export const paths = {
                 isCurrentEmployment: { type: "boolean" },
                 employmentType: {
                   type: "string",
-                  enum: [
-                    "fulltime",
-                    "internship",
-                    "contract",
-                    "parttime",
-                    "freelance",
-                  ],
+                  enum: ["fulltime", "internship", "contract", "parttime", "freelance"],
                 },
                 companyName: { type: "string" },
                 jobTitle: { type: "string" },

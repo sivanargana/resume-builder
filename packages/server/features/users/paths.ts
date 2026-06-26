@@ -18,13 +18,7 @@ export const paths = {
           "application/json": {
             schema: {
               type: "object",
-              required: [
-                "fullName",
-                "mobile",
-                "email",
-                "password",
-                "workStatus",
-              ],
+              required: ["fullName", "mobile", "email", "password", "workStatus"],
               properties: {
                 fullName: { type: "string" },
                 mobile: { type: "string" },
