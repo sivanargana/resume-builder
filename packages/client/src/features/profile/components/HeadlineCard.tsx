@@ -5,7 +5,7 @@ function HeadlineCard({ data }: any) {
     <Card>
       <CardContent>
         <div className="text-base font-bold mb-5">Headline</div>
-        {data?.headline.value}
+        {data?.headline?.value}
       </CardContent>
     </Card>
   );

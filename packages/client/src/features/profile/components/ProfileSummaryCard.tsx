@@ -5,7 +5,7 @@ function ProfileSummaryCard({ data }: any) {
     <Card>
       <CardContent>
         <div className="text-base font-bold mb-5">Profile Summary</div>
-        {data?.profileSummary.summary}
+        {data?.profileSummary?.summary}
       </CardContent>
     </Card>
   );

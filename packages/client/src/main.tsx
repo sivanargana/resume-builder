@@ -1,5 +1,6 @@
 import { createRoot } from "react-dom/client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import ContentProvider from "./components/ContentProvider.tsx";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -18,6 +19,8 @@ import App from "./App.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <QueryClientProvider client={queryClient}>
-    <App />
+    <ContentProvider>
+      <App />
+    </ContentProvider>
   </QueryClientProvider>,
 );

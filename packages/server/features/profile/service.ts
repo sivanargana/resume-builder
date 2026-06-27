@@ -10,16 +10,39 @@ export const service = {
         mobile: true,
         email: true,
         workStatus: true,
-        createdAt: true,
-        updatedAt: true,
-        basicDetails: true,
+
+        basicDetails: {
+          include: {
+            experienceYear: true,
+            experienceMonth: true,
+            salaryBreakdown: true,
+            availabilityType: true,
+          },
+        },
         headline: true,
         profileSummary: true,
-        skills: true,
-        educations: true,
-        experiences: { include: { skills: true } },
+        userSkills: {
+          select: {
+            skill: true,
+          },
+        },
+        experiences: {
+          include: {
+            employmentType: true,
+          },
+        },
+        education: {
+          include: {
+            educationType: true,
+          },
+        },
         projects: true,
-        languages: true,
+        userLanguages: {
+          select: {
+            language: true,
+            proficiency: true,
+          },
+        },
       },
     });
   },

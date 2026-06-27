@@ -19,18 +19,18 @@ function BasicCard({ data }: any) {
               <div className="grid grid-cols-2 gap-5 border-t mt-3">
                 <div className="flex flex-col gap-2 pt-3">
                   <div className="flex items-center gap-2">
-                    <MapPin size={18} /> {data?.basicDetails.location},{data?.basicDetails.country}
+                    <MapPin size={18} /> {data?.basicDetails?.location},{data?.basicDetails?.country}
                   </div>
                   <div className="flex items-center gap-2">
                     <Briefcase size={18} />
-                    {data?.basicDetails.experienceYears}
-                    {data?.basicDetails.experienceMonths} Years &bull;
-                    {data?.workStatus}
+                    {data?.basicDetails?.experienceYear.name}
+                    {data?.basicDetails?.experienceMonth.name} Years &bull;
+                    {data?.workStatus?.name}
                   </div>
                   <div className="flex items-center gap-2">
                     <Wallet size={18} />
-                    {data?.basicDetails.salaryAmount} &bull;
-                    {data?.basicDetails.salaryBreakdown}
+                    {data?.basicDetails?.salaryAmount} &bull;
+                    {data?.basicDetails?.salaryBreakdown?.name}
                   </div>
                 </div>
                 <div className="flex flex-col gap-2 border-l pl-3 pt-3">
@@ -44,7 +44,7 @@ function BasicCard({ data }: any) {
                   </div>
                   <div className="flex items-center gap-2">
                     <Calendar size={18} />
-                    {data?.basicDetails.availability}
+                    {data?.basicDetails?.availabilityType.name}
                   </div>
                 </div>
               </div>

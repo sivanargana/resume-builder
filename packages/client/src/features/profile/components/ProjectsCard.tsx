@@ -6,17 +6,17 @@ function ProjectsCard({ data }: any) {
       <CardContent>
         <div className="text-base font-bold mb-5">Projects</div>
         <div className="grid grid-cols-2 gap-5">
-          {data?.projects.map((item: any) => (
-            <Card key={item.id}>
+          {data?.projects?.map((item: any) => (
+            <Card key={item?.id}>
               <CardContent>
-                <div className="font-bold">{item.title}</div>
+                <div className="font-bold">{item?.title}</div>
                 <div>
-                  {item.client} - {item.location}
+                  {item?.client} - {item?.location}
                 </div>
                 <div className="text-xs text-current/50">
-                  {item.startYear} - {item.endYear} - {item.type}
+                  {item?.startYear} - {item?.endYear} - {item?.type}
                 </div>
-                <div>{item.details}</div>
+                <div>{item?.details}</div>
               </CardContent>
             </Card>
           ))}
