@@ -6,7 +6,7 @@ function EducationCard({ data }: any) {
       <CardContent>
         <div className="text-base font-bold mb-5">Education</div>
         <div className="grid grid-cols-2 gap-5">
-          {data?.education?.map((item: any) => (
+          {data?.profile?.education?.map((item: any) => (
             <Card key={item?.id}>
               <CardContent>
                 <div className="font-bold">

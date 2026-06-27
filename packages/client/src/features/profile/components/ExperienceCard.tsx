@@ -6,7 +6,7 @@ function ExperienceCard({ data }: any) {
       <CardContent>
         <div className="text-base font-bold mb-5">Experience</div>
         <div className="grid grid-cols-2 gap-5">
-          {data?.experiences?.map((item: any) => (
+          {data?.profile?.experiences?.map((item: any) => (
             <Card key={item?.id}>
               <CardContent>
                 <div className="font-bold">{item?.jobTitle}</div>

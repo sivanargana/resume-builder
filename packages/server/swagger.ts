@@ -7,6 +7,7 @@ import { projectPaths } from "./features/project";
 import { languagePaths } from "./features/language";
 import { profilePaths } from "./features/profile";
 import { authPaths } from "./features/auth";
+import { workStatusPaths } from "./features/workStatus";
 
 export const swaggerSpec = swaggerJSDoc({
   definition: {
@@ -25,6 +26,7 @@ export const swaggerSpec = swaggerJSDoc({
       ...projectPaths,
       ...languagePaths,
       ...profilePaths,
+      ...workStatusPaths,
     },
   },
   apis: [],

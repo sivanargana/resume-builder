@@ -14,7 +14,7 @@ function LanguageCard({ data }: any) {
             <div>Write</div>
             <div>Speak</div>
           </div>
-          {data?.userLanguages?.map((item: any) => (
+          {data?.profile?.userLanguages?.map((item: any) => (
             <div className="grid grid-cols-5" key={item?.language?.id}>
               <div>{item?.language?.name}</div>
               <div>{item?.proficiency?.name}</div>

@@ -7,7 +7,7 @@ function SkillsCard({ data }: any) {
       <CardContent>
         <div className="text-base font-bold mb-5">Skills</div>
         <div className="flex flex-wrap gap-2">
-          {data?.userSkills?.map((item: any) => (
+          {data?.profile?.userSkills?.map((item: any) => (
             <Badge key={item?.skill?.id} variant="outline">
               {item?.skill?.name}
             </Badge>

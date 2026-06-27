@@ -9,18 +9,14 @@ import EducationCard from "./components/EducationCard";
 import ExperienceCard from "./components/ExperienceCard";
 import ProjectsCard from "./components/ProjectsCard";
 import LanguageCard from "./components/LanguageCard";
-import { useContent } from "@/components/ContentProvider";
 
 export function Page() {
-  const content = useContent();
   const { data, isLoading, error } = useQuery({
     queryKey: ["profile"],
     queryFn: async () => {
       return await api.get("profile");
     },
   });
-
-  console.log(content);
 
   return (
     <div>
