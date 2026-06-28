@@ -1,14 +1,15 @@
 import { Field, FieldGroup, FieldLabel, FieldSet } from "@/components/ui/field";
 import { Dialog, DialogClose, DialogContent, DialogFooter } from "@/components/ui/dialog";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+
 import { Controller, useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { useEffect } from "react";
 import { Trash } from "lucide-react";
-import { Textarea } from "@/components/ui/textarea";
 
 export function _Form({ input, openDialog, setOpenDialog, onSave, onDelete, type }: any) {
   const defaultValues = {
-    summary: "",
+    skillId: "",
   };
   const form = useForm({
     defaultValues,
@@ -20,7 +21,7 @@ export function _Form({ input, openDialog, setOpenDialog, onSave, onDelete, type
     }
     if (type == "update") {
       form.reset({
-        summary: input?.profile?.profileSummary?.summary,
+        skillId: input?.profile?.userSkills?.name,
       });
     }
   }, [type, openDialog, input]);
@@ -32,12 +33,25 @@ export function _Form({ input, openDialog, setOpenDialog, onSave, onDelete, type
           <FieldSet>
             <FieldGroup>
               <Controller
-                name="summary"
+                name="skillId"
                 control={form.control}
                 render={({ field, fieldState }) => (
                   <Field>
-                    <FieldLabel htmlFor={field.name}>Profile Summary</FieldLabel>
-                    <Textarea {...field} id={field.name} aria-invalid={fieldState.invalid} />
+                    <FieldLabel htmlFor={field.name}>Skill</FieldLabel>
+                    <Select name={field.name} value={field.value} onValueChange={field.onChange}>
+                      <SelectTrigger id={field.name} className="w-full" aria-invalid={fieldState.invalid}>
+                        <SelectValue placeholder="Select" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectGroup>
+                          {input?.skill.map((item: any) => (
+                            <SelectItem value={item.id} key={item.id}>
+                              {item.name}
+                            </SelectItem>
+                          ))}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
                   </Field>
                 )}
               />
@@ -45,7 +59,7 @@ export function _Form({ input, openDialog, setOpenDialog, onSave, onDelete, type
           </FieldSet>
           <DialogFooter>
             {type == "update" && (
-              <Button variant="destructive" className="mr-auto" onClick={() => onDelete(input?.profile?.profileSummary?.id)}>
+              <Button variant="destructive" className="mr-auto" onClick={() => onDelete(input?.profile?.userSkills?.id)}>
                 <Trash />
               </Button>
             )}

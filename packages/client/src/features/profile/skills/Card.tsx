@@ -1,3 +1,4 @@
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
@@ -7,7 +8,7 @@ import { Edit2, File } from "lucide-react";
 export function _Card({ input, setOpenDialog, setType }: any) {
   return (
     <div className="relative">
-      {input?.profile?.profileSummary && (
+      {input?.profile?.userSkills.length > 0 && (
         <div className="absolute top-2 right-2">
           <Button
             size="icon"
@@ -24,16 +25,24 @@ export function _Card({ input, setOpenDialog, setType }: any) {
 
       <Card>
         <CardContent>
-          <div className="text-base font-bold mb-5">Profile Summary</div>
-          {input?.profile?.profileSummary ? (
-            <>{input?.profile?.profileSummary?.summary}</>
+          <div className="text-base font-bold mb-5">Skills</div>
+          {input?.profile?.userSkills.length ? (
+            <>
+              <div className="flex flex-wrap gap-2">
+                {input?.profile?.userSkills.map((item: any) => (
+                  <Badge key={item?.skill?.id} variant="outline">
+                    {item?.skill?.name}
+                  </Badge>
+                ))}
+              </div>
+            </>
           ) : (
             <Empty>
               <EmptyHeader>
                 <EmptyMedia variant="icon">
                   <File />
                 </EmptyMedia>
-                <EmptyDescription>Add profileSummary</EmptyDescription>
+                <EmptyDescription>Add headline</EmptyDescription>
               </EmptyHeader>
               <EmptyContent>
                 <Button
