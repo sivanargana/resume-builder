@@ -1,27 +1,20 @@
 import * as z from "zod";
-
-const userBase = {
+const id = { id: z.string() };
+const base = {
   fullName: z.string(),
   mobile: z.string(),
   email: z.string().email(),
   password: z.string().min(6),
-  workStatus: z.enum(["Fresher", "Experienced"]),
+  workStatusId: z.string(),
 };
+const { password, ...update } = base;
 
 export const schema = {
-  create: z.object(userBase),
+  create: z.object(base),
   update: z.object({
-    id: z.string().cuid(),
-    fullName: z.string(),
-    mobile: z.string(),
-    email: z.string().email(),
-    password: z.string().min(6).optional(),
-    workStatus: z.enum(["Fresher", "Experienced"]),
+    ...id,
+    ...update,
   }),
-  delete: z.object({
-    id: z.string().cuid(),
-  }),
-  single: z.object({
-    id: z.string().cuid(),
-  }),
+  delete: z.object(id),
+  single: z.object(id),
 };

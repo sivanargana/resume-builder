@@ -1,6 +1,6 @@
 import { lazy } from "react";
-import { RouterProvider } from "react-router";
-import { createBrowserRouter } from "react-router";
+import { redirect, RouterProvider, createBrowserRouter } from "react-router";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -15,12 +15,24 @@ const router = createBrowserRouter([
         Component: lazy(() => import("./features/layouts/AuthLayout")),
         children: [
           {
-            element: <div>login</div>,
-            index: true,
+            path: "",
+            loader: () => redirect("login"),
+          },
+          {
+            path: "login",
+            Component: lazy(() =>
+              import("./features/auth").then((module) => ({
+                default: module.LoginPage,
+              })),
+            ),
           },
           {
             path: "register",
-            element: <div>register</div>,
+            Component: lazy(() =>
+              import("./features/auth").then((module) => ({
+                default: module.RegisterPage,
+              })),
+            ),
           },
         ],
       },
