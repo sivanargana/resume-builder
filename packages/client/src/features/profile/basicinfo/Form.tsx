@@ -9,8 +9,11 @@ import { Controller, useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { useEffect } from "react";
 import { Trash } from "lucide-react";
+import { useContent } from "@/components/ContentProvider";
 
 export function _Form({ input, openDialog, setOpenDialog, onSave, onDelete, type }: any) {
+  const { masterdata }: any = useContent();
+
   const defaultValues = {
     experienceYearId: "",
     experienceMonthId: "",
@@ -31,14 +34,14 @@ export function _Form({ input, openDialog, setOpenDialog, onSave, onDelete, type
     }
     if (type == "update") {
       form.reset({
-        experienceYearId: input?.profile?.basicDetails?.experienceYear.id,
-        experienceMonthId: input?.profile?.basicDetails?.experienceMonth.id,
-        salaryBreakdownId: input?.profile?.basicDetails?.salaryBreakdown.id,
-        availabilityTypeId: input?.profile?.basicDetails?.availabilityType.id,
-        salaryAmount: input?.profile?.basicDetails?.salaryAmount,
-        photo: input?.profile?.basicDetails?.photo,
-        country: input?.profile?.basicDetails?.country,
-        location: input?.profile?.basicDetails?.location,
+        experienceYearId: input?.basicDetails?.experienceYear.id,
+        experienceMonthId: input?.basicDetails?.experienceMonth.id,
+        salaryBreakdownId: input?.basicDetails?.salaryBreakdown.id,
+        availabilityTypeId: input?.basicDetails?.availabilityType.id,
+        salaryAmount: input?.basicDetails?.salaryAmount,
+        photo: input?.basicDetails?.photo,
+        country: input?.basicDetails?.country,
+        location: input?.basicDetails?.location,
       });
     }
   }, [type, openDialog, input]);
@@ -67,7 +70,7 @@ export function _Form({ input, openDialog, setOpenDialog, onSave, onDelete, type
                           </SelectTrigger>
                           <SelectContent>
                             <SelectGroup>
-                              {input?.experienceYear.map((item: any) => (
+                              {masterdata?.data?.experienceYear.map((item: any) => (
                                 <SelectItem value={item.id} key={item.id}>
                                   {item.name}
                                 </SelectItem>
@@ -92,7 +95,7 @@ export function _Form({ input, openDialog, setOpenDialog, onSave, onDelete, type
                           </SelectTrigger>
                           <SelectContent>
                             <SelectGroup>
-                              {input?.experienceMonth.map((item: any) => (
+                              {masterdata?.data?.experienceMonth.map((item: any) => (
                                 <SelectItem value={item.id} key={item.id}>
                                   {item.name}
                                 </SelectItem>
@@ -132,7 +135,7 @@ export function _Form({ input, openDialog, setOpenDialog, onSave, onDelete, type
                           </SelectTrigger>
                           <SelectContent>
                             <SelectGroup>
-                              {input?.salaryBreakdown.map((item: any) => (
+                              {masterdata?.data?.salaryBreakdown.map((item: any) => (
                                 <SelectItem value={item.id} key={item.id}>
                                   {item.name}
                                 </SelectItem>
@@ -184,7 +187,7 @@ export function _Form({ input, openDialog, setOpenDialog, onSave, onDelete, type
                   <Field>
                     <FieldLabel>Availability to join</FieldLabel>
                     <ToggleGroup value={field.value} onValueChange={field.onChange} type="single" variant="outline" aria-invalid={fieldState.invalid}>
-                      {input?.availabilityType.map((item: any) => (
+                      {masterdata?.data?.availabilityType.map((item: any) => (
                         <ToggleGroupItem value={item.id} key={item.id}>
                           {item.name}
                         </ToggleGroupItem>
@@ -197,7 +200,7 @@ export function _Form({ input, openDialog, setOpenDialog, onSave, onDelete, type
           </FieldSet>
           <DialogFooter>
             {type == "update" && (
-              <Button variant="destructive" className="mr-auto" onClick={() => onDelete(input?.profile?.basicDetails?.id)}>
+              <Button variant="destructive" className="mr-auto" onClick={() => onDelete(input?.basicDetails?.id)}>
                 <Trash />
               </Button>
             )}

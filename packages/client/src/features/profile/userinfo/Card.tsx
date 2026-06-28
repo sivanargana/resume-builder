@@ -15,19 +15,19 @@ function UserCard({ data }: any) {
               <div className="size-20 bg-gray-300 rounded-full"></div>
             </div>
             <div className="flex-auto">
-              <div className="text-lg font-bold">{data?.profile?.fullName}</div>
+              <div className="text-lg font-bold">{data?.user?.fullName}</div>
               <div className="flex gap-5 pt-3">
                 <div className="flex items-center gap-2">
                   <Phone size={18} />
-                  {data?.profile?.mobile}
+                  {data?.user?.mobile}
                 </div>
                 <div className="flex items-center gap-2">
                   <Mail size={18} />
-                  {data?.profile?.email}
+                  {data?.user?.email}
                 </div>
                 <div className="flex items-center gap-2">
                   <Calendar size={18} />
-                  {data?.profile?.workStatus?.name}
+                  {data?.user?.workStatus?.name}
                 </div>
               </div>
             </div>

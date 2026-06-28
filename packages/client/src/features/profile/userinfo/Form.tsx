@@ -10,16 +10,19 @@ import { Edit2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/axios";
+import { useContent } from "@/components/ContentProvider";
 function UserForm({ data }: any) {
   const [open, setOpen] = useState(false);
   const [alert, setAlert] = useState(false);
   const [temp, setTemp] = useState({});
   const form = useForm();
 
+  const { masterdata }: any = useContent();
+
   const queryClient = useQueryClient();
 
   const mutation: any = useMutation({
-    mutationFn: (obj) => api.patch(`users/${data?.profile?.id}`, obj),
+    mutationFn: (obj) => api.patch(`users/${data?.user?.id}`, obj),
     onSuccess: () => {
       queryClient.refetchQueries({ queryKey: ["profile"] });
       setOpen(false);
@@ -27,10 +30,10 @@ function UserForm({ data }: any) {
   });
   useEffect(() => {
     form.setValues({
-      workStatusId: data?.profile?.workStatus.id,
-      fullName: data?.profile?.fullName,
-      mobile: data?.profile?.mobile,
-      email: data?.profile?.email,
+      workStatusId: data?.user?.workStatus.id,
+      fullName: data?.user?.fullName,
+      mobile: data?.user?.mobile,
+      email: data?.user?.email,
     });
 
     setTemp(form.getValues());
@@ -101,7 +104,7 @@ function UserForm({ data }: any) {
                   <Field>
                     <FieldLabel>Work status</FieldLabel>
                     <RadioGroup name={field.name} value={field.value} onValueChange={field.onChange} className="flex flex-col gap-2 w-fit">
-                      {data?.workStatus?.map((item: any) => (
+                      {masterdata?.data?.workStatus?.map((item: any) => (
                         <div className="flex items-center gap-3" key={item.id}>
                           <RadioGroupItem value={item.id} id={item.name} />
                           <Label htmlFor={item.name}>{item.name}</Label>

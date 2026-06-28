@@ -11,7 +11,7 @@ import { useMutation } from "@tanstack/react-query";
 import { api } from "@/axios";
 
 export function Register({ data, ...props }: any) {
-  const { workStatus }: any = useContent();
+  const { masterdata }: any = useContent();
 
   const mutation = useMutation({
     mutationFn: (obj) => api.post("users", obj),
@@ -50,11 +50,11 @@ export function Register({ data, ...props }: any) {
               render={({ field, fieldState }) => (
                 <Field>
                   <FieldLabel>Work status</FieldLabel>
-                  {workStatus?.isLoading ? (
+                  {masterdata?.isLoading ? (
                     <>loading</>
                   ) : (
                     <RadioGroup name={field.name} value={field.value} onValueChange={field.onChange} className="flex flex-col gap-2 w-fit" aria-invalid={fieldState.invalid}>
-                      {workStatus?.data?.map((item: any) => (
+                      {masterdata?.data?.workStatus?.map((item: any) => (
                         <div className="flex items-center gap-3" key={item.id}>
                           <RadioGroupItem value={item.id} id={item.name} />
                           <Label htmlFor={item.name}>{item.name}</Label>

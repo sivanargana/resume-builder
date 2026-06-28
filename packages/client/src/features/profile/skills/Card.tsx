@@ -8,7 +8,7 @@ import { Edit2, File } from "lucide-react";
 export function _Card({ input, setOpenDialog, setType }: any) {
   return (
     <div className="relative">
-      {input?.profile?.userSkills.length > 0 && (
+      {input?.userSkills.length > 0 && (
         <div className="absolute top-2 right-2">
           <Button
             size="icon"
@@ -26,10 +26,10 @@ export function _Card({ input, setOpenDialog, setType }: any) {
       <Card>
         <CardContent>
           <div className="text-base font-bold mb-5">Skills</div>
-          {input?.profile?.userSkills.length ? (
+          {input?.userSkills.length ? (
             <>
               <div className="flex flex-wrap gap-2">
-                {input?.profile?.userSkills.map((item: any) => (
+                {input?.userSkills.map((item: any) => (
                   <Badge key={item?.skill?.id} variant="outline">
                     {item?.skill?.name}
                   </Badge>

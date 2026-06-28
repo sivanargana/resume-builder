@@ -5,24 +5,16 @@ import { api } from "@/axios";
 const ContentContext = createContext({});
 
 function ContentProvider({ children }: { children: ReactNode }) {
-  const [workStatus] = useQueries({
+  const [masterdata] = useQueries({
     queries: [
       {
-        queryKey: ["workStatus"],
-        queryFn: () => api.get("workStatus").then((res) => res.data),
+        queryKey: ["masterdata"],
+        queryFn: () => api.get("masterdata").then((res) => res.data),
       },
-      // {
-      //   queryKey: ["settings"],
-      //   queryFn: () => api.get("settings").then((res) => res.data),
-      // },
-      // {
-      //   queryKey: ["notifications"],
-      //   queryFn: () => api.get("notifications").then((res) => res.data),
-      // },
     ],
   });
 
-  return <ContentContext.Provider value={{ workStatus }}>{children}</ContentContext.Provider>;
+  return <ContentContext.Provider value={{ masterdata }}>{children}</ContentContext.Provider>;
 }
 
 export const useContent = () => useContext(ContentContext);

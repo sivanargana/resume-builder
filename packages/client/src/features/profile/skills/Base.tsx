@@ -38,7 +38,7 @@ export function Base({ input }: any) {
     }
 
     if (type == "update") {
-      update.mutate({ id: input?.profile?.userSkills?.id, data });
+      update.mutate({ id: input?.userSkills?.id, data });
     }
   };
   const onDelete = (id: any) => {

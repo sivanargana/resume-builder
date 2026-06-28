@@ -7,7 +7,7 @@ import { Edit2, File } from "lucide-react";
 export function _Card({ input, setOpenDialog, setType }: any) {
   return (
     <div className="relative">
-      {input?.profile?.profileSummary && (
+      {input?.profileSummary && (
         <div className="absolute top-2 right-2">
           <Button
             size="icon"
@@ -25,8 +25,8 @@ export function _Card({ input, setOpenDialog, setType }: any) {
       <Card>
         <CardContent>
           <div className="text-base font-bold mb-5">Profile Summary</div>
-          {input?.profile?.profileSummary ? (
-            <>{input?.profile?.profileSummary?.summary}</>
+          {input?.profileSummary ? (
+            <>{input?.profileSummary?.summary}</>
           ) : (
             <Empty>
               <EmptyHeader>

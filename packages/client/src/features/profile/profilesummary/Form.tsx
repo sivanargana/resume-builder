@@ -20,7 +20,7 @@ export function _Form({ input, openDialog, setOpenDialog, onSave, onDelete, type
     }
     if (type == "update") {
       form.reset({
-        summary: input?.profile?.profileSummary?.summary,
+        summary: input?.profileSummary?.summary,
       });
     }
   }, [type, openDialog, input]);
@@ -45,7 +45,7 @@ export function _Form({ input, openDialog, setOpenDialog, onSave, onDelete, type
           </FieldSet>
           <DialogFooter>
             {type == "update" && (
-              <Button variant="destructive" className="mr-auto" onClick={() => onDelete(input?.profile?.profileSummary?.id)}>
+              <Button variant="destructive" className="mr-auto" onClick={() => onDelete(input?.profileSummary?.id)}>
                 <Trash />
               </Button>
             )}

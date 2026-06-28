@@ -4,6 +4,7 @@ import cors from "cors";
 import swaggerUi from "swagger-ui-express";
 import { swaggerSpec } from "./swagger";
 
+import { masterdataRoutes } from "./features/masterdata";
 import { userRoutes } from "./features/users";
 import { skillsRoutes } from "./features/skills";
 import { educationRoutes } from "./features/education";
@@ -28,6 +29,7 @@ app.use(express.json());
 
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
+app.use("/api/masterdata", masterdataRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/skills", skillsRoutes);
