@@ -197,7 +197,7 @@ export function _Form({ input, openDialog, setOpenDialog, onSave, onDelete, type
           </FieldSet>
           <DialogFooter>
             {type == "update" && (
-              <Button onClick={() => onDelete(input?.profile?.basicDetails?.id)}>
+              <Button variant="destructive" className="mr-auto" onClick={() => onDelete(input?.profile?.basicDetails?.id)}>
                 <Trash />
               </Button>
             )}
