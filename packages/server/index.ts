@@ -15,6 +15,8 @@ import { authRoutes } from "./features/auth";
 import { isAuthenticated } from "./middlewares/authentication";
 import { workStatusRoutes } from "./features/workStatus";
 import { basicInfoRoutes } from "./features/basic-info";
+import { headlineRoutes } from "./features/headline";
+import { profileSummaryRoutes } from "./features/profile-summary";
 
 dotenv.config();
 const app = express();
@@ -34,6 +36,8 @@ app.use("/api/project", projectRoutes);
 app.use("/api/language", languageRoutes);
 app.use("/api/workStatus", workStatusRoutes);
 app.use("/api/basic-info", isAuthenticated, basicInfoRoutes);
+app.use("/api/headline", isAuthenticated, headlineRoutes);
+app.use("/api/profile-summary", isAuthenticated, profileSummaryRoutes);
 app.use("/api/profile", isAuthenticated, profileRoutes);
 
 app.listen(port, () => {

@@ -5,9 +5,10 @@ import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia } from "
 import { Edit2, File } from "lucide-react";
 
 export function _Card({ input, setOpenDialog, setType }: any) {
+  console.log(input);
   return (
     <div className="relative">
-      {input?.profile?.headline && (
+      {input?.profile?.profileSummary && (
         <div className="absolute top-2 right-2">
           <Button
             size="icon"
@@ -24,16 +25,16 @@ export function _Card({ input, setOpenDialog, setType }: any) {
 
       <Card>
         <CardContent>
-          <div className="text-base font-bold mb-5">Headline</div>
-          {input?.profile?.headline ? (
-            <>{input?.profile?.headline?.value}</>
+          <div className="text-base font-bold mb-5">Profile Summary</div>
+          {input?.profile?.profileSummary ? (
+            <>{input?.profile?.profileSummary?.summary}</>
           ) : (
             <Empty>
               <EmptyHeader>
                 <EmptyMedia variant="icon">
                   <File />
                 </EmptyMedia>
-                <EmptyDescription>Add headline</EmptyDescription>
+                <EmptyDescription>Add profileSummary</EmptyDescription>
               </EmptyHeader>
               <EmptyContent>
                 <Button

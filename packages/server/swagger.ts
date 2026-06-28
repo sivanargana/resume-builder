@@ -9,6 +9,8 @@ import { profilePaths } from "./features/profile";
 import { authPaths } from "./features/auth";
 import { workStatusPaths } from "./features/workStatus";
 import { basicInfoPaths } from "./features/basic-info";
+import { headlinePaths } from "./features/headline";
+import { profileSummaryPaths } from "./features/profile-summary";
 
 export const swaggerSpec = swaggerJSDoc({
   definition: {
@@ -29,6 +31,8 @@ export const swaggerSpec = swaggerJSDoc({
       ...profilePaths,
       ...workStatusPaths,
       ...basicInfoPaths,
+      ...headlinePaths,
+      ...profileSummaryPaths,
     },
   },
   apis: [],

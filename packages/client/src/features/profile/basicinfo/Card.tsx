@@ -49,7 +49,6 @@ export function _Card({ input, setOpenDialog, setType }: any) {
                 <EmptyMedia variant="icon">
                   <File />
                 </EmptyMedia>
-                <EmptyTitle>No data</EmptyTitle>
                 <EmptyDescription>Add basic details.</EmptyDescription>
               </EmptyHeader>
               <EmptyContent>

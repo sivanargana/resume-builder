@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import UserCard from "./userinfo/Card";
 import { BasicInfoCard } from "./basicinfo";
 import { HeadlineCard } from "./headline";
+import { ProfileSummaryCard } from "./profilesummary";
 
 export function Page() {
   const { data, isLoading, error } = useQuery({
@@ -21,6 +22,7 @@ export function Page() {
         <UserCard data={data?.data} />
         <BasicInfoCard input={data?.data} />
         <HeadlineCard input={data?.data} />
+        <ProfileSummaryCard input={data?.data} />
         {/* <HeadlineCard data={data?.data} />
         <ProfileSummaryCard data={data?.data} />
         <SkillsCard data={data?.data} />

@@ -1,14 +1,14 @@
 import { Field, FieldGroup, FieldLabel, FieldSet } from "@/components/ui/field";
 import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
 import { Controller, useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { useEffect } from "react";
 import { Trash } from "lucide-react";
+import { Textarea } from "@/components/ui/textarea";
 
 export function _Form({ input, openDialog, setOpenDialog, onSave, onDelete, type }: any) {
   const defaultValues = {
-    value: "",
+    summary: "",
   };
   const form = useForm({
     defaultValues,
@@ -20,7 +20,7 @@ export function _Form({ input, openDialog, setOpenDialog, onSave, onDelete, type
     }
     if (type == "update") {
       form.reset({
-        value: input?.profile?.headline?.value,
+        summary: input?.profile?.profileSummary?.summary,
       });
     }
   }, [type, openDialog, input]);
@@ -32,12 +32,12 @@ export function _Form({ input, openDialog, setOpenDialog, onSave, onDelete, type
           <FieldSet>
             <FieldGroup>
               <Controller
-                name="value"
+                name="summary"
                 control={form.control}
                 render={({ field, fieldState }) => (
                   <Field>
-                    <FieldLabel htmlFor={field.name}>Headline</FieldLabel>
-                    <Input {...field} id={field.name} aria-invalid={fieldState.invalid} />
+                    <FieldLabel htmlFor={field.name}>Profile Summary</FieldLabel>
+                    <Textarea {...field} id={field.name} aria-invalid={fieldState.invalid} />
                   </Field>
                 )}
               />
@@ -45,7 +45,7 @@ export function _Form({ input, openDialog, setOpenDialog, onSave, onDelete, type
           </FieldSet>
           <DialogFooter>
             {type == "update" && (
-              <Button variant="destructive" className="mr-auto" onClick={() => onDelete(input?.profile?.headline?.id)}>
+              <Button variant="destructive" className="mr-auto" onClick={() => onDelete(input?.profile?.profileSummary?.id)}>
                 <Trash />
               </Button>
             )}

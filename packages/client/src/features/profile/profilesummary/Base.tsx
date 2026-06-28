@@ -11,21 +11,21 @@ export function Base({ input }: any) {
   const queryClient = useQueryClient();
 
   const create: any = useMutation({
-    mutationFn: (obj) => api.post(`headline`, obj),
+    mutationFn: (obj) => api.post(`profile-summary`, obj),
     onSuccess: () => {
       queryClient.refetchQueries({ queryKey: ["profile"] });
       setOpenDialog(false);
     },
   });
   const update: any = useMutation({
-    mutationFn: ({ data, id }: any) => api.put(`headline/${id}`, data),
+    mutationFn: ({ data, id }: any) => api.put(`profile-summary/${id}`, data),
     onSuccess: () => {
       queryClient.refetchQueries({ queryKey: ["profile"] });
       setOpenDialog(false);
     },
   });
   const remove: any = useMutation({
-    mutationFn: (id) => api.delete(`headline/${id}`),
+    mutationFn: (id) => api.delete(`profile-summary/${id}`),
     onSuccess: () => {
       queryClient.refetchQueries({ queryKey: ["profile"] });
       setOpenDialog(false);
@@ -38,7 +38,7 @@ export function Base({ input }: any) {
     }
 
     if (type == "update") {
-      update.mutate({ id: input?.profile?.headline?.id, data });
+      update.mutate({ id: input?.profile?.profileSummary?.id, data });
     }
   };
   const onDelete = (id: any) => {
