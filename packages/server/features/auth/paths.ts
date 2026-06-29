@@ -20,6 +20,10 @@ export const paths = {
                 },
               },
             },
+            example: {
+              email: "siva.nargana66@gmail.com",
+              password: "Siva@1993",
+            },
           },
         },
       },

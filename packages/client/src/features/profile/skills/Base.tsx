@@ -11,7 +11,7 @@ export function Base({ input }: any) {
   const queryClient = useQueryClient();
 
   const create: any = useMutation({
-    mutationFn: (obj) => api.post(`user-skills`, obj),
+    mutationFn: (obj) => api.post(`user-skills/many`, obj),
     onSuccess: () => {
       queryClient.refetchQueries({ queryKey: ["profile"] });
       setOpenDialog(false);
@@ -34,11 +34,13 @@ export function Base({ input }: any) {
 
   const onSave = (data: any) => {
     if (type == "create") {
+      console.log(data);
       create.mutate(data);
     }
 
     if (type == "update") {
-      update.mutate({ id: input?.userSkills?.id, data });
+      console.log(data);
+      // update.mutate({ id: input?.userSkills?.id, data });
     }
   };
   const onDelete = (id: any) => {

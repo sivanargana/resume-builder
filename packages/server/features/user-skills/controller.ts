@@ -18,6 +18,24 @@ export const controller = {
       return res.status(500).json({ errors: err });
     }
   },
+  // Create Many
+  async createMany(req: Request & { user: any }, res: Response) {
+    try {
+      let result = await service.createMany(req.body.skills);
+      res.status(201).json(result);
+    } catch (err: any) {
+      if (err?.code === "P2003") {
+        return res.status(400).json({
+          errors: {
+            message: "One or more skillId/userId values do not exist (foreign key violation).",
+            code: err.code,
+            meta: err.meta,
+          },
+        });
+      }
+      return res.status(500).json({ errors: err });
+    }
+  },
   // Read
   async read(req: Request, res: Response) {
     try {

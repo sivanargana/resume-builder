@@ -1,74 +1,66 @@
-import { Field, FieldGroup, FieldLabel, FieldSet } from "@/components/ui/field";
+import { Field, FieldLabel } from "@/components/ui/field";
 import { Dialog, DialogClose, DialogContent, DialogFooter } from "@/components/ui/dialog";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
-import { Controller, useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
-import { useEffect } from "react";
-import { Trash } from "lucide-react";
+import { useEffect, useState } from "react";
+
+import { useContent } from "@/components/ContentProvider";
+import { Badge } from "@/components/ui/badge";
 
 export function _Form({ input, openDialog, setOpenDialog, onSave, onDelete, type }: any) {
-  const defaultValues = {
-    skillId: "",
-  };
-  const form = useForm({
-    defaultValues,
-  });
+  const { masterdata }: any = useContent();
+  const [skills, setSkills] = useState<any>([]);
 
   useEffect(() => {
-    if (type == "create") {
-      form.reset(defaultValues);
+    if (input?.userSkills.length > 0) {
+      let tempt = input?.userSkills.map((item: any) => ({ ...item.skill }));
+
+      setSkills((prev: any) => [...prev, ...tempt]);
     }
-    if (type == "update") {
-      form.reset({
-        skillId: input?.profile?.userSkills?.name,
-      });
-    }
-  }, [type, openDialog, input]);
+  }, [input]);
 
   return (
     <>
       <Dialog open={openDialog} onOpenChange={setOpenDialog}>
         <DialogContent className="min-w-150">
-          <FieldSet>
-            <FieldGroup>
-              <Controller
-                name="skillId"
-                control={form.control}
-                render={({ field, fieldState }) => (
-                  <Field>
-                    <FieldLabel htmlFor={field.name}>Skill</FieldLabel>
-                    <Select name={field.name} value={field.value} onValueChange={field.onChange}>
-                      <SelectTrigger id={field.name} className="w-full" aria-invalid={fieldState.invalid}>
-                        <SelectValue placeholder="Select" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectGroup>
-                          {input?.skill.map((item: any) => (
-                            <SelectItem value={item.id} key={item.id}>
-                              {item.name}
-                            </SelectItem>
-                          ))}
-                        </SelectGroup>
-                      </SelectContent>
-                    </Select>
-                  </Field>
-                )}
-              />
-            </FieldGroup>
-          </FieldSet>
+          <div className="flex flex-wrap gap-2">
+            {skills.map((item: any) => (
+              <Badge key={item?.id} variant="outline">
+                {item?.name}
+              </Badge>
+            ))}
+          </div>
+
+          <Field>
+            <FieldLabel>Skill</FieldLabel>
+            <Select
+              onValueChange={(e: any) => {
+                if (!skills.some((item: any) => item.name == e.name)) {
+                  setSkills((prev: any) => [...prev, e]);
+                }
+              }}
+            >
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Select" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  {masterdata?.data?.skills.map((item: any) => (
+                    <SelectItem value={item} key={item.id}>
+                      {item.name}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </Field>
+
           <DialogFooter>
-            {type == "update" && (
-              <Button variant="destructive" className="mr-auto" onClick={() => onDelete(input?.userSkills?.id)}>
-                <Trash />
-              </Button>
-            )}
             <DialogClose asChild>
               <Button variant="outline">Cancel</Button>
             </DialogClose>
-            <Button disabled={!form?.formState?.isDirty} onClick={() => onSave(form.getValues())}>
-              Save
-            </Button>
+            <Button onClick={() => onSave(skills)}>Save</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

@@ -1,7 +1,7 @@
 export const paths = {
-  "/api/skills": {
+  "/api/user-skills": {
     get: {
-      tags: ["Skills"],
+      tags: ["User Skills"],
       summary: "Get all skills",
       responses: {
         200: {
@@ -10,7 +10,7 @@ export const paths = {
       },
     },
     post: {
-      tags: ["Skills"],
+      tags: ["User Skills"],
       summary: "Create skill",
       requestBody: {
         required: true,
@@ -39,10 +39,41 @@ export const paths = {
       },
     },
   },
+  "/api/user-skills/many": {
+    post: {
+      tags: ["User Skills"],
+      summary: "Post Many Skulls",
+      requestBody: {
+        required: true,
+        content: {
+          "application/json": {
+            schema: {
+              type: "object",
+              required: ["skills"],
+              properties: {
+                skills: {
+                  type: "array",
+                  items: {
+                    type: "object",
+                    additionalProperties: true,
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+      responses: {
+        200: {
+          description: "Success",
+        },
+      },
+    },
+  },
 
-  "/api/skills/{id}": {
+  "/api/user-skills/{id}": {
     get: {
-      tags: ["Skills"],
+      tags: ["User Skills"],
       summary: "Get skill by id",
       parameters: [
         {
@@ -62,7 +93,7 @@ export const paths = {
       },
     },
     put: {
-      tags: ["Skills"],
+      tags: ["User Skills"],
       summary: "Update skill",
       parameters: [
         {
@@ -102,7 +133,7 @@ export const paths = {
       },
     },
     delete: {
-      tags: ["Skills"],
+      tags: ["User Skills"],
       summary: "Delete skill",
       parameters: [
         {

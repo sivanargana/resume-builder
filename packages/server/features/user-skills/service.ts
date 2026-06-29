@@ -4,6 +4,10 @@ export const service = {
   async create(body: any) {
     return await prisma.userSkill.create({ data: body });
   },
+  async createMany(body: any) {
+    console.log(body);
+    return await prisma.userSkill.createMany({ data: body });
+  },
   async read() {
     return await prisma.userSkill.findMany();
   },
