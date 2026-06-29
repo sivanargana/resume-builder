@@ -14,12 +14,10 @@ export function _Form({ input, openDialog, setOpenDialog, onSave, onDelete, type
   const [skills, setSkills] = useState<any>([]);
 
   useEffect(() => {
-    if (input?.userSkills.length > 0) {
-      let tempt = input?.userSkills.map((item: any) => ({ ...item.skill }));
-
-      setSkills((prev: any) => [...prev, ...tempt]);
+    if (openDialog) {
+      setSkills(input?.userSkills?.map((item: any) => ({ ...item.skill })) ?? []);
     }
-  }, [input]);
+  }, [input, openDialog]);
 
   return (
     <>
