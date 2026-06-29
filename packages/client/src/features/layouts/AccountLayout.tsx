@@ -1,11 +1,15 @@
 import { Button } from "@/components/ui/button";
+import { useQueryClient } from "@tanstack/react-query";
 import { LogOut } from "lucide-react";
 import { Outlet, useNavigate } from "react-router";
 
 function AccountLayout() {
+  const queryClient = useQueryClient();
+
   const navigate = useNavigate();
   const login = () => {
     localStorage.removeItem("token");
+    queryClient.clear();
     navigate("/auth");
   };
   return (

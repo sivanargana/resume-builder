@@ -54,8 +54,7 @@ export const paths = {
                 skills: {
                   type: "array",
                   items: {
-                    type: "object",
-                    additionalProperties: true,
+                    type: "string",
                   },
                 },
               },

@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 
 import { useContent } from "@/components/ContentProvider";
 import { Badge } from "@/components/ui/badge";
+import { X } from "lucide-react";
 
 export function _Form({ input, openDialog, setOpenDialog, onSave, onDelete, type }: any) {
   const { masterdata }: any = useContent();
@@ -26,8 +27,11 @@ export function _Form({ input, openDialog, setOpenDialog, onSave, onDelete, type
         <DialogContent className="min-w-150">
           <div className="flex flex-wrap gap-2">
             {skills.map((item: any) => (
-              <Badge key={item?.id} variant="outline">
+              <Badge key={item?.id} variant="outline" className="h-8">
                 {item?.name}
+                <Button variant="ghost" size="icon-sm" className="-mr-1" onClick={() => setSkills((prev: any) => prev.filter((r: any) => r.id !== item?.id))}>
+                  <X />
+                </Button>
               </Badge>
             ))}
           </div>

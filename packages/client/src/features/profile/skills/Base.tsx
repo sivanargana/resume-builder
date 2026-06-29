@@ -34,13 +34,13 @@ export function Base({ input }: any) {
 
   const onSave = (data: any) => {
     if (type == "create") {
-      console.log(data);
-      create.mutate(data);
+      // console.log(data.map((item: any) => item.skillId));
+      create.mutate({ skills: data.map((item: any) => item.id) });
     }
 
     if (type == "update") {
       console.log(data);
-      // update.mutate({ id: input?.userSkills?.id, data });
+      create.mutate({ skills: data.map((item: any) => item.id) });
     }
   };
   const onDelete = (id: any) => {

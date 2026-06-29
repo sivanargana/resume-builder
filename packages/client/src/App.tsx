@@ -1,5 +1,6 @@
 import { lazy } from "react";
 import { redirect, RouterProvider, createBrowserRouter } from "react-router";
+import { AuthGuard } from "./features/auth";
 
 const router = createBrowserRouter([
   {
@@ -39,6 +40,7 @@ const router = createBrowserRouter([
       {
         path: "account",
         Component: lazy(() => import("./features/layouts/AccountLayout")),
+        loader: AuthGuard,
         children: [
           {
             element: <div>dashboard</div>,
