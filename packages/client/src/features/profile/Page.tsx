@@ -6,6 +6,7 @@ import { BasicInfoCard } from "./basicinfo";
 import { HeadlineCard } from "./headline";
 import { ProfileSummaryCard } from "./profilesummary";
 import { SkillsCard } from "./skills";
+import { ExperienceCard } from "./experience";
 
 export function Page() {
   const { data, isLoading, error } = useQuery({
@@ -25,6 +26,7 @@ export function Page() {
         <HeadlineCard input={data?.data} />
         <ProfileSummaryCard input={data?.data} />
         <SkillsCard input={data?.data} />
+        <ExperienceCard input={data?.data} />
         {/* <SkillsCard data={data?.data} />
         <EducationCard data={data?.data} />
         <ExperienceCard data={data?.data} />

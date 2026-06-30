@@ -64,7 +64,6 @@ model AvailabilityType {
   updatedAt    DateTime       @updatedAt
   // @Relations
   basicDetails BasicDetails[]
-  experiences  Experience[]
 }
 
 model EmploymentType {
@@ -243,31 +242,23 @@ model Education {
 }
 
 model Experience {
-  id                  String           @id @default(uuid())
+  id                  String         @id @default(uuid())
   userId              String
   employmentTypeId    String
-  availabilityTypeId  String
   isCurrentEmployment Boolean
-  companyName         String?
-  jobTitle            String?
-  department          String?
-  location            String?
-  joiningDate         DateTime?
+  companyName         String
+  jobTitle            String
+  joiningDate         DateTime
   workedTill          DateTime?
-  monthlyStipend      Int?
-  currentSalary       Int?
-  totalExperience     Int?
   jobProfile          String?
-  createdAt           DateTime         @default(now())
-  updatedAt           DateTime         @updatedAt
+  createdAt           DateTime       @default(now())
+  updatedAt           DateTime       @updatedAt
   // @Relations
-  user                User             @relation(fields: [userId], references: [id], onDelete: Cascade)
-  employmentType      EmploymentType   @relation(fields: [employmentTypeId], references: [id])
-  availabilityType    AvailabilityType @relation(fields: [availabilityTypeId], references: [id])
+  user                User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  employmentType      EmploymentType @relation(fields: [employmentTypeId], references: [id])
 
   @@index([userId])
   @@index([employmentTypeId])
-  @@index([availabilityTypeId])
 }
 
 model Project {
