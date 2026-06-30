@@ -9,20 +9,22 @@ import { useEffect } from "react";
 import { Trash } from "lucide-react";
 import { useContent } from "@/components/ContentProvider";
 import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 export function _Form({ input, openDialog, setOpenDialog, onSave, onDelete, type, selected }: any) {
-  const { masterdata }: any = useContent();
+  const { masterdata, years }: any = useContent();
   const defaultValues: any & {
-    isCurrentEmployment: boolean;
+    isCurrentEmployment: string;
   } = {
     employmentTypeId: "",
-    isCurrentEmployment: false,
+    isCurrentEmployment: "false",
     companyName: "",
     jobTitle: "",
     joiningDate: "",
     workedTill: "",
     jobProfile: "",
   };
+
   const form = useForm({
     defaultValues,
   });
@@ -34,7 +36,7 @@ export function _Form({ input, openDialog, setOpenDialog, onSave, onDelete, type
     if (type == "update") {
       form.reset({
         employmentTypeId: selected.employmentTypeId,
-        isCurrentEmployment: selected.isCurrentEmployment,
+        isCurrentEmployment: selected.isCurrentEmployment ? "true" : "false",
         companyName: selected.companyName,
         jobTitle: selected.jobTitle,
         joiningDate: selected.joiningDate,
@@ -60,13 +62,13 @@ export function _Form({ input, openDialog, setOpenDialog, onSave, onDelete, type
                 render={({ field, fieldState }) => (
                   <Field>
                     <FieldLabel>Is this your current employment?</FieldLabel>
-                    <RadioGroup name={field.name} value={field.value} onValueChange={() => field.onChange} className="flex gap-5 w-fit" aria-invalid={fieldState.invalid}>
+                    <RadioGroup name={field.name} value={field.value} onValueChange={field.onChange} className="flex gap-5 w-fit" aria-invalid={fieldState.invalid}>
                       <div className="flex items-center gap-3">
-                        <RadioGroupItem value={true} id="yes" />
+                        <RadioGroupItem value="true" id="yes" />
                         <Label htmlFor="yes">Yes</Label>
                       </div>
                       <div className="flex items-center gap-3">
-                        <RadioGroupItem value={false} id="no" />
+                        <RadioGroupItem value="false" id="no" />
                         <Label htmlFor="no">No</Label>
                       </div>
                     </RadioGroup>
@@ -117,7 +119,20 @@ export function _Form({ input, openDialog, setOpenDialog, onSave, onDelete, type
                 render={({ field, fieldState }) => (
                   <Field>
                     <FieldLabel htmlFor={field.name}>Joining Date</FieldLabel>
-                    <Input {...field} id={field.name} aria-invalid={fieldState.invalid} />
+                    <Select name={field.name} value={field.value} onValueChange={field.onChange} aria-invalid={fieldState.invalid}>
+                      <SelectTrigger id={field.name} className="w-full">
+                        <SelectValue placeholder="Select" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectGroup>
+                          {years.map((item: any) => (
+                            <SelectItem value={item} key={item}>
+                              {item}
+                            </SelectItem>
+                          ))}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
                   </Field>
                 )}
               />
@@ -126,8 +141,22 @@ export function _Form({ input, openDialog, setOpenDialog, onSave, onDelete, type
                 control={form.control}
                 render={({ field, fieldState }) => (
                   <Field>
-                    <FieldLabel htmlFor={field.name}>worked Till</FieldLabel>
-                    <Input {...field} id={field.name} aria-invalid={fieldState.invalid} />
+                    <FieldLabel htmlFor={field.name}>Worked Till</FieldLabel>
+
+                    <Select name={field.name} value={field.value} onValueChange={field.onChange} aria-invalid={fieldState.invalid}>
+                      <SelectTrigger id={field.name} className="w-full">
+                        <SelectValue placeholder="Select" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectGroup>
+                          {years.map((item: any) => (
+                            <SelectItem value={item} key={item}>
+                              {item}
+                            </SelectItem>
+                          ))}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
                   </Field>
                 )}
               />

@@ -5,6 +5,8 @@ import { api } from "@/axios";
 const ContentContext = createContext({});
 
 function ContentProvider({ children }: { children: ReactNode }) {
+  const currentYear = new Date().getFullYear();
+  const years = Array.from({ length: currentYear - 1950 + 1 }, (_, i) => currentYear - i);
   const [masterdata] = useQueries({
     queries: [
       {
@@ -14,7 +16,7 @@ function ContentProvider({ children }: { children: ReactNode }) {
     ],
   });
 
-  return <ContentContext.Provider value={{ masterdata }}>{children}</ContentContext.Provider>;
+  return <ContentContext.Provider value={{ masterdata, years }}>{children}</ContentContext.Provider>;
 }
 
 export const useContent = () => useContext(ContentContext);

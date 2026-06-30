@@ -248,8 +248,8 @@ model Experience {
   isCurrentEmployment Boolean
   companyName         String
   jobTitle            String
-  joiningDate         DateTime
-  workedTill          DateTime?
+  joiningDate         String
+  workedTill          String?
   jobProfile          String?
   createdAt           DateTime       @default(now())
   updatedAt           DateTime       @updatedAt
