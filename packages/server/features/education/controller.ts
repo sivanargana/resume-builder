@@ -4,7 +4,7 @@ import { schema } from "./schema";
 
 export const controller = {
   // Create
-  async create(req: Request, res: Response) {
+  async create(req: Request & { user: any }, res: Response) {
     const response = schema.create.safeParse(req.body);
     if (!response.success) {
       return res.status(400).json({
@@ -12,7 +12,7 @@ export const controller = {
       });
     }
     try {
-      let result = await service.create(response.data);
+      let result = await service.create({ userId: req.user.id, ...response.data });
       res.status(201).json(result);
     } catch (err) {
       return res.status(500).json({ errors: err });

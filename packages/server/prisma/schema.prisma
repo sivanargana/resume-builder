@@ -227,8 +227,8 @@ model Education {
   university      String
   course          String
   specialization  String?
-  startYear       Int?
-  endYear         Int?
+  startYear       String?
+  endYear         String?
   gradeSystem     GradeSystem?
   marks           String?
   createdAt       DateTime      @default(now())

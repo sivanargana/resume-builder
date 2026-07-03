@@ -18,21 +18,16 @@ export const paths = {
           "application/json": {
             schema: {
               type: "object",
-              required: ["education", "university", "course", "type", "userId"],
+              required: ["educationTypeId", "university", "course", "specialization", "startYear", "endYear", "gradeSystem", "marks"],
               properties: {
-                education: { type: "string" },
+                educationTypeId: { type: "string" },
                 university: { type: "string" },
                 course: { type: "string" },
                 specialization: { type: "string" },
-                type: {
-                  type: "string",
-                  enum: ["fulltime", "parttime", "distance"],
-                },
-                startYear: { type: "integer" },
-                endYear: { type: "integer" },
+                startYear: { type: "string" },
+                endYear: { type: "string" },
                 gradeSystem: { type: "string" },
                 marks: { type: "string" },
-                userId: { type: "string", format: "cuid" },
               },
             },
           },
@@ -87,21 +82,16 @@ export const paths = {
           "application/json": {
             schema: {
               type: "object",
-              required: ["education", "university", "course", "type", "userId"],
+              required: ["educationTypeId", "university", "course", "specialization", "startYear", "endYear", "gradeSystem", "marks"],
               properties: {
-                education: { type: "string" },
+                educationTypeId: { type: "string" },
                 university: { type: "string" },
                 course: { type: "string" },
                 specialization: { type: "string" },
-                type: {
-                  type: "string",
-                  enum: ["fulltime", "parttime", "distance"],
-                },
-                startYear: { type: "integer" },
-                endYear: { type: "integer" },
+                startYear: { type: "string" },
+                endYear: { type: "string" },
                 gradeSystem: { type: "string" },
                 marks: { type: "string" },
-                userId: { type: "string", format: "cuid" },
               },
             },
           },

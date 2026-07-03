@@ -6,7 +6,7 @@ const ContentContext = createContext({});
 
 function ContentProvider({ children }: { children: ReactNode }) {
   const currentYear = new Date().getFullYear();
-  const years = Array.from({ length: currentYear - 1950 + 1 }, (_, i) => currentYear - i);
+  const years = Array.from({ length: currentYear - 1950 + 1 }, (_, i) => (currentYear - i).toString());
   const [masterdata] = useQueries({
     queries: [
       {
