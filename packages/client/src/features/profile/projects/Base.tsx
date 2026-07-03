@@ -8,26 +8,27 @@ import { useProfile } from "../Root";
 export function Base() {
   const { data: input }: any = useProfile();
   const [type, setType] = useState<any>(null);
+  const [selected, setSelected] = useState<any>(null);
   const [openDialog, setOpenDialog] = useState(false);
 
   const queryClient = useQueryClient();
 
   const create: any = useMutation({
-    mutationFn: (obj) => api.post(`user-skills/many`, obj),
+    mutationFn: (obj) => api.post(`project`, obj),
     onSuccess: () => {
       queryClient.refetchQueries({ queryKey: ["profile"] });
       setOpenDialog(false);
     },
   });
   const update: any = useMutation({
-    mutationFn: ({ data, id }: any) => api.put(`user-skills/${id}`, data),
+    mutationFn: ({ data, id }: any) => api.put(`project/${id}`, data),
     onSuccess: () => {
       queryClient.refetchQueries({ queryKey: ["profile"] });
       setOpenDialog(false);
     },
   });
   const remove: any = useMutation({
-    mutationFn: (id) => api.delete(`user-skills/${id}`),
+    mutationFn: (id) => api.delete(`project/${id}`),
     onSuccess: () => {
       queryClient.refetchQueries({ queryKey: ["profile"] });
       setOpenDialog(false);
@@ -36,23 +37,33 @@ export function Base() {
 
   const onSave = (data: any) => {
     if (type == "create") {
-      // console.log(data.map((item: any) => item.skillId));
-      create.mutate({ skills: data.map((item: any) => item.id) });
+      create.mutate(data);
     }
 
     if (type == "update") {
-      console.log(data);
-      create.mutate({ skills: data.map((item: any) => item.id) });
+      update.mutate({ id: selected?.id, data });
     }
   };
-  const onDelete = (id: any) => {
-    remove.mutate(id);
+  const onDelete = () => {
+    remove.mutate(selected?.id);
+  };
+
+  const state = {
+    input,
+    openDialog,
+    setOpenDialog,
+    type,
+    setType,
+    selected,
+    setSelected,
+    onSave,
+    onDelete,
   };
 
   return (
     <>
-      <_Form {...{ input, openDialog, setOpenDialog, type, setType, onSave, onDelete }} />
-      <_Card {...{ input, openDialog, setOpenDialog, type, setType }} />
+      <_Form {...state} />
+      <_Card {...state} />
     </>
   );
 }

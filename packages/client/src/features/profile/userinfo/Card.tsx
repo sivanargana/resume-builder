@@ -1,41 +1,73 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { Calendar, Mail, Phone } from "lucide-react";
-import UserForm from "./Form";
-
-function UserCard({ data }: any) {
+import { Button } from "@/components/ui/button";
+import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia } from "@/components/ui/empty";
+import { Calendar, Edit2, File, Mail, Phone } from "lucide-react";
+export function _Card({ input, setOpenDialog, setType }: any) {
   return (
     <div className="relative">
-      <div className="absolute top-2 right-2">
-        <UserForm data={data} />
-      </div>
+      {input?.basicDetails && (
+        <div className="absolute top-2 right-2">
+          <Button
+            size="icon"
+            variant="outline"
+            onClick={() => {
+              setType("update");
+              setOpenDialog(true);
+            }}
+          >
+            <Edit2 />
+          </Button>
+        </div>
+      )}
+
       <Card>
         <CardContent>
-          <div className="flex gap-5 items-center">
-            <div className="flex-none">
-              <div className="size-20 bg-gray-300 rounded-full"></div>
-            </div>
-            <div className="flex-auto">
-              <div className="text-lg font-bold">{data?.user?.fullName}</div>
-              <div className="flex gap-5 pt-3">
-                <div className="flex items-center gap-2">
-                  <Phone size={18} />
-                  {data?.user?.mobile}
-                </div>
-                <div className="flex items-center gap-2">
-                  <Mail size={18} />
-                  {data?.user?.email}
-                </div>
-                <div className="flex items-center gap-2">
-                  <Calendar size={18} />
-                  {data?.user?.workStatus?.name}
+          <div className="text-base font-bold mb-5">User Details</div>
+          {input?.user ? (
+            <div className="flex gap-5 items-center">
+              <div className="flex-none">
+                <div className="size-20 bg-gray-300 rounded-full"></div>
+              </div>
+              <div className="flex-auto">
+                <div className="text-lg font-bold">{input?.user?.fullName}</div>
+                <div className="flex gap-5 pt-3">
+                  <div className="flex items-center gap-2">
+                    <Phone size={18} />
+                    {input?.user?.mobile}
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Mail size={18} />
+                    {input?.user?.email}
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Calendar size={18} />
+                    {input?.user?.workStatus?.name}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          ) : (
+            <Empty>
+              <EmptyHeader>
+                <EmptyMedia variant="icon">
+                  <File />
+                </EmptyMedia>
+                <EmptyDescription>Add basic details.</EmptyDescription>
+              </EmptyHeader>
+              <EmptyContent>
+                <Button
+                  onClick={() => {
+                    setType("create");
+                    setOpenDialog(true);
+                  }}
+                >
+                  Add
+                </Button>
+              </EmptyContent>
+            </Empty>
+          )}
         </CardContent>
       </Card>
     </div>
   );
 }
-
-export default UserCard;

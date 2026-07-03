@@ -9,7 +9,7 @@ export const controller = {
       return res.status(400).json({ errors: response.error.issues });
     }
     try {
-      const result = await service.create({ userId: req.user?.id, ...response.data });
+      const result = await service.create({ userId: req.user.id, ...response.data });
       res.status(201).json(result);
     } catch (err) {
       return res.status(500).json({ errors: err });

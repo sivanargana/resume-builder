@@ -73,6 +73,7 @@ model EmploymentType {
   updatedAt   DateTime     @updatedAt
   // @Relations
   experiences Experience[]
+  projects    Project[]
 }
 
 model EducationType {
@@ -262,25 +263,26 @@ model Experience {
 }
 
 model Project {
-  id              String         @id @default(uuid())
-  userId          String
-  title           String
-  client          String?
-  status          ProjectStatus?
-  startYear       Int?
-  endYear         Int?
-  details         String?
-  location        String?
-  site            String?
-  type            String?
-  teamSize        Int?
-  role            String?
-  roleDescription String?
-  skillsUsed      String?
-  createdAt       DateTime       @default(now())
-  updatedAt       DateTime       @updatedAt
+  id               String          @id @default(uuid())
+  userId           String
+  title            String
+  client           String?
+  status           ProjectStatus?
+  startYear        String?
+  endYear          String?
+  details          String?
+  location         String?
+  site             String?
+  type             EmploymentType? @relation(fields: [employmentTypeId], references: [id])
+  teamSize         String?
+  role             String?
+  roleDescription  String?
+  skillsUsed       String?
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
   // @Relations
-  user            User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user             User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  employmentTypeId String?
 
   @@index([userId])
 }

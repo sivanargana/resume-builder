@@ -19,6 +19,7 @@ import { basicInfoRoutes } from "./features/basic-info";
 import { headlineRoutes } from "./features/headline";
 import { profileSummaryRoutes } from "./features/profile-summary";
 import { userSkillsRoutes } from "./features/user-skills";
+import { userLanguagesRoutes } from "./features/user-language";
 
 dotenv.config();
 const app = express();
@@ -36,11 +37,11 @@ app.use("/api/skills", isAuthenticated, skillsRoutes);
 app.use("/api/education", isAuthenticated, educationRoutes);
 app.use("/api/experience", isAuthenticated, experienceRoutes);
 app.use("/api/project", isAuthenticated, projectRoutes);
-app.use("/api/language", isAuthenticated, languageRoutes);
 app.use("/api/workStatus", isAuthenticated, workStatusRoutes);
 app.use("/api/basic-info", isAuthenticated, basicInfoRoutes);
 app.use("/api/headline", isAuthenticated, headlineRoutes);
 app.use("/api/profile-summary", isAuthenticated, profileSummaryRoutes);
+app.use("/api/user-languages", isAuthenticated, userLanguagesRoutes);
 app.use("/api/user-skills", isAuthenticated, userSkillsRoutes);
 app.use("/api/profile", isAuthenticated, profileRoutes);
 

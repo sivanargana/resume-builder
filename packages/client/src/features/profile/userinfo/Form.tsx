@@ -1,86 +1,46 @@
 import { Field, FieldGroup, FieldLabel, FieldSet } from "@/components/ui/field";
 import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Controller, useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
-import { Edit2 } from "lucide-react";
-import { useEffect, useState } from "react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { api } from "@/axios";
+import { useEffect } from "react";
 import { useContent } from "@/components/ContentProvider";
-function UserForm({ data }: any) {
-  const [open, setOpen] = useState(false);
-  const [alert, setAlert] = useState(false);
-  const [temp, setTemp] = useState({});
-  const form = useForm();
 
+export function _Form({ input, openDialog, setOpenDialog, onSave, onDelete, type }: any) {
   const { masterdata }: any = useContent();
 
-  const queryClient = useQueryClient();
-
-  const mutation: any = useMutation({
-    mutationFn: (obj) => api.patch(`users/${data?.user?.id}`, obj),
-    onSuccess: () => {
-      queryClient.refetchQueries({ queryKey: ["profile"] });
-      setOpen(false);
-    },
-  });
-  useEffect(() => {
-    form.setValues({
-      workStatusId: data?.user?.workStatus.id,
-      fullName: data?.user?.fullName,
-      mobile: data?.user?.mobile,
-      email: data?.user?.email,
-    });
-
-    setTemp(form.getValues());
-  }, [data]);
-
-  const onSave = () => {
-    mutation.mutate(form.getValues());
+  const defaultValues = {
+    workStatusId: "",
+    fullName: "",
+    mobile: "",
+    email: "",
   };
+  const form = useForm({
+    defaultValues,
+  });
+
+  useEffect(() => {
+    if (type == "create") {
+      form.reset(defaultValues);
+    }
+    if (type == "update") {
+      form.reset({
+        workStatusId: input?.user?.workStatus.id,
+        fullName: input?.user?.fullName,
+        mobile: input?.user?.mobile,
+        email: input?.user?.email,
+      });
+    }
+  }, [type, openDialog, input]);
 
   return (
     <>
-      <Button size="icon" variant="outline" onClick={() => setOpen(true)}>
-        <Edit2 />
-      </Button>
-      <AlertDialog open={alert} onOpenChange={setAlert}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Discard changes?</AlertDialogTitle>
-            <AlertDialogDescription>You have unsaved changes. If you leave now, your changes will be lost.</AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction
-              onClick={() => {
-                form.reset(temp);
-                setAlert(false);
-                setOpen(false);
-              }}
-            >
-              Continue
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
-      <Dialog
-        open={open}
-        onOpenChange={(val) => {
-          if (!open && form?.formState?.isDirty) {
-            setAlert(true);
-          } else {
-            setOpen(val);
-          }
-        }}
-      >
-        <DialogContent>
+      <Dialog open={openDialog} onOpenChange={setOpenDialog}>
+        <DialogContent className="min-w-150">
           <DialogHeader>
-            <DialogTitle>User Details </DialogTitle>
+            <DialogTitle>Basic Details</DialogTitle>
           </DialogHeader>
 
           <FieldSet>
@@ -142,7 +102,7 @@ function UserForm({ data }: any) {
             <DialogClose asChild>
               <Button variant="outline">Cancel</Button>
             </DialogClose>
-            <Button disabled={!form?.formState?.isDirty} onClick={onSave}>
+            <Button disabled={!form?.formState?.isDirty} onClick={() => onSave(form.getValues())}>
               Save
             </Button>
           </DialogFooter>
@@ -151,5 +111,3 @@ function UserForm({ data }: any) {
     </>
   );
 }
-
-export default UserForm;

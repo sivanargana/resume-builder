@@ -3,8 +3,10 @@ import { _Card } from "./Card";
 import { api } from "@/axios";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { useState } from "react";
+import { useProfile } from "../Root";
 
-export function Base({ input }: any) {
+export function Base() {
+  const { data: input }: any = useProfile();
   const [type, setType] = useState<any>(null);
   const [selected, setSelected] = useState<any>(null);
   const [openDialog, setOpenDialog] = useState(false);

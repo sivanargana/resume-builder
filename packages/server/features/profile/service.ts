@@ -39,8 +39,12 @@ export const service = {
         projects: true,
         userLanguages: {
           select: {
+            id: true,
             language: true,
             proficiency: true,
+            read: true,
+            write: true,
+            speak: true,
           },
         },
       },
