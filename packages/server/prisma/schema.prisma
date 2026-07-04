@@ -21,6 +21,11 @@ enum GradeSystem {
   Percentage
 }
 
+enum Role {
+  USER
+  ADMIN
+}
+
 model WorkStatus {
   id        String   @id @default(uuid())
   name      String   @unique
@@ -118,8 +123,8 @@ model User {
   fullName       String
   mobile         String          @unique
   email          String          @unique
+  role           Role            @default(USER)
   password       String          @default("")
-  photo          String?
   createdAt      DateTime        @default(now())
   updatedAt      DateTime        @updatedAt
   // @Relations

@@ -61,6 +61,7 @@ const router = createBrowserRouter([
   {
     path: "/admin",
     Component: lazy(() => import("./features/layouts/AdminLayout")),
+    loader: AuthGuard,
     children: [
       {
         element: <div>dashboard</div>,

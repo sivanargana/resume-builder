@@ -19,7 +19,13 @@ export function Login({ className, ...props }: React.ComponentProps<"div">) {
     mutationFn: (obj) => api.post("auth/login", obj),
     onSuccess: (data) => {
       localStorage.setItem("token", data?.data?.token);
-      navigate("/account/profile");
+      localStorage.setItem("role", data?.data?.role);
+      if (localStorage.getItem("role") == "USER") {
+        navigate("/account/profile");
+      }
+      if (localStorage.getItem("role") == "ADMIN") {
+        navigate("/admin");
+      }
     },
   });
 

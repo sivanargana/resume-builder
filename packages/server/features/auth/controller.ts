@@ -29,7 +29,7 @@ export const controller = {
 
       let token = jwt.sign({ id: result.id, email: result.email }, process.env.JWT_SECRET_KEY ?? "");
 
-      res.status(200).json({ token });
+      res.status(200).json({ token, role: result.role });
     } catch (err) {
       return res.status(500).json({ errors: err });
     }
