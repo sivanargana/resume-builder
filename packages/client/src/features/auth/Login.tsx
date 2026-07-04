@@ -6,6 +6,8 @@ import { Input } from "@/components/ui/input";
 import { Link, useNavigate } from "react-router";
 import { Controller, useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
+import { useGoogleLogin } from "@react-oauth/google";
+
 import { api } from "@/axios";
 
 type LoginFormValues = {
@@ -28,6 +30,19 @@ export function Login({ className, ...props }: React.ComponentProps<"div">) {
       }
     },
   });
+  const loginWithGoogle = useMutation({
+    mutationFn: (obj) => api.post("auth/login-with-google", obj),
+    onSuccess: (data) => {
+      localStorage.setItem("token", data?.data?.token);
+      localStorage.setItem("role", data?.data?.role);
+      if (localStorage.getItem("role") == "USER") {
+        navigate("/account/profile");
+      }
+      if (localStorage.getItem("role") == "ADMIN") {
+        navigate("/admin");
+      }
+    },
+  });
 
   const form = useForm<LoginFormValues>({
     defaultValues: {
@@ -39,7 +54,11 @@ export function Login({ className, ...props }: React.ComponentProps<"div">) {
   const onSubmit = form.handleSubmit((values: any) => {
     mutation.mutate(values);
   });
-
+  const login = useGoogleLogin({
+    onSuccess: (response) => {
+      loginWithGoogle.mutate({ accessToken: response.access_token } as any);
+    },
+  });
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
@@ -90,7 +109,7 @@ export function Login({ className, ...props }: React.ComponentProps<"div">) {
               />
               <Field>
                 <Button type="submit">Login</Button>
-                <Button variant="outline" type="button">
+                <Button variant="outline" type="button" onClick={() => login()}>
                   Login with Google
                 </Button>
                 <FieldDescription className="text-center">

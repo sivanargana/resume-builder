@@ -1,4 +1,5 @@
 import type { NextFunction, Request, Response } from "express";
+
 import jwt from "jsonwebtoken";
 
 export const isAuthenticated = (req: Request & { user?: any }, res: Response, next: NextFunction) => {

@@ -1,5 +1,7 @@
 import { createRoot } from "react-dom/client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+
 import ContentProvider from "./components/ContentProvider.tsx";
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -20,7 +22,9 @@ import App from "./App.tsx";
 createRoot(document.getElementById("root")!).render(
   <QueryClientProvider client={queryClient}>
     <ContentProvider>
-      <App />
+      <GoogleOAuthProvider clientId={import.meta.env.VITE_CLIENT_ID}>
+        <App />
+      </GoogleOAuthProvider>
     </ContentProvider>
   </QueryClientProvider>,
 );
