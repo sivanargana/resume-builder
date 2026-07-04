@@ -9,13 +9,10 @@ import { Controller, useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { useEffect } from "react";
 import { Trash } from "lucide-react";
-import { useContent } from "@/components/ContentProvider";
 import { FEATURE } from "./constants";
 import type { CreateRequest } from "./types";
 
-export function _Form({ input, openDialog, setOpenDialog, onSave, onDelete, type }: any) {
-  const { masterdata }: any = useContent();
-
+export function _Form({ input, masterdata, openDialog, setOpenDialog, onSave, onUpdate, onDelete, type }: any) {
   const defaultValues: CreateRequest["data"] = {
     experienceYearId: "",
     experienceMonthId: "",
@@ -207,9 +204,16 @@ export function _Form({ input, openDialog, setOpenDialog, onSave, onDelete, type
             <DialogClose asChild>
               <Button variant="outline">Cancel</Button>
             </DialogClose>
-            <Button disabled={!form?.formState?.isDirty} onClick={() => onSave(form.getValues())}>
-              Save
-            </Button>
+            {type == "create" && (
+              <Button disabled={!form?.formState?.isDirty} onClick={() => onSave(form.getValues())}>
+                Save
+              </Button>
+            )}
+            {type == "update" && (
+              <Button disabled={!form?.formState?.isDirty} onClick={() => onUpdate(form.getValues())}>
+                Save
+              </Button>
+            )}
           </DialogFooter>
         </DialogContent>
       </Dialog>
