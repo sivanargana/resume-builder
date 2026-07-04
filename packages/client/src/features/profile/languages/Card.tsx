@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
 import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia } from "@/components/ui/empty";
-import { CheckCircle, CircleX, Edit2, File } from "lucide-react";
+import { CheckCircle, CircleX, Edit2, File, Plus } from "lucide-react";
 import { FEATURE } from "./constants";
 
 export function _Card({ input, setOpenDialog, setType, setSelected }: any) {
@@ -16,7 +16,7 @@ export function _Card({ input, setOpenDialog, setType, setSelected }: any) {
               setOpenDialog(true);
             }}
           >
-            Add
+            Add <Plus />
           </Button>
         </div>
       )}
@@ -42,7 +42,7 @@ export function _Card({ input, setOpenDialog, setType, setSelected }: any) {
                     <div>{item?.read ? <CheckCircle size={16} className="text-green-500" /> : <CircleX size={16} className="text-red-500" />}</div>
                     <div>{item?.write ? <CheckCircle size={16} className="text-green-500" /> : <CircleX size={16} className="text-red-500" />}</div>
                     <div>{item?.speak ? <CheckCircle size={16} className="text-green-500" /> : <CircleX size={16} className="text-red-500" />}</div>
-                    <div>
+                    <div className="flex justify-end">
                       <Button
                         size="icon-sm"
                         variant="outline"
@@ -65,7 +65,7 @@ export function _Card({ input, setOpenDialog, setType, setSelected }: any) {
                 <EmptyMedia variant="icon">
                   <File />
                 </EmptyMedia>
-                <EmptyDescription>Add userLanguages</EmptyDescription>
+                <EmptyDescription>Add {FEATURE}</EmptyDescription>
               </EmptyHeader>
               <EmptyContent>
                 <Button
@@ -74,7 +74,7 @@ export function _Card({ input, setOpenDialog, setType, setSelected }: any) {
                     setOpenDialog(true);
                   }}
                 >
-                  Add
+                  Add <Plus />
                 </Button>
               </EmptyContent>
             </Empty>

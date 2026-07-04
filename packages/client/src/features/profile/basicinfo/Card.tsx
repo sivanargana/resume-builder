@@ -2,7 +2,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia } from "@/components/ui/empty";
 
-import { Briefcase, Calendar, Edit2, File, MapPin, Wallet } from "lucide-react";
+import { Briefcase, Calendar, Edit2, File, MapPin, Plus, Wallet } from "lucide-react";
 import { FEATURE } from "./constants";
 
 export function _Card({ input, setOpenDialog, setType }: any) {
@@ -50,7 +50,7 @@ export function _Card({ input, setOpenDialog, setType }: any) {
                 <EmptyMedia variant="icon">
                   <File />
                 </EmptyMedia>
-                <EmptyDescription>Add basic details.</EmptyDescription>
+                <EmptyDescription>Add {FEATURE}</EmptyDescription>
               </EmptyHeader>
               <EmptyContent>
                 <Button
@@ -59,7 +59,7 @@ export function _Card({ input, setOpenDialog, setType }: any) {
                     setOpenDialog(true);
                   }}
                 >
-                  Add
+                  Add <Plus />
                 </Button>
               </EmptyContent>
             </Empty>

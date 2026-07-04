@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
 import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia } from "@/components/ui/empty";
-import { Edit2, File } from "lucide-react";
+import { Edit2, File, Plus } from "lucide-react";
 import { FEATURE } from "./constants";
 
 export function _Card({ input, setOpenDialog, setType, setSelected }: any) {
@@ -16,7 +16,7 @@ export function _Card({ input, setOpenDialog, setType, setSelected }: any) {
               setOpenDialog(true);
             }}
           >
-            Add
+            Add <Plus />
           </Button>
         </div>
       )}
@@ -64,7 +64,7 @@ export function _Card({ input, setOpenDialog, setType, setSelected }: any) {
                 <EmptyMedia variant="icon">
                   <File />
                 </EmptyMedia>
-                <EmptyDescription>Add projects</EmptyDescription>
+                <EmptyDescription>Add {FEATURE}</EmptyDescription>
               </EmptyHeader>
               <EmptyContent>
                 <Button
@@ -73,7 +73,7 @@ export function _Card({ input, setOpenDialog, setType, setSelected }: any) {
                     setOpenDialog(true);
                   }}
                 >
-                  Add
+                  Add <Plus />
                 </Button>
               </EmptyContent>
             </Empty>
