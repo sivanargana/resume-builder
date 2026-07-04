@@ -20,6 +20,7 @@ import { headlineRoutes } from "./features/headline";
 import { profileSummaryRoutes } from "./features/profile-summary";
 import { userSkillsRoutes } from "./features/user-skills";
 import { userLanguagesRoutes } from "./features/user-language";
+import { avtarRoutes } from "./features/avtars";
 
 dotenv.config();
 const app = express();
@@ -27,7 +28,7 @@ const port = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
-
+app.use("/uploads", express.static("uploads"));
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use("/api/masterdata", masterdataRoutes);
@@ -44,6 +45,7 @@ app.use("/api/profile-summary", isAuthenticated, profileSummaryRoutes);
 app.use("/api/user-languages", isAuthenticated, userLanguagesRoutes);
 app.use("/api/user-skills", isAuthenticated, userSkillsRoutes);
 app.use("/api/profile", isAuthenticated, profileRoutes);
+app.use("/api/avtar", isAuthenticated, avtarRoutes);
 
 app.listen(port, () => {
   console.log(`Server Running on http://localhost:${port}`);

@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia } from "@/components/ui/empty";
 import { Calendar, Edit2, File, Mail, Phone } from "lucide-react";
 import { FEATURE } from "./constants";
+import { Avtar } from "../avtar";
 export function _Card({ input, setOpenDialog, setType }: any) {
   return (
     <div className="relative">
@@ -27,7 +28,7 @@ export function _Card({ input, setOpenDialog, setType }: any) {
           {input?.user ? (
             <div className="flex gap-5 items-center">
               <div className="flex-none">
-                <div className="size-20 bg-gray-300 rounded-full"></div>
+                <Avtar />
               </div>
               <div className="flex-auto">
                 <div className="text-lg font-bold">{input?.user?.fullName}</div>

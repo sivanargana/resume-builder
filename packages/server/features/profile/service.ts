@@ -10,6 +10,7 @@ export const service = {
         mobile: true,
         email: true,
         workStatus: true,
+        avtar: true,
 
         basicDetails: {
           include: {
@@ -49,7 +50,7 @@ export const service = {
         },
       },
     });
-    const { id, fullName, mobile, email, workStatus, ...rest } = response;
+    const { id, fullName, mobile, email, workStatus, avtar, ...rest } = response;
 
     return {
       user: {
@@ -58,6 +59,7 @@ export const service = {
         mobile,
         email,
         workStatus,
+        avtar,
       },
       ...rest,
     };

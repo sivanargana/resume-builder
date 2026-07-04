@@ -132,6 +132,7 @@ model User {
   experiences    Experience[]
   education      Education[]
   projects       Project[]
+  avtar          Avtar?
 
   @@index([workStatusId])
 }
@@ -143,7 +144,7 @@ model BasicDetails {
   experienceMonthId  String
   salaryBreakdownId  String
   availabilityTypeId String
-  salaryAmount       Int
+  salaryAmount       String
   country            String
   location           String
   createdAt          DateTime         @default(now())
@@ -165,6 +166,18 @@ model Headline {
   id        String   @id @default(uuid())
   userId    String   @unique
   value     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  // @Relations
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model Avtar {
+  id        String   @id @default(uuid())
+  userId    String   @unique
+  url       String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   // @Relations

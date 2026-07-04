@@ -5,7 +5,7 @@ const base = {
   experienceMonthId: z.string().nonempty("Experience month is required"),
   salaryBreakdownId: z.string().nonempty("Salary breakdown is required"),
   availabilityTypeId: z.string().nonempty("Availability type is required"),
-  salaryAmount: z.coerce.number().nonnegative("Salary amount must be a positive number"),
+  salaryAmount: z.string().nonempty("Salary amount must be a positive number"),
   country: z.string().nonempty("Country is required"),
   location: z.string().nonempty("Location is required"),
 };

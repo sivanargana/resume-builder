@@ -24,6 +24,7 @@ export function _Form({ input, masterdata, openDialog, setOpenDialog, onSave, on
   };
   const form = useForm({
     defaultValues,
+    mode: "onTouched",
   });
 
   useEffect(() => {
@@ -48,7 +49,7 @@ export function _Form({ input, masterdata, openDialog, setOpenDialog, onSave, on
       <Dialog open={openDialog} onOpenChange={setOpenDialog}>
         <DialogContent className="min-w-150">
           <DialogHeader>
-            <DialogTitle>{FEATURE}</DialogTitle>
+            <DialogTitle> {FEATURE} </DialogTitle>
           </DialogHeader>
 
           <FieldSet>
@@ -226,7 +227,16 @@ export function _Form({ input, masterdata, openDialog, setOpenDialog, onSave, on
               </Button>
             )}
             {type == "update" && (
-              <Button disabled={!form?.formState?.isDirty || !form?.formState?.isValid} onClick={() => onUpdate(form.getValues())}>
+              <Button
+                disabled={!form?.formState?.isDirty || !form?.formState?.isValid}
+                onClick={() => {
+                  if (form.formState.isValid) {
+                    onUpdate(form.getValues());
+                  } else {
+                    form.trigger();
+                  }
+                }}
+              >
                 Save
               </Button>
             )}
