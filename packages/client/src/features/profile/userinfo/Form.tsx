@@ -20,7 +20,6 @@ export function _Form({ input, openDialog, setOpenDialog, onUpdate, type }: any)
   };
   const form = useForm({
     defaultValues,
-    mode: "onTouched",
   });
 
   useEffect(() => {

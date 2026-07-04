@@ -26,7 +26,6 @@ export function _Form({ openDialog, setOpenDialog, onSave, onUpdate, onDelete, t
 
   const form = useForm({
     defaultValues,
-    mode: "onTouched",
   });
 
   useEffect(() => {
