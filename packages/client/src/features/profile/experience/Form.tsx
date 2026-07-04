@@ -28,6 +28,7 @@ export function _Form({ openDialog, setOpenDialog, onSave, onUpdate, onDelete, t
 
   const form = useForm({
     defaultValues,
+    mode: "onTouched",
   });
 
   useEffect(() => {
@@ -60,12 +61,13 @@ export function _Form({ openDialog, setOpenDialog, onSave, onUpdate, onDelete, t
               <Controller
                 name="isCurrentEmployment"
                 control={form.control}
+                rules={{ required: true }}
                 render={({ field, fieldState }) => (
                   <Field>
                     <FieldLabel>Is this your current employment?</FieldLabel>
-                    <RadioGroup name={field.name} value={field.value} onValueChange={field.onChange} className="flex gap-5 w-fit" aria-invalid={fieldState.invalid}>
+                    <RadioGroup name={field.name} value={field.value} onValueChange={field.onChange} className="flex gap-5 w-fit">
                       <div className="flex items-center gap-3">
-                        <RadioGroupItem value="true" id="yes" />
+                        <RadioGroupItem value="true" id="yes" aria-invalid={fieldState.invalid} />
                         <Label htmlFor="yes">Yes</Label>
                       </div>
                       <div className="flex items-center gap-3">
@@ -79,13 +81,14 @@ export function _Form({ openDialog, setOpenDialog, onSave, onUpdate, onDelete, t
               <Controller
                 name="employmentTypeId"
                 control={form.control}
+                rules={{ required: true }}
                 render={({ field, fieldState }) => (
                   <Field>
                     <FieldLabel>Employment type</FieldLabel>
-                    <RadioGroup name={field.name} value={field.value} onValueChange={field.onChange} className="flex gap-5 w-fit" aria-invalid={fieldState.invalid}>
+                    <RadioGroup name={field.name} value={field.value} onValueChange={field.onChange} className="flex gap-5 w-fit">
                       {masterdata?.data?.employmentType.map((item: any) => (
                         <div className="flex items-center gap-3" key={item.id}>
-                          <RadioGroupItem value={item.id} id={item.name} />
+                          <RadioGroupItem value={item.id} id={item.name} aria-invalid={fieldState.invalid} />
                           <Label htmlFor={item.name}>{item.name}</Label>
                         </div>
                       ))}
@@ -94,78 +97,87 @@ export function _Form({ openDialog, setOpenDialog, onSave, onUpdate, onDelete, t
                 )}
               />
 
-              <Controller
-                name="companyName"
-                control={form.control}
-                render={({ field, fieldState }) => (
-                  <Field>
-                    <FieldLabel htmlFor={field.name}>Current company name</FieldLabel>
-                    <Input {...field} id={field.name} aria-invalid={fieldState.invalid} />
-                  </Field>
-                )}
-              />
-              <Controller
-                name="jobTitle"
-                control={form.control}
-                render={({ field, fieldState }) => (
-                  <Field>
-                    <FieldLabel htmlFor={field.name}>Job Title</FieldLabel>
-                    <Input {...field} id={field.name} aria-invalid={fieldState.invalid} />
-                  </Field>
-                )}
-              />
+              <div className="grid grid-cols-2 gap-4">
+                <Controller
+                  name="companyName"
+                  control={form.control}
+                  rules={{ required: true }}
+                  render={({ field, fieldState }) => (
+                    <Field>
+                      <FieldLabel htmlFor={field.name}>Current company name</FieldLabel>
+                      <Input {...field} id={field.name} aria-invalid={fieldState.invalid} />
+                    </Field>
+                  )}
+                />
+                <Controller
+                  name="jobTitle"
+                  control={form.control}
+                  rules={{ required: true }}
+                  render={({ field, fieldState }) => (
+                    <Field>
+                      <FieldLabel htmlFor={field.name}>Job Title</FieldLabel>
+                      <Input {...field} id={field.name} aria-invalid={fieldState.invalid} />
+                    </Field>
+                  )}
+                />
+              </div>
 
-              <Controller
-                name="joiningDate"
-                control={form.control}
-                render={({ field, fieldState }) => (
-                  <Field>
-                    <FieldLabel htmlFor={field.name}>Joining Date</FieldLabel>
-                    <Select name={field.name} value={field.value} onValueChange={field.onChange} aria-invalid={fieldState.invalid}>
-                      <SelectTrigger id={field.name} className="w-full">
-                        <SelectValue placeholder="Select" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectGroup>
-                          {years.map((item: any) => (
-                            <SelectItem value={item} key={item}>
-                              {item}
-                            </SelectItem>
-                          ))}
-                        </SelectGroup>
-                      </SelectContent>
-                    </Select>
-                  </Field>
-                )}
-              />
-              <Controller
-                name="workedTill"
-                control={form.control}
-                render={({ field, fieldState }) => (
-                  <Field>
-                    <FieldLabel htmlFor={field.name}>Worked Till</FieldLabel>
+              <div className="grid grid-cols-2 gap-4">
+                <Controller
+                  name="joiningDate"
+                  control={form.control}
+                  rules={{ required: true }}
+                  render={({ field, fieldState }) => (
+                    <Field>
+                      <FieldLabel htmlFor={field.name}>Joining Date</FieldLabel>
+                      <Select name={field.name} value={field.value} onValueChange={field.onChange}>
+                        <SelectTrigger id={field.name} className="w-full" aria-invalid={fieldState.invalid}>
+                          <SelectValue placeholder="Select" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectGroup>
+                            {years.map((item: any) => (
+                              <SelectItem value={item} key={item}>
+                                {item}
+                              </SelectItem>
+                            ))}
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
+                    </Field>
+                  )}
+                />
+                <Controller
+                  name="workedTill"
+                  control={form.control}
+                  rules={{ required: true }}
+                  render={({ field, fieldState }) => (
+                    <Field>
+                      <FieldLabel htmlFor={field.name}>Worked Till</FieldLabel>
 
-                    <Select name={field.name} value={field.value} onValueChange={field.onChange} aria-invalid={fieldState.invalid}>
-                      <SelectTrigger id={field.name} className="w-full">
-                        <SelectValue placeholder="Select" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectGroup>
-                          {years.map((item: any) => (
-                            <SelectItem value={item} key={item}>
-                              {item}
-                            </SelectItem>
-                          ))}
-                        </SelectGroup>
-                      </SelectContent>
-                    </Select>
-                  </Field>
-                )}
-              />
+                      <Select name={field.name} value={field.value} onValueChange={field.onChange}>
+                        <SelectTrigger id={field.name} className="w-full" aria-invalid={fieldState.invalid}>
+                          <SelectValue placeholder="Select" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectGroup>
+                            {years.map((item: any) => (
+                              <SelectItem value={item} key={item}>
+                                {item}
+                              </SelectItem>
+                            ))}
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
+                    </Field>
+                  )}
+                />
+              </div>
 
               <Controller
                 name="jobProfile"
                 control={form.control}
+                rules={{ required: true }}
                 render={({ field, fieldState }) => (
                   <Field>
                     <FieldLabel htmlFor={field.name}>Job Profile</FieldLabel>
@@ -185,12 +197,30 @@ export function _Form({ openDialog, setOpenDialog, onSave, onUpdate, onDelete, t
               <Button variant="outline">Cancel</Button>
             </DialogClose>
             {type == "create" && (
-              <Button disabled={!form?.formState?.isDirty} onClick={() => onSave(form.getValues())}>
+              <Button
+                disabled={!form?.formState?.isDirty || !form?.formState?.isValid}
+                onClick={() => {
+                  if (form.formState.isValid) {
+                    onSave(form.getValues());
+                  } else {
+                    form.trigger();
+                  }
+                }}
+              >
                 Save
               </Button>
             )}
             {type == "update" && (
-              <Button disabled={!form?.formState?.isDirty} onClick={() => onUpdate(form.getValues())}>
+              <Button
+                disabled={!form?.formState?.isDirty || !form?.formState?.isValid}
+                onClick={() => {
+                  if (form.formState.isValid) {
+                    onUpdate(form.getValues());
+                  } else {
+                    form.trigger();
+                  }
+                }}
+              >
                 Save
               </Button>
             )}

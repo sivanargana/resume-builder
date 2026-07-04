@@ -13,6 +13,7 @@ export function _Form({ input, openDialog, setOpenDialog, onSave, onUpdate, onDe
   };
   const form = useForm({
     defaultValues,
+    mode: "onTouched",
   });
 
   useEffect(() => {
@@ -35,6 +36,7 @@ export function _Form({ input, openDialog, setOpenDialog, onSave, onUpdate, onDe
               <Controller
                 name="summary"
                 control={form.control}
+                rules={{ required: true }}
                 render={({ field, fieldState }) => (
                   <Field>
                     <FieldLabel htmlFor={field.name}>{FEATURE}</FieldLabel>
@@ -55,12 +57,30 @@ export function _Form({ input, openDialog, setOpenDialog, onSave, onUpdate, onDe
             </DialogClose>
 
             {type == "create" && (
-              <Button disabled={!form?.formState?.isDirty} onClick={() => onSave(form.getValues())}>
+              <Button
+                disabled={!form?.formState?.isDirty || !form?.formState?.isValid}
+                onClick={() => {
+                  if (form.formState.isValid) {
+                    onSave(form.getValues());
+                  } else {
+                    form.trigger();
+                  }
+                }}
+              >
                 Save
               </Button>
             )}
             {type == "update" && (
-              <Button disabled={!form?.formState?.isDirty} onClick={() => onUpdate(form.getValues())}>
+              <Button
+                disabled={!form?.formState?.isDirty || !form?.formState?.isValid}
+                onClick={() => {
+                  if (form.formState.isValid) {
+                    onUpdate(form.getValues());
+                  } else {
+                    form.trigger();
+                  }
+                }}
+              >
                 Save
               </Button>
             )}

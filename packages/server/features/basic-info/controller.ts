@@ -12,6 +12,7 @@ export const controller = {
       });
     }
     try {
+      console.log(response.data);
       let result = await service.create({ userId: req.user.id, ...req.body });
       res.status(201).json(result);
     } catch (err) {

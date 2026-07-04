@@ -20,6 +20,7 @@ export function _Form({ input, openDialog, setOpenDialog, onUpdate, type }: any)
   };
   const form = useForm({
     defaultValues,
+    mode: "onTouched",
   });
 
   useEffect(() => {
@@ -49,7 +50,7 @@ export function _Form({ input, openDialog, setOpenDialog, onUpdate, type }: any)
               <Controller
                 name="fullName"
                 control={form.control}
-                defaultValue=""
+                rules={{ required: true }}
                 render={({ field, fieldState }) => (
                   <Field>
                     <FieldLabel htmlFor={field.name}>Name</FieldLabel>
@@ -61,13 +62,14 @@ export function _Form({ input, openDialog, setOpenDialog, onUpdate, type }: any)
               <Controller
                 name="workStatusId"
                 control={form.control}
+                rules={{ required: true }}
                 render={({ field, fieldState }) => (
                   <Field>
                     <FieldLabel>Work status</FieldLabel>
                     <RadioGroup name={field.name} value={field.value} onValueChange={field.onChange} className="flex flex-col gap-2 w-fit">
                       {masterdata?.data?.workStatus?.map((item: any) => (
                         <div className="flex items-center gap-3" key={item.id}>
-                          <RadioGroupItem value={item.id} id={item.name} />
+                          <RadioGroupItem value={item.id} id={item.name} aria-invalid={fieldState.invalid} />
                           <Label htmlFor={item.name}>{item.name}</Label>
                         </div>
                       ))}
@@ -79,6 +81,7 @@ export function _Form({ input, openDialog, setOpenDialog, onUpdate, type }: any)
               <Controller
                 name="mobile"
                 control={form.control}
+                rules={{ required: true }}
                 render={({ field, fieldState }) => (
                   <Field>
                     <FieldLabel htmlFor={field.name}>Mobile</FieldLabel>
@@ -90,6 +93,7 @@ export function _Form({ input, openDialog, setOpenDialog, onUpdate, type }: any)
               <Controller
                 name="email"
                 control={form.control}
+                rules={{ required: true }}
                 render={({ field, fieldState }) => (
                   <Field>
                     <FieldLabel htmlFor={field.name}>Email</FieldLabel>
@@ -103,7 +107,16 @@ export function _Form({ input, openDialog, setOpenDialog, onUpdate, type }: any)
             <DialogClose asChild>
               <Button variant="outline">Cancel</Button>
             </DialogClose>
-            <Button disabled={!form?.formState?.isDirty} onClick={() => onUpdate(form.getValues())}>
+            <Button
+              disabled={!form?.formState?.isDirty || !form?.formState?.isValid}
+              onClick={() => {
+                if (form.formState.isValid) {
+                  onUpdate(form.getValues());
+                } else {
+                  form.trigger();
+                }
+              }}
+            >
               Save
             </Button>
           </DialogFooter>

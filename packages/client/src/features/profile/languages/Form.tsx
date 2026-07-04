@@ -22,6 +22,7 @@ export function _Form({ openDialog, setOpenDialog, onSave, onUpdate, onDelete, t
 
   const form = useForm({
     defaultValues,
+    mode: "onTouched",
   });
 
   useEffect(() => {
@@ -52,11 +53,12 @@ export function _Form({ openDialog, setOpenDialog, onSave, onUpdate, onDelete, t
               <Controller
                 name="languageId"
                 control={form.control}
+                rules={{ required: true }}
                 render={({ field, fieldState }) => (
                   <Field>
                     <FieldLabel htmlFor={field.name}>Language</FieldLabel>
-                    <Select name={field.name} value={field.value} onValueChange={field.onChange} aria-invalid={fieldState.invalid}>
-                      <SelectTrigger id={field.name} className="w-full">
+                    <Select name={field.name} value={field.value} onValueChange={field.onChange}>
+                      <SelectTrigger id={field.name} className="w-full" aria-invalid={fieldState.invalid}>
                         <SelectValue placeholder="Select" />
                       </SelectTrigger>
                       <SelectContent>
@@ -75,11 +77,12 @@ export function _Form({ openDialog, setOpenDialog, onSave, onUpdate, onDelete, t
               <Controller
                 name="proficiencyId"
                 control={form.control}
+                rules={{ required: true }}
                 render={({ field, fieldState }) => (
                   <Field>
                     <FieldLabel htmlFor={field.name}>Proficiency</FieldLabel>
-                    <Select name={field.name} value={field.value} onValueChange={field.onChange} aria-invalid={fieldState.invalid}>
-                      <SelectTrigger id={field.name} className="w-full">
+                    <Select name={field.name} value={field.value} onValueChange={field.onChange}>
+                      <SelectTrigger id={field.name} className="w-full" aria-invalid={fieldState.invalid}>
                         <SelectValue placeholder="Select" />
                       </SelectTrigger>
                       <SelectContent>
@@ -137,12 +140,30 @@ export function _Form({ openDialog, setOpenDialog, onSave, onUpdate, onDelete, t
               <Button variant="outline">Cancel</Button>
             </DialogClose>
             {type == "create" && (
-              <Button disabled={!form?.formState?.isDirty} onClick={() => onSave(form.getValues())}>
+              <Button
+                disabled={!form?.formState?.isDirty || !form?.formState?.isValid}
+                onClick={() => {
+                  if (form.formState.isValid) {
+                    onSave(form.getValues());
+                  } else {
+                    form.trigger();
+                  }
+                }}
+              >
                 Save
               </Button>
             )}
             {type == "update" && (
-              <Button disabled={!form?.formState?.isDirty} onClick={() => onUpdate(form.getValues())}>
+              <Button
+                disabled={!form?.formState?.isDirty || !form?.formState?.isValid}
+                onClick={() => {
+                  if (form.formState.isValid) {
+                    onUpdate(form.getValues());
+                  } else {
+                    form.trigger();
+                  }
+                }}
+              >
                 Save
               </Button>
             )}

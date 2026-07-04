@@ -26,6 +26,7 @@ export function _Form({ openDialog, setOpenDialog, onSave, onUpdate, onDelete, t
 
   const form = useForm({
     defaultValues,
+    mode: "onTouched",
   });
 
   useEffect(() => {
@@ -47,127 +48,143 @@ export function _Form({ openDialog, setOpenDialog, onSave, onUpdate, onDelete, t
 
           <FieldSet>
             <FieldGroup>
-              <Controller
-                name="educationTypeId"
-                control={form.control}
-                render={({ field, fieldState }) => (
-                  <Field>
-                    <FieldLabel htmlFor={field.name}>Education</FieldLabel>
-                    <Select name={field.name} value={field.value} onValueChange={field.onChange} aria-invalid={fieldState.invalid}>
-                      <SelectTrigger id={field.name} className="w-full">
-                        <SelectValue placeholder="Select" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectGroup>
-                          {masterdata?.data?.educationType.map((item: any) => (
-                            <SelectItem value={item.id} key={item.id}>
-                              {item.name}
-                            </SelectItem>
-                          ))}
-                        </SelectGroup>
-                      </SelectContent>
-                    </Select>
-                  </Field>
-                )}
-              />
+              <div className="grid grid-cols-2 gap-4">
+                <Controller
+                  name="educationTypeId"
+                  control={form.control}
+                  rules={{ required: true }}
+                  render={({ field, fieldState }) => (
+                    <Field>
+                      <FieldLabel htmlFor={field.name}>Education</FieldLabel>
+                      <Select name={field.name} value={field.value} onValueChange={field.onChange}>
+                        <SelectTrigger id={field.name} className="w-full" aria-invalid={fieldState.invalid}>
+                          <SelectValue placeholder="Select" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectGroup>
+                            {masterdata?.data?.educationType.map((item: any) => (
+                              <SelectItem value={item.id} key={item.id}>
+                                {item.name}
+                              </SelectItem>
+                            ))}
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
+                    </Field>
+                  )}
+                />
 
-              <Controller
-                name="university"
-                control={form.control}
-                render={({ field, fieldState }) => (
-                  <Field>
-                    <FieldLabel htmlFor={field.name}>University</FieldLabel>
-                    <Input {...field} id={field.name} aria-invalid={fieldState.invalid} />
-                  </Field>
-                )}
-              />
-              <Controller
-                name="course"
-                control={form.control}
-                render={({ field, fieldState }) => (
-                  <Field>
-                    <FieldLabel htmlFor={field.name}>Course</FieldLabel>
-                    <Input {...field} id={field.name} aria-invalid={fieldState.invalid} />
-                  </Field>
-                )}
-              />
-              <Controller
-                name="specialization"
-                control={form.control}
-                render={({ field, fieldState }) => (
-                  <Field>
-                    <FieldLabel htmlFor={field.name}>Specialization</FieldLabel>
-                    <Input {...field} id={field.name} aria-invalid={fieldState.invalid} />
-                  </Field>
-                )}
-              />
+                <Controller
+                  name="university"
+                  control={form.control}
+                  rules={{ required: true }}
+                  render={({ field, fieldState }) => (
+                    <Field>
+                      <FieldLabel htmlFor={field.name}>University</FieldLabel>
+                      <Input {...field} id={field.name} aria-invalid={fieldState.invalid} />
+                    </Field>
+                  )}
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <Controller
+                  name="course"
+                  control={form.control}
+                  rules={{ required: true }}
+                  render={({ field, fieldState }) => (
+                    <Field>
+                      <FieldLabel htmlFor={field.name}>Course</FieldLabel>
+                      <Input {...field} id={field.name} aria-invalid={fieldState.invalid} />
+                    </Field>
+                  )}
+                />
+                <Controller
+                  name="specialization"
+                  control={form.control}
+                  rules={{ required: true }}
+                  render={({ field, fieldState }) => (
+                    <Field>
+                      <FieldLabel htmlFor={field.name}>Specialization</FieldLabel>
+                      <Input {...field} id={field.name} aria-invalid={fieldState.invalid} />
+                    </Field>
+                  )}
+                />
+              </div>
 
-              <Controller
-                name="startYear"
-                control={form.control}
-                render={({ field, fieldState }) => (
-                  <Field>
-                    <FieldLabel htmlFor={field.name}>Start Year</FieldLabel>
-                    <Select name={field.name} value={field.value} onValueChange={field.onChange} aria-invalid={fieldState.invalid}>
-                      <SelectTrigger id={field.name} className="w-full">
-                        <SelectValue placeholder="Select" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectGroup>
-                          {years.map((item: any) => (
-                            <SelectItem value={item} key={item}>
-                              {item}
-                            </SelectItem>
-                          ))}
-                        </SelectGroup>
-                      </SelectContent>
-                    </Select>
-                  </Field>
-                )}
-              />
-              <Controller
-                name="endYear"
-                control={form.control}
-                render={({ field, fieldState }) => (
-                  <Field>
-                    <FieldLabel htmlFor={field.name}>End Year</FieldLabel>
-                    <Select name={field.name} value={field.value} onValueChange={field.onChange} aria-invalid={fieldState.invalid}>
-                      <SelectTrigger id={field.name} className="w-full">
-                        <SelectValue placeholder="Select" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectGroup>
-                          {years.map((item: any) => (
-                            <SelectItem value={item} key={item}>
-                              {item}
-                            </SelectItem>
-                          ))}
-                        </SelectGroup>
-                      </SelectContent>
-                    </Select>
-                  </Field>
-                )}
-              />
-              <Controller
-                name="gradeSystem"
-                control={form.control}
-                render={({ field, fieldState }) => (
-                  <Field>
-                    <FieldLabel htmlFor={field.name}>Grade System</FieldLabel>
-                    <Input {...field} id={field.name} aria-invalid={fieldState.invalid} />
-                  </Field>
-                )}
-              />
-              <Controller
-                name="marks"
-                control={form.control}
-                render={({ field, fieldState }) => (
-                  <Field>
-                    <FieldLabel htmlFor={field.name}>Marks</FieldLabel>
-                    <Input {...field} id={field.name} aria-invalid={fieldState.invalid} />
-                  </Field>
-                )}
-              />
+              <div className="grid grid-cols-2 gap-4">
+                <Controller
+                  name="startYear"
+                  control={form.control}
+                  rules={{ required: true }}
+                  render={({ field, fieldState }) => (
+                    <Field>
+                      <FieldLabel htmlFor={field.name}>Start Year</FieldLabel>
+                      <Select name={field.name} value={field.value} onValueChange={field.onChange}>
+                        <SelectTrigger id={field.name} className="w-full" aria-invalid={fieldState.invalid}>
+                          <SelectValue placeholder="Select" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectGroup>
+                            {years.map((item: any) => (
+                              <SelectItem value={item} key={item}>
+                                {item}
+                              </SelectItem>
+                            ))}
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
+                    </Field>
+                  )}
+                />
+                <Controller
+                  name="endYear"
+                  control={form.control}
+                  rules={{ required: true }}
+                  render={({ field, fieldState }) => (
+                    <Field>
+                      <FieldLabel htmlFor={field.name}>End Year</FieldLabel>
+                      <Select name={field.name} value={field.value} onValueChange={field.onChange}>
+                        <SelectTrigger id={field.name} className="w-full" aria-invalid={fieldState.invalid}>
+                          <SelectValue placeholder="Select" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectGroup>
+                            {years.map((item: any) => (
+                              <SelectItem value={item} key={item}>
+                                {item}
+                              </SelectItem>
+                            ))}
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
+                    </Field>
+                  )}
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <Controller
+                  name="gradeSystem"
+                  control={form.control}
+                  rules={{ required: true }}
+                  render={({ field, fieldState }) => (
+                    <Field>
+                      <FieldLabel htmlFor={field.name}>Grade System</FieldLabel>
+                      <Input {...field} id={field.name} aria-invalid={fieldState.invalid} />
+                    </Field>
+                  )}
+                />
+                <Controller
+                  name="marks"
+                  control={form.control}
+                  rules={{ required: true }}
+                  render={({ field, fieldState }) => (
+                    <Field>
+                      <FieldLabel htmlFor={field.name}>Marks</FieldLabel>
+                      <Input {...field} id={field.name} aria-invalid={fieldState.invalid} />
+                    </Field>
+                  )}
+                />
+              </div>
             </FieldGroup>
           </FieldSet>
           <DialogFooter>
@@ -180,12 +197,30 @@ export function _Form({ openDialog, setOpenDialog, onSave, onUpdate, onDelete, t
               <Button variant="outline">Cancel</Button>
             </DialogClose>
             {type == "create" && (
-              <Button disabled={!form?.formState?.isDirty} onClick={() => onSave(form.getValues())}>
+              <Button
+                disabled={!form?.formState?.isDirty || !form?.formState?.isValid}
+                onClick={() => {
+                  if (form.formState.isValid) {
+                    onSave(form.getValues());
+                  } else {
+                    form.trigger();
+                  }
+                }}
+              >
                 Save
               </Button>
             )}
             {type == "update" && (
-              <Button disabled={!form?.formState?.isDirty} onClick={() => onUpdate(form.getValues())}>
+              <Button
+                disabled={!form?.formState?.isDirty || !form?.formState?.isValid}
+                onClick={() => {
+                  if (form.formState.isValid) {
+                    onUpdate(form.getValues());
+                  } else {
+                    form.trigger();
+                  }
+                }}
+              >
                 Save
               </Button>
             )}

@@ -24,6 +24,7 @@ export function _Form({ input, masterdata, openDialog, setOpenDialog, onSave, on
   };
   const form = useForm({
     defaultValues,
+    mode: "onTouched",
   });
 
   useEffect(() => {
@@ -58,6 +59,7 @@ export function _Form({ input, masterdata, openDialog, setOpenDialog, onSave, on
                   <Controller
                     name="experienceYearId"
                     control={form.control}
+                    rules={{ required: true }}
                     render={({ field, fieldState }) => (
                       <Field>
                         <FieldLabel htmlFor={field.name}>Years</FieldLabel>
@@ -83,6 +85,7 @@ export function _Form({ input, masterdata, openDialog, setOpenDialog, onSave, on
                   <Controller
                     name="experienceMonthId"
                     control={form.control}
+                    rules={{ required: true }}
                     render={({ field, fieldState }) => (
                       <Field>
                         <FieldLabel htmlFor={field.name}>Months</FieldLabel>
@@ -111,10 +114,11 @@ export function _Form({ input, masterdata, openDialog, setOpenDialog, onSave, on
                   <Controller
                     name="salaryAmount"
                     control={form.control}
+                    rules={{ required: true }}
                     render={({ field, fieldState }) => (
                       <Field>
                         <FieldLabel htmlFor={field.name}>Current salary</FieldLabel>
-                        <Input {...field} onChange={(e) => field.onChange(e.target.value === "" ? undefined : Number(e.target.value))} id={field.name} aria-invalid={fieldState.invalid} />
+                        <Input {...field} onChange={field.onChange} id={field.name} aria-invalid={fieldState.invalid} />
                       </Field>
                     )}
                   />
@@ -123,11 +127,12 @@ export function _Form({ input, masterdata, openDialog, setOpenDialog, onSave, on
                   <Controller
                     name="salaryBreakdownId"
                     control={form.control}
+                    rules={{ required: true }}
                     render={({ field, fieldState }) => (
                       <Field>
                         <FieldLabel htmlFor={field.name}>Salary breakdown</FieldLabel>
-                        <Select name={field.name} value={field.value} onValueChange={field.onChange} aria-invalid={fieldState.invalid}>
-                          <SelectTrigger id={field.name} className="w-full">
+                        <Select name={field.name} value={field.value} onValueChange={field.onChange}>
+                          <SelectTrigger id={field.name} className="w-full" aria-invalid={fieldState.invalid}>
                             <SelectValue placeholder="Select" />
                           </SelectTrigger>
                           <SelectContent>
@@ -149,16 +154,17 @@ export function _Form({ input, masterdata, openDialog, setOpenDialog, onSave, on
               <Controller
                 name="country"
                 control={form.control}
+                rules={{ required: true }}
                 render={({ field, fieldState }) => (
                   <Field>
                     <FieldLabel>Country</FieldLabel>
-                    <RadioGroup name={field.name} value={field.value} onValueChange={field.onChange} className="flex gap-5 w-fit" aria-invalid={fieldState.invalid}>
+                    <RadioGroup name={field.name} value={field.value} onValueChange={field.onChange} className="flex gap-5 w-fit">
                       <div className="flex items-center gap-3">
-                        <RadioGroupItem value="India" id="India" />
+                        <RadioGroupItem value="India" id="India" aria-invalid={fieldState.invalid} />
                         <Label htmlFor="India">India</Label>
                       </div>
                       <div className="flex items-center gap-3">
-                        <RadioGroupItem value="OutsideIndia" id="OutsideIndia" />
+                        <RadioGroupItem value="OutsideIndia" id="OutsideIndia" aria-invalid={fieldState.invalid} />
                         <Label htmlFor="OutsideIndia">Outside India</Label>
                       </div>
                     </RadioGroup>
@@ -169,6 +175,7 @@ export function _Form({ input, masterdata, openDialog, setOpenDialog, onSave, on
               <Controller
                 name="location"
                 control={form.control}
+                rules={{ required: true }}
                 render={({ field, fieldState }) => (
                   <Field>
                     <FieldLabel htmlFor={field.name}>Location</FieldLabel>
@@ -180,12 +187,13 @@ export function _Form({ input, masterdata, openDialog, setOpenDialog, onSave, on
               <Controller
                 name="availabilityTypeId"
                 control={form.control}
+                rules={{ required: true }}
                 render={({ field, fieldState }) => (
                   <Field>
                     <FieldLabel>Availability to join</FieldLabel>
-                    <ToggleGroup value={field.value} onValueChange={field.onChange} type="single" variant="outline" aria-invalid={fieldState.invalid}>
+                    <ToggleGroup value={field.value} onValueChange={field.onChange} type="single" variant="outline">
                       {masterdata?.data?.availabilityType.map((item: any) => (
-                        <ToggleGroupItem value={item.id} key={item.id}>
+                        <ToggleGroupItem value={item.id} key={item.id} aria-invalid={fieldState.invalid}>
                           {item.name}
                         </ToggleGroupItem>
                       ))}
@@ -205,12 +213,21 @@ export function _Form({ input, masterdata, openDialog, setOpenDialog, onSave, on
               <Button variant="outline">Cancel</Button>
             </DialogClose>
             {type == "create" && (
-              <Button disabled={!form?.formState?.isDirty} onClick={() => onSave(form.getValues())}>
+              <Button
+                disabled={!form?.formState?.isDirty || !form?.formState?.isValid}
+                onClick={() => {
+                  if (form.formState.isValid) {
+                    onSave(form.getValues());
+                  } else {
+                    form.trigger();
+                  }
+                }}
+              >
                 Save
               </Button>
             )}
             {type == "update" && (
-              <Button disabled={!form?.formState?.isDirty} onClick={() => onUpdate(form.getValues())}>
+              <Button disabled={!form?.formState?.isDirty || !form?.formState?.isValid} onClick={() => onUpdate(form.getValues())}>
                 Save
               </Button>
             )}

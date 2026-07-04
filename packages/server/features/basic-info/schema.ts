@@ -1,13 +1,13 @@
 import * as z from "zod";
 
 const base = {
-  experienceYearId: z.string(),
-  experienceMonthId: z.string(),
-  salaryBreakdownId: z.string(),
-  availabilityTypeId: z.string(),
-  salaryAmount: z.coerce.number(),
-  country: z.string(),
-  location: z.string(),
+  experienceYearId: z.string().nonempty("Experience year is required"),
+  experienceMonthId: z.string().nonempty("Experience month is required"),
+  salaryBreakdownId: z.string().nonempty("Salary breakdown is required"),
+  availabilityTypeId: z.string().nonempty("Availability type is required"),
+  salaryAmount: z.coerce.number().nonnegative("Salary amount must be a positive number"),
+  country: z.string().nonempty("Country is required"),
+  location: z.string().nonempty("Location is required"),
 };
 
 export const schema = {
