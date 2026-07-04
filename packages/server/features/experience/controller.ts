@@ -74,7 +74,7 @@ export const controller = {
     }
     try {
       let result = await service.delete(req.params.id);
-      res.status(204).json(result);
+      res.status(200).json(result);
     } catch (err) {
       return res.status(500).json({ errors: err });
     }

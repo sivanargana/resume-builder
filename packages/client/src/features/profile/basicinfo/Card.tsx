@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia } from "@/components/ui/empty";
 
 import { Briefcase, Calendar, Edit2, File, MapPin, Wallet } from "lucide-react";
+import { FEATURE } from "./constants";
 
 export function _Card({ input, setOpenDialog, setType }: any) {
   return (
@@ -24,7 +25,7 @@ export function _Card({ input, setOpenDialog, setType }: any) {
 
       <Card>
         <CardContent>
-          <div className="text-base font-bold mb-5">Basic Details</div>
+          <div className="text-base font-bold mb-5">{FEATURE}</div>
           {input?.basicDetails ? (
             <div className="flex flex-col gap-2 pt-3">
               <div className="flex items-center gap-2">

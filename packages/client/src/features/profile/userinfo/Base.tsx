@@ -26,11 +26,18 @@ export function Base() {
       update.mutate({ id: input?.user?.id, data });
     }
   };
-
+  const state = {
+    input,
+    openDialog,
+    setOpenDialog,
+    type,
+    setType,
+    onSave,
+  };
   return (
     <>
-      <_Form {...{ input, openDialog, setOpenDialog, type, setType, onSave }} />
-      <_Card {...{ input, openDialog, setOpenDialog, type, setType }} />
+      <_Form {...state} />
+      <_Card {...state} />
     </>
   );
 }

@@ -119,6 +119,7 @@ model User {
   mobile         String          @unique
   email          String          @unique
   password       String          @default("")
+  photo          String?
   createdAt      DateTime        @default(now())
   updatedAt      DateTime        @updatedAt
   // @Relations
@@ -142,7 +143,6 @@ model BasicDetails {
   experienceMonthId  String
   salaryBreakdownId  String
   availabilityTypeId String
-  photo              String?
   salaryAmount       Int
   country            String
   location           String

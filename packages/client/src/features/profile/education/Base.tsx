@@ -48,8 +48,6 @@ export function Base() {
     remove.mutate(selected?.id);
   };
 
-  console.log("input", input);
-
   const state = {
     input,
     openDialog,

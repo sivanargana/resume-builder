@@ -6,7 +6,6 @@ const base = {
   salaryBreakdownId: z.string(),
   availabilityTypeId: z.string(),
   salaryAmount: z.coerce.number(),
-  photo: z.string(),
   country: z.string(),
   location: z.string(),
 };

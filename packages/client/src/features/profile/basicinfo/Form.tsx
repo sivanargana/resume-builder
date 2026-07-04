@@ -10,17 +10,18 @@ import { Button } from "@/components/ui/button";
 import { useEffect } from "react";
 import { Trash } from "lucide-react";
 import { useContent } from "@/components/ContentProvider";
+import { FEATURE } from "./constants";
+import type { CreateRequest } from "./types";
 
 export function _Form({ input, openDialog, setOpenDialog, onSave, onDelete, type }: any) {
   const { masterdata }: any = useContent();
 
-  const defaultValues = {
+  const defaultValues: CreateRequest["data"] = {
     experienceYearId: "",
     experienceMonthId: "",
     salaryBreakdownId: "",
     availabilityTypeId: "",
     salaryAmount: "",
-    photo: "",
     country: "",
     location: "",
   };
@@ -39,7 +40,6 @@ export function _Form({ input, openDialog, setOpenDialog, onSave, onDelete, type
         salaryBreakdownId: input?.basicDetails?.salaryBreakdown.id,
         availabilityTypeId: input?.basicDetails?.availabilityType.id,
         salaryAmount: input?.basicDetails?.salaryAmount,
-        photo: input?.basicDetails?.photo,
         country: input?.basicDetails?.country,
         location: input?.basicDetails?.location,
       });
@@ -51,7 +51,7 @@ export function _Form({ input, openDialog, setOpenDialog, onSave, onDelete, type
       <Dialog open={openDialog} onOpenChange={setOpenDialog}>
         <DialogContent className="min-w-150">
           <DialogHeader>
-            <DialogTitle>Basic Details</DialogTitle>
+            <DialogTitle>{FEATURE}</DialogTitle>
           </DialogHeader>
 
           <FieldSet>

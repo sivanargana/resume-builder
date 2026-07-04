@@ -1,9 +1,8 @@
 import { _Form } from "./Form";
 import { _Card } from "./Card";
-import { api } from "@/axios";
-import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { useProfile } from "../Root";
+import { useCrud } from "./hooks";
 
 export function Base() {
   const { data: input }: any = useProfile();
@@ -11,47 +10,35 @@ export function Base() {
   const [type, setType] = useState<any>(null);
   const [openDialog, setOpenDialog] = useState(false);
 
-  const queryClient = useQueryClient();
-
-  const create: any = useMutation({
-    mutationFn: (obj) => api.post(`basic-info`, obj),
-    onSuccess: () => {
-      queryClient.refetchQueries({ queryKey: ["profile"] });
-      setOpenDialog(false);
-    },
-  });
-  const update: any = useMutation({
-    mutationFn: ({ data, id }: any) => api.put(`basic-info/${id}`, data),
-    onSuccess: () => {
-      queryClient.refetchQueries({ queryKey: ["profile"] });
-      setOpenDialog(false);
-    },
-  });
-  const remove: any = useMutation({
-    mutationFn: (id) => api.delete(`basic-info/${id}`),
-    onSuccess: () => {
-      queryClient.refetchQueries({ queryKey: ["profile"] });
-      setOpenDialog(false);
-    },
-  });
+  const { create, update, remove } = useCrud();
 
   const onSave = (data: any) => {
     if (type == "create") {
-      create.mutate(data);
+      create.mutate({ data }, { onSuccess: () => setOpenDialog(false) });
     }
 
     if (type == "update") {
-      update.mutate({ id: input?.basicDetails?.id, data });
+      update.mutate({ id: input?.basicDetails?.id, data }, { onSuccess: () => setOpenDialog(false) });
     }
   };
   const onDelete = (id: any) => {
-    remove.mutate(id);
+    remove.mutate({ id }, { onSuccess: () => setOpenDialog(false) });
+  };
+
+  const state = {
+    input,
+    openDialog,
+    setOpenDialog,
+    type,
+    setType,
+    onSave,
+    onDelete,
   };
 
   return (
     <>
-      <_Form {...{ input, openDialog, setOpenDialog, type, setType, onSave, onDelete }} />
-      <_Card {...{ input, openDialog, setOpenDialog, type, setType }} />
+      <_Form {...state} />
+      <_Card {...state} />
     </>
   );
 }

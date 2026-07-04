@@ -26,7 +26,7 @@ export function _Card({ input, setOpenDialog, setType, setSelected }: any) {
           {input?.userLanguages.length > 0 ? (
             <>
               <div className="grid grid-cols-1">
-                <div className="grid grid-cols-6 border-b text-current/50">
+                <div className="grid grid-cols-6 border-b text-current/50 py-2">
                   <div>Language</div>
                   <div>Proficiency</div>
                   <div>Read</div>
@@ -38,9 +38,9 @@ export function _Card({ input, setOpenDialog, setType, setSelected }: any) {
                   <div className="grid grid-cols-6 items-center py-2" key={item?.language?.id}>
                     <div>{item?.language?.name}</div>
                     <div>{item?.proficiency?.name}</div>
-                    <div>{item?.read ? <CheckCircle size={16} /> : <CircleX size={16} />}</div>
-                    <div>{item?.write ? <CheckCircle size={16} /> : <CircleX size={16} />}</div>
-                    <div>{item?.speak ? <CheckCircle size={16} /> : <CircleX size={16} />}</div>
+                    <div>{item?.read ? <CheckCircle size={16} className="text-green-500" /> : <CircleX size={16} className="text-red-500" />}</div>
+                    <div>{item?.write ? <CheckCircle size={16} className="text-green-500" /> : <CircleX size={16} className="text-red-500" />}</div>
+                    <div>{item?.speak ? <CheckCircle size={16} className="text-green-500" /> : <CircleX size={16} className="text-red-500" />}</div>
                     <div>
                       <Button
                         size="icon-sm"

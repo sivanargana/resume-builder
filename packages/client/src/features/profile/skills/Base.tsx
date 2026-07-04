@@ -48,11 +48,19 @@ export function Base() {
   const onDelete = (id: any) => {
     remove.mutate(id);
   };
-
+  const state = {
+    input,
+    openDialog,
+    setOpenDialog,
+    type,
+    setType,
+    onSave,
+    onDelete,
+  };
   return (
     <>
-      <_Form {...{ input, openDialog, setOpenDialog, type, setType, onSave, onDelete }} />
-      <_Card {...{ input, openDialog, setOpenDialog, type, setType }} />
+      <_Form {...state} />
+      <_Card {...state} />
     </>
   );
 }
