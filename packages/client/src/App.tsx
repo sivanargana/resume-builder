@@ -40,7 +40,7 @@ const router = createBrowserRouter([
       {
         path: "account",
         Component: lazy(() => import("./features/layouts/AccountLayout")),
-        loader: AuthGuard,
+        loader: () => AuthGuard("USER"),
         children: [
           {
             element: <div>dashboard</div>,
@@ -61,7 +61,7 @@ const router = createBrowserRouter([
   {
     path: "/admin",
     Component: lazy(() => import("./features/layouts/AdminLayout")),
-    loader: AuthGuard,
+    loader: () => AuthGuard("ADMIN"),
     children: [
       {
         element: <div>dashboard</div>,
@@ -72,6 +72,14 @@ const router = createBrowserRouter([
         element: <div>users</div>,
       },
     ],
+  },
+  {
+    path: "unauthorized",
+    element: <>Unauthorized!</>,
+  },
+  {
+    path: "*",
+    element: <>404!</>,
   },
 ]);
 
