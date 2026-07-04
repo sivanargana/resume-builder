@@ -8,6 +8,7 @@ const base = {
   salaryAmount: z.string().nonempty("Salary amount must be a positive number"),
   country: z.string().nonempty("Country is required"),
   location: z.string().nonempty("Location is required"),
+  workStatusId: z.string().nonempty("workStatus is required"),
 };
 
 export const schema = {

@@ -1,11 +1,11 @@
 import * as z from "zod";
 const id = { id: z.string() };
 const base = {
-  fullName: z.string(),
+  firstName: z.string(),
+  lastName: z.string(),
   mobile: z.string(),
   email: z.string().email(),
   password: z.string().min(6),
-  workStatusId: z.string(),
 };
 const { password, ...update } = base;
 

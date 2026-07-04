@@ -6,6 +6,7 @@ interface Base {
   salaryAmount: string;
   country: string;
   location: string;
+  workStatusId: string;
 }
 
 export type CreateRequest = {

@@ -9,6 +9,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useGoogleLogin } from "@react-oauth/google";
 
 import { api } from "@/axios";
+import axios from "axios";
 
 type LoginFormValues = {
   email: string;
@@ -17,30 +18,16 @@ type LoginFormValues = {
 
 export function Login({ className, ...props }: React.ComponentProps<"div">) {
   let navigate = useNavigate();
-  const mutation = useMutation({
+  const loginWithEmail = useMutation({
     mutationFn: (obj) => api.post("auth/login", obj),
     onSuccess: (data) => {
-      localStorage.setItem("token", data?.data?.token);
-      localStorage.setItem("role", data?.data?.role);
-      if (localStorage.getItem("role") == "USER") {
-        navigate("/account/profile");
-      }
-      if (localStorage.getItem("role") == "ADMIN") {
-        navigate("/admin");
-      }
+      afterLogin(data);
     },
   });
   const loginWithGoogle = useMutation({
     mutationFn: (obj) => api.post("auth/login-with-google", obj),
-    onSuccess: (data) => {
-      localStorage.setItem("token", data?.data?.token);
-      localStorage.setItem("role", data?.data?.role);
-      if (localStorage.getItem("role") == "USER") {
-        navigate("/account/profile");
-      }
-      if (localStorage.getItem("role") == "ADMIN") {
-        navigate("/admin");
-      }
+    onSuccess: (data: any) => {
+      afterLogin(data);
     },
   });
 
@@ -51,14 +38,28 @@ export function Login({ className, ...props }: React.ComponentProps<"div">) {
     },
   });
 
+  const afterLogin = (data: any) => {
+    localStorage.setItem("token", data?.data?.token);
+    localStorage.setItem("role", data?.data?.role);
+    if (localStorage.getItem("role") == "USER") {
+      navigate("/account/profile");
+    }
+    if (localStorage.getItem("role") == "ADMIN") {
+      navigate("/admin");
+    }
+  };
+
   const onSubmit = form.handleSubmit((values: any) => {
-    mutation.mutate(values);
+    loginWithEmail.mutate({ provider: "EMAIL", ...values });
   });
   const login = useGoogleLogin({
-    onSuccess: (response) => {
-      loginWithGoogle.mutate({ accessToken: response.access_token } as any);
+    onSuccess: (response: any) => {
+      axios.get("https://www.googleapis.com/oauth2/v3/userinfo", { headers: { Authorization: `Bearer ${response.access_token}` } }).then((data) => {
+        loginWithGoogle.mutate({ provider: "GOOGLE", ...data.data } as any);
+      });
     },
   });
+
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>

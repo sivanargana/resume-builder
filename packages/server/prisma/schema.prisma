@@ -26,13 +26,19 @@ enum Role {
   ADMIN
 }
 
+enum Provider {
+  EMAIL
+  GOOGLE
+}
+
 model WorkStatus {
   id        String   @id @default(uuid())
   name      String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   // @Relations
-  users     User[]
+
+  basicDetails BasicDetails[]
 }
 
 model ExperienceYear {
@@ -118,17 +124,18 @@ model Language {
 }
 
 model User {
-  id             String          @id @default(uuid())
-  workStatusId   String?
-  fullName       String
-  mobile         String          @unique
-  email          String          @unique
-  role           Role            @default(USER)
-  password       String          @default("")
-  createdAt      DateTime        @default(now())
-  updatedAt      DateTime        @updatedAt
+  id        String   @id @default(uuid())
+  firstName String
+  lastName  String
+  mobile    String   @unique
+  email     String   @unique
+  role      Role     @default(USER)
+  password  String   @default("")
+  provider  Provider @default(EMAIL)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
   // @Relations
-  workStatus     WorkStatus?     @relation(fields: [workStatusId], references: [id])
+
   basicDetails   BasicDetails?
   headline       Headline?
   profileSummary ProfileSummary?
@@ -138,13 +145,12 @@ model User {
   education      Education[]
   projects       Project[]
   avtar          Avtar?
-
-  @@index([workStatusId])
 }
 
 model BasicDetails {
   id                 String           @id @default(uuid())
   userId             String           @unique
+  workStatusId       String?
   experienceYearId   String
   experienceMonthId  String
   salaryBreakdownId  String
@@ -160,6 +166,7 @@ model BasicDetails {
   experienceMonth    ExperienceMonth  @relation(fields: [experienceMonthId], references: [id])
   salaryBreakdown    SalaryBreakdown  @relation(fields: [salaryBreakdownId], references: [id])
   availabilityType   AvailabilityType @relation(fields: [availabilityTypeId], references: [id])
+  workStatus         WorkStatus?      @relation(fields: [workStatusId], references: [id])
 
   @@index([experienceYearId])
   @@index([experienceMonthId])

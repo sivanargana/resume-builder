@@ -36,8 +36,8 @@ export const controller = {
   },
   async loginWithGoogle(req: Request, res: Response) {
     try {
-      let googleUser: any = await fetch("https://www.googleapis.com/oauth2/v3/userinfo", { headers: { Authorization: `Bearer ${req.body?.accessToken}` } }).then((res) => res.json());
-      const result = await service.login({ email: googleUser.email });
+      console.log(req.body);
+      const result = await service.login({ email: req.body.email });
       if (!result) {
         return res.status(404).json({ errors: "User Not Found" });
       }
