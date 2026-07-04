@@ -7,8 +7,9 @@ import { Controller, useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { useEffect } from "react";
 import { useContent } from "@/components/ContentProvider";
+import { FEATURE } from "./constants";
 
-export function _Form({ input, openDialog, setOpenDialog, onSave, onDelete, type }: any) {
+export function _Form({ input, openDialog, setOpenDialog, onUpdate, type }: any) {
   const { masterdata }: any = useContent();
 
   const defaultValues = {
@@ -40,7 +41,7 @@ export function _Form({ input, openDialog, setOpenDialog, onSave, onDelete, type
       <Dialog open={openDialog} onOpenChange={setOpenDialog}>
         <DialogContent className="min-w-150">
           <DialogHeader>
-            <DialogTitle>Basic Details</DialogTitle>
+            <DialogTitle>{FEATURE}</DialogTitle>
           </DialogHeader>
 
           <FieldSet>
@@ -102,7 +103,7 @@ export function _Form({ input, openDialog, setOpenDialog, onSave, onDelete, type
             <DialogClose asChild>
               <Button variant="outline">Cancel</Button>
             </DialogClose>
-            <Button disabled={!form?.formState?.isDirty} onClick={() => onSave(form.getValues())}>
+            <Button disabled={!form?.formState?.isDirty} onClick={() => onUpdate(form.getValues())}>
               Save
             </Button>
           </DialogFooter>

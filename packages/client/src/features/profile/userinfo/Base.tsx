@@ -1,39 +1,30 @@
 import { _Form } from "./Form";
 import { _Card } from "./Card";
-import { api } from "@/axios";
-import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { useProfile } from "../Root";
+import { useCrud } from "./hooks";
 
 export function Base() {
   const { data: input }: any = useProfile();
-
   const [type, setType] = useState<any>(null);
   const [openDialog, setOpenDialog] = useState(false);
+  const { update } = useCrud();
 
-  const queryClient = useQueryClient();
-
-  const update: any = useMutation({
-    mutationFn: ({ data, id }: any) => api.patch(`users/${id}`, data),
-    onSuccess: () => {
-      queryClient.refetchQueries({ queryKey: ["profile"] });
-      setOpenDialog(false);
-    },
-  });
-
-  const onSave = (data: any) => {
+  const onUpdate = (data: any) => {
     if (type == "update") {
-      update.mutate({ id: input?.user?.id, data });
+      update.mutate({ id: input?.user?.id, data }, { onSuccess: () => setOpenDialog(false) });
     }
   };
+
   const state = {
     input,
     openDialog,
     setOpenDialog,
     type,
     setType,
-    onSave,
+    onUpdate,
   };
+
   return (
     <>
       <_Form {...state} />

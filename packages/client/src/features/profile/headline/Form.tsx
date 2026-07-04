@@ -5,8 +5,9 @@ import { Controller, useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { useEffect } from "react";
 import { Trash } from "lucide-react";
+import { FEATURE } from "./constants";
 
-export function _Form({ input, openDialog, setOpenDialog, onSave, onDelete, type }: any) {
+export function _Form({ input, openDialog, setOpenDialog, onSave, onUpdate, onDelete, type }: any) {
   const defaultValues = {
     value: "",
   };
@@ -36,7 +37,7 @@ export function _Form({ input, openDialog, setOpenDialog, onSave, onDelete, type
                 control={form.control}
                 render={({ field, fieldState }) => (
                   <Field>
-                    <FieldLabel htmlFor={field.name}>Headline</FieldLabel>
+                    <FieldLabel htmlFor={field.name}>{FEATURE}</FieldLabel>
                     <Input {...field} id={field.name} aria-invalid={fieldState.invalid} />
                   </Field>
                 )}
@@ -52,9 +53,16 @@ export function _Form({ input, openDialog, setOpenDialog, onSave, onDelete, type
             <DialogClose asChild>
               <Button variant="outline">Cancel</Button>
             </DialogClose>
-            <Button disabled={!form?.formState?.isDirty} onClick={() => onSave(form.getValues())}>
-              Save
-            </Button>
+            {type == "create" && (
+              <Button disabled={!form?.formState?.isDirty} onClick={() => onSave(form.getValues())}>
+                Save
+              </Button>
+            )}
+            {type == "update" && (
+              <Button disabled={!form?.formState?.isDirty} onClick={() => onUpdate(form.getValues())}>
+                Save
+              </Button>
+            )}
           </DialogFooter>
         </DialogContent>
       </Dialog>

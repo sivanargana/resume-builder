@@ -9,7 +9,7 @@ import { useContent } from "@/components/ContentProvider";
 import { Badge } from "@/components/ui/badge";
 import { X } from "lucide-react";
 
-export function _Form({ input, openDialog, setOpenDialog, onSave, onDelete, type }: any) {
+export function _Form({ input, openDialog, setOpenDialog, onSave }: any) {
   const { masterdata }: any = useContent();
   const [skills, setSkills] = useState<any>([]);
 

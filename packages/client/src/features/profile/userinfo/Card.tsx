@@ -2,13 +2,14 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia } from "@/components/ui/empty";
 import { Calendar, Edit2, File, Mail, Phone } from "lucide-react";
+import { FEATURE } from "./constants";
 export function _Card({ input, setOpenDialog, setType }: any) {
   return (
     <div className="relative">
       {input?.basicDetails && (
         <div className="absolute top-2 right-2">
           <Button
-            size="icon"
+            size="icon-sm"
             variant="outline"
             onClick={() => {
               setType("update");
@@ -22,7 +23,7 @@ export function _Card({ input, setOpenDialog, setType }: any) {
 
       <Card>
         <CardContent>
-          <div className="text-base font-bold mb-5">User Details</div>
+          <div className="text-base font-bold mb-5">{FEATURE}</div>
           {input?.user ? (
             <div className="flex gap-5 items-center">
               <div className="flex-none">

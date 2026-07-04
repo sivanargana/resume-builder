@@ -10,8 +10,9 @@ import { Trash } from "lucide-react";
 import { useContent } from "@/components/ContentProvider";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { FEATURE } from "./constants";
 
-export function _Form({ openDialog, setOpenDialog, onSave, onDelete, type, selected }: any) {
+export function _Form({ openDialog, setOpenDialog, onSave, onUpdate, onDelete, type, selected }: any) {
   const { masterdata, years }: any = useContent();
   const defaultValues: any & {
     isCurrentEmployment: string;
@@ -51,7 +52,7 @@ export function _Form({ openDialog, setOpenDialog, onSave, onDelete, type, selec
       <Dialog open={openDialog} onOpenChange={setOpenDialog}>
         <DialogContent className="min-w-150">
           <DialogHeader>
-            <DialogTitle>Experience</DialogTitle>
+            <DialogTitle>{FEATURE}</DialogTitle>
           </DialogHeader>
 
           <FieldSet>
@@ -183,9 +184,16 @@ export function _Form({ openDialog, setOpenDialog, onSave, onDelete, type, selec
             <DialogClose asChild>
               <Button variant="outline">Cancel</Button>
             </DialogClose>
-            <Button disabled={!form?.formState?.isDirty} onClick={() => onSave(form.getValues())}>
-              Save
-            </Button>
+            {type == "create" && (
+              <Button disabled={!form?.formState?.isDirty} onClick={() => onSave(form.getValues())}>
+                Save
+              </Button>
+            )}
+            {type == "update" && (
+              <Button disabled={!form?.formState?.isDirty} onClick={() => onUpdate(form.getValues())}>
+                Save
+              </Button>
+            )}
           </DialogFooter>
         </DialogContent>
       </Dialog>

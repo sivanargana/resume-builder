@@ -11,7 +11,7 @@ export function _Card({ input, setOpenDialog, setType }: any) {
       {input?.userSkills.length > 0 && (
         <div className="absolute top-2 right-2">
           <Button
-            size="icon"
+            size="icon-sm"
             variant="outline"
             onClick={() => {
               setType("update");

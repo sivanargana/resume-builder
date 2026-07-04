@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 
 import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia } from "@/components/ui/empty";
 import { Edit2, File } from "lucide-react";
+import { FEATURE } from "./constants";
 
 export function _Card({ input, setOpenDialog, setType, setSelected }: any) {
   return (
@@ -22,7 +23,7 @@ export function _Card({ input, setOpenDialog, setType, setSelected }: any) {
 
       <Card>
         <CardContent>
-          <div className="text-base font-bold mb-5">projects</div>
+          <div className="text-base font-bold mb-5">{FEATURE}</div>
           {input?.projects.length > 0 ? (
             <>
               <div className="grid grid-cols-2 gap-5">
@@ -30,7 +31,7 @@ export function _Card({ input, setOpenDialog, setType, setSelected }: any) {
                   <div className="relative" key={item?.id}>
                     <div className="absolute top-2 right-2">
                       <Button
-                        size="icon"
+                        size="icon-sm"
                         variant="outline"
                         onClick={() => {
                           setSelected(item);

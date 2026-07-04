@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 
 import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia } from "@/components/ui/empty";
 import { CheckCircle, CircleX, Edit2, File } from "lucide-react";
+import { FEATURE } from "./constants";
 
 export function _Card({ input, setOpenDialog, setType, setSelected }: any) {
   return (
@@ -22,7 +23,7 @@ export function _Card({ input, setOpenDialog, setType, setSelected }: any) {
 
       <Card>
         <CardContent>
-          <div className="text-base font-bold mb-5">userLanguages</div>
+          <div className="text-base font-bold mb-5">{FEATURE}</div>
           {input?.userLanguages.length > 0 ? (
             <>
               <div className="grid grid-cols-1">

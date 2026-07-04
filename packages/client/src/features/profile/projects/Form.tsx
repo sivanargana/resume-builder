@@ -10,8 +10,9 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectVa
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { FEATURE } from "./constants";
 
-export function _Form({ openDialog, setOpenDialog, onSave, onDelete, type, selected }: any) {
+export function _Form({ openDialog, setOpenDialog, onSave, onUpdate, onDelete, type, selected }: any) {
   const { masterdata, years, team }: any = useContent();
   const defaultValues: any & {
     isCurrentEmployment: string;
@@ -49,7 +50,7 @@ export function _Form({ openDialog, setOpenDialog, onSave, onDelete, type, selec
       <Dialog open={openDialog} onOpenChange={setOpenDialog}>
         <DialogContent className="min-w-150">
           <DialogHeader>
-            <DialogTitle>Project</DialogTitle>
+            <DialogTitle>{FEATURE}</DialogTitle>
           </DialogHeader>
 
           <div className="-mx-4 no-scrollbar max-h-[50vh] overflow-y-auto px-4">
@@ -263,9 +264,16 @@ export function _Form({ openDialog, setOpenDialog, onSave, onDelete, type, selec
             <DialogClose asChild>
               <Button variant="outline">Cancel</Button>
             </DialogClose>
-            <Button disabled={!form?.formState?.isDirty} onClick={() => onSave(form.getValues())}>
-              Save
-            </Button>
+            {type == "create" && (
+              <Button disabled={!form?.formState?.isDirty} onClick={() => onSave(form.getValues())}>
+                Save
+              </Button>
+            )}
+            {type == "update" && (
+              <Button disabled={!form?.formState?.isDirty} onClick={() => onUpdate(form.getValues())}>
+                Save
+              </Button>
+            )}
           </DialogFooter>
         </DialogContent>
       </Dialog>

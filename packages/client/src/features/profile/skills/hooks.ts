@@ -1,0 +1,17 @@
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { API } from "./api";
+
+export function useCrud() {
+  const queryClient = useQueryClient();
+
+  const invalidate = () => queryClient.invalidateQueries({ queryKey: ["profile"] });
+
+  const create = useMutation({
+    mutationFn: API.create,
+    onSuccess: invalidate,
+  });
+
+  return {
+    create,
+  };
+}

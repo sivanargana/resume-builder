@@ -1,55 +1,35 @@
 import { _Form } from "./Form";
 import { _Card } from "./Card";
-import { api } from "@/axios";
-import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { useProfile } from "../Root";
+import { useCrud } from "./hooks";
+import { useContent } from "@/components/ContentProvider";
 
 export function Base() {
   const { data: input }: any = useProfile();
   const [type, setType] = useState<any>(null);
   const [selected, setSelected] = useState<any>(null);
   const [openDialog, setOpenDialog] = useState(false);
-
-  const queryClient = useQueryClient();
-
-  const create: any = useMutation({
-    mutationFn: (obj) => api.post(`project`, obj),
-    onSuccess: () => {
-      queryClient.refetchQueries({ queryKey: ["profile"] });
-      setOpenDialog(false);
-    },
-  });
-  const update: any = useMutation({
-    mutationFn: ({ data, id }: any) => api.put(`project/${id}`, data),
-    onSuccess: () => {
-      queryClient.refetchQueries({ queryKey: ["profile"] });
-      setOpenDialog(false);
-    },
-  });
-  const remove: any = useMutation({
-    mutationFn: (id) => api.delete(`project/${id}`),
-    onSuccess: () => {
-      queryClient.refetchQueries({ queryKey: ["profile"] });
-      setOpenDialog(false);
-    },
-  });
+  const { create, update, remove } = useCrud();
+  const { masterdata }: any = useContent();
 
   const onSave = (data: any) => {
     if (type == "create") {
-      create.mutate(data);
-    }
-
-    if (type == "update") {
-      update.mutate({ id: selected?.id, data });
+      create.mutate({ data }, { onSuccess: () => setOpenDialog(false) });
     }
   };
-  const onDelete = () => {
-    remove.mutate(selected?.id);
+  const onUpdate = (data: any) => {
+    if (type == "update") {
+      update.mutate({ id: selected?.id, data }, { onSuccess: () => setOpenDialog(false) });
+    }
+  };
+  const onDelete = (id: any) => {
+    remove.mutate({ id }, { onSuccess: () => setOpenDialog(false) });
   };
 
   const state = {
     input,
+    masterdata,
     openDialog,
     setOpenDialog,
     type,
@@ -57,6 +37,7 @@ export function Base() {
     selected,
     setSelected,
     onSave,
+    onUpdate,
     onDelete,
   };
 
