@@ -38,14 +38,7 @@ export function _Form({ input, openDialog, setOpenDialog, onSave, onUpdate, onDe
             <DialogTitle> {FEATURE} </DialogTitle>
           </DialogHeader>
 
-          <div
-            className="size-20 bg-gray-300 rounded-full overflow-clip mx-auto"
-            onClick={() => {
-              setOpenDialog(true);
-            }}
-          >
-            {TempImage && <img className="size-full object-cover" src={TempImage} />}
-          </div>
+          <div className="size-30 bg-gray-300 rounded-full overflow-clip mx-auto">{TempImage && <img className="size-full object-cover" src={TempImage} />}</div>
 
           <input type="file" ref={inputRef} hidden onChange={onChange} accept="jpg,png,svg,gif,jpeg" />
 

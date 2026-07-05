@@ -10,6 +10,7 @@ import { useGoogleLogin } from "@react-oauth/google";
 
 import { api } from "@/axios";
 import axios from "axios";
+import { toast } from "sonner";
 
 type LoginFormValues = {
   email: string;
@@ -19,7 +20,7 @@ type LoginFormValues = {
 export function Login({ className, ...props }: React.ComponentProps<"div">) {
   let navigate = useNavigate();
   const loginWithEmail = useMutation({
-    mutationFn: (obj) => api.post("auth/login", obj),
+    mutationFn: (obj) => api.post("auth/login-with-email", obj),
     onSuccess: (data) => {
       afterLogin(data);
     },
@@ -39,6 +40,7 @@ export function Login({ className, ...props }: React.ComponentProps<"div">) {
   });
 
   const afterLogin = (data: any) => {
+    toast.success("Logged In Successfully!");
     localStorage.setItem("token", data?.data?.token);
     localStorage.setItem("role", data?.data?.role);
     if (localStorage.getItem("role") == "USER") {
@@ -64,7 +66,7 @@ export function Login({ className, ...props }: React.ComponentProps<"div">) {
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
         <CardHeader>
-          <CardTitle className="text-3xl">Login</CardTitle>
+          <CardTitle className="text-3xl mb-4">Login</CardTitle>
         </CardHeader>
         <CardContent>
           <form onSubmit={onSubmit}>

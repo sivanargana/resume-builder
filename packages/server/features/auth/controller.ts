@@ -7,7 +7,16 @@ import bcrypt from "bcryptjs";
 
 export const controller = {
   // Login
-  async login(req: Request, res: Response) {
+  async registerWithEmail(req: Request, res: Response) {
+    req.body.password = await bcrypt.hash(req.body.password, 10);
+    let result = await service.register(req.body);
+    try {
+      res.status(201).json(result);
+    } catch (err) {
+      return res.status(500).json({ errors: err });
+    }
+  },
+  async loginWithEmail(req: Request, res: Response) {
     const response = schema.login.safeParse(req.body);
     if (!response.success) {
       return res.status(400).json({
@@ -36,10 +45,9 @@ export const controller = {
   },
   async loginWithGoogle(req: Request, res: Response) {
     try {
-      console.log(req.body);
-      const result = await service.login({ email: req.body.email });
+      let result = await service.login({ email: req.body.email });
       if (!result) {
-        return res.status(404).json({ errors: "User Not Found" });
+        result = await service.createUser(req.body);
       }
       let token = jwt.sign({ id: result.id, email: result.email }, process.env.JWT_SECRET_KEY ?? "");
       res.status(200).json({ token, role: result.role });

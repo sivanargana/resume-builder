@@ -1,8 +1,8 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia } from "@/components/ui/empty";
-import { Calendar, Edit2, File, Mail, Phone } from "lucide-react";
-import { FEATURE } from "./constants";
+import { Edit2, File, Mail, Phone } from "lucide-react";
+
 import { Avtar } from "../avtar";
 export function _Card({ input, setOpenDialog, setType }: any) {
   return (
@@ -34,10 +34,12 @@ export function _Card({ input, setOpenDialog, setType }: any) {
                   {input?.user?.firstName} {input?.user?.lastName}
                 </div>
                 <div className="flex gap-5 pt-3">
-                  <div className="flex items-center gap-2">
-                    <Phone size={18} />
-                    {input?.user?.mobile}
-                  </div>
+                  {input?.user?.mobile && (
+                    <div className="flex items-center gap-2">
+                      <Phone size={18} />
+                      {input?.user?.mobile}
+                    </div>
+                  )}
                   <div className="flex items-center gap-2">
                     <Mail size={18} />
                     {input?.user?.email}

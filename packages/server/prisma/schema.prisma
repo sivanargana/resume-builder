@@ -127,10 +127,11 @@ model User {
   id        String   @id @default(uuid())
   firstName String
   lastName  String
-  mobile    String   @unique
+  mobile    String   @default("")
   email     String   @unique
   role      Role     @default(USER)
   password  String   @default("")
+  picture   String?
   provider  Provider @default(EMAIL)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
