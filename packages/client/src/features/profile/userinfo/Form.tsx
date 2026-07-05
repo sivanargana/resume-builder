@@ -13,8 +13,8 @@ export function _Form({ input, openDialog, setOpenDialog, onUpdate, type }: any)
   const { masterdata }: any = useContent();
 
   const defaultValues = {
-    workStatusId: "",
-    fullName: "",
+    firstName: "",
+    lastName: "",
     mobile: "",
     email: "",
   };
@@ -28,8 +28,8 @@ export function _Form({ input, openDialog, setOpenDialog, onUpdate, type }: any)
     }
     if (type == "update") {
       form.reset({
-        workStatusId: input?.user?.workStatus.id,
-        fullName: input?.user?.fullName,
+        firstName: input?.user?.firstName,
+        lastName: input?.user?.lastName,
         mobile: input?.user?.mobile,
         email: input?.user?.email,
       });
@@ -46,60 +46,56 @@ export function _Form({ input, openDialog, setOpenDialog, onUpdate, type }: any)
 
           <FieldSet>
             <FieldGroup>
-              <Controller
-                name="fullName"
-                control={form.control}
-                rules={{ required: true }}
-                render={({ field, fieldState }) => (
-                  <Field>
-                    <FieldLabel htmlFor={field.name}>Name</FieldLabel>
-                    <Input {...field} id={field.name} aria-invalid={fieldState.invalid} />
-                  </Field>
-                )}
-              />
+              <div className="grid grid-cols-2 gap-4">
+                <Controller
+                  name="firstName"
+                  control={form.control}
+                  rules={{ required: true }}
+                  render={({ field, fieldState }) => (
+                    <Field>
+                      <FieldLabel htmlFor={field.name}>Name</FieldLabel>
+                      <Input {...field} id={field.name} aria-invalid={fieldState.invalid} />
+                    </Field>
+                  )}
+                />
+                <Controller
+                  name="lastName"
+                  control={form.control}
+                  rules={{ required: true }}
+                  render={({ field, fieldState }) => (
+                    <Field>
+                      <FieldLabel htmlFor={field.name}>Name</FieldLabel>
+                      <Input {...field} id={field.name} aria-invalid={fieldState.invalid} />
+                    </Field>
+                  )}
+                />
+              </div>
 
-              <Controller
-                name="workStatusId"
-                control={form.control}
-                rules={{ required: true }}
-                render={({ field, fieldState }) => (
-                  <Field>
-                    <FieldLabel>Work status</FieldLabel>
-                    <RadioGroup name={field.name} value={field.value} onValueChange={field.onChange} className="flex flex-col gap-2 w-fit">
-                      {masterdata?.data?.workStatus?.map((item: any) => (
-                        <div className="flex items-center gap-3" key={item.id}>
-                          <RadioGroupItem value={item.id} id={item.name} aria-invalid={fieldState.invalid} />
-                          <Label htmlFor={item.name}>{item.name}</Label>
-                        </div>
-                      ))}
-                    </RadioGroup>
-                  </Field>
-                )}
-              />
+              <div className="grid grid-cols-2 gap-4">
+                <Controller
+                  name="mobile"
+                  control={form.control}
+                  rules={{ required: true }}
+                  render={({ field, fieldState }) => (
+                    <Field>
+                      <FieldLabel htmlFor={field.name}>Mobile</FieldLabel>
+                      <Input {...field} id={field.name} aria-invalid={fieldState.invalid} />
+                    </Field>
+                  )}
+                />
 
-              <Controller
-                name="mobile"
-                control={form.control}
-                rules={{ required: true }}
-                render={({ field, fieldState }) => (
-                  <Field>
-                    <FieldLabel htmlFor={field.name}>Mobile</FieldLabel>
-                    <Input {...field} id={field.name} aria-invalid={fieldState.invalid} />
-                  </Field>
-                )}
-              />
-
-              <Controller
-                name="email"
-                control={form.control}
-                rules={{ required: true }}
-                render={({ field, fieldState }) => (
-                  <Field>
-                    <FieldLabel htmlFor={field.name}>Email</FieldLabel>
-                    <Input {...field} id={field.name} aria-invalid={fieldState.invalid} />
-                  </Field>
-                )}
-              />
+                <Controller
+                  name="email"
+                  control={form.control}
+                  rules={{ required: true }}
+                  render={({ field, fieldState }) => (
+                    <Field>
+                      <FieldLabel htmlFor={field.name}>Email</FieldLabel>
+                      <Input {...field} id={field.name} aria-invalid={fieldState.invalid} />
+                    </Field>
+                  )}
+                />
+              </div>
             </FieldGroup>
           </FieldSet>
           <DialogFooter>

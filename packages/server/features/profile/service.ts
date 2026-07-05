@@ -6,14 +6,15 @@ export const service = {
       where: { id: userId },
       select: {
         id: true,
-        fullName: true,
+        firstName: true,
+        lastName: true,
         mobile: true,
+        provider: true,
         email: true,
-        workStatus: true,
         avtar: true,
-
         basicDetails: {
           include: {
+            workStatus: true,
             experienceYear: true,
             experienceMonth: true,
             salaryBreakdown: true,
@@ -50,15 +51,16 @@ export const service = {
         },
       },
     });
-    const { id, fullName, mobile, email, workStatus, avtar, ...rest } = response;
+    const { id, firstName, lastName, mobile, email, provider, avtar, ...rest } = response;
 
     return {
       user: {
         id,
-        fullName,
+        firstName,
+        lastName,
         mobile,
         email,
-        workStatus,
+        provider,
         avtar,
       },
       ...rest,

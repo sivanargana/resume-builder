@@ -136,11 +136,11 @@ async function main() {
     where: { email: "alice@example.com" },
     update: {},
     create: {
-      fullName: "Alice Johnson",
+      firstName: "Alice",
+      lastName: "Johnson",
       mobile: "9000000001",
       email: "alice@example.com",
       password: hashedPassword,
-      workStatusId: workStatuses[0].id, // Actively Looking
     },
   });
 
@@ -148,29 +148,31 @@ async function main() {
     where: { email: "bob@example.com" },
     update: {},
     create: {
-      fullName: "Bob Smith",
+      firstName: "Bob",
+      lastName: "Smith",
       mobile: "9000000002",
       email: "bob@example.com",
       password: hashedPassword,
-      workStatusId: workStatuses[1].id, // Open to Offers
     },
   });
 
   console.log("✅ Users seeded");
 
   // ─── BasicDetails ─────────────────────────────────────────────────────────────
+  // NOTE: `photo` removed — there is no such field on BasicDetails; it now lives on Avtar.
+  // NOTE: `salaryAmount` is a String field on the schema, so both users use string values.
 
   await prisma.basicDetails.upsert({
     where: { userId: user1.id },
     update: {},
     create: {
       userId: user1.id,
+      workStatusId: workStatuses[0].id, // Actively Looking
       experienceYearId: experienceYears[3].id, // 3 Years
       experienceMonthId: experienceMonths[3].id, // 3 Months
       salaryBreakdownId: salaryBreakdowns[0].id, // Per Annum
       availabilityTypeId: availabilityTypes[1].id, // 15 Days
-      photo: "https://example.com/photos/alice.jpg",
-      salaryAmount: BigInt(1200000),
+      salaryAmount: "1200000",
       country: "India",
       location: "Hyderabad, Telangana",
     },
@@ -181,17 +183,32 @@ async function main() {
     update: {},
     create: {
       userId: user2.id,
+      workStatusId: workStatuses[1].id, // Open to Offers
       experienceYearId: experienceYears[5].id, // 10+ Years
       experienceMonthId: experienceMonths[0].id, // 0 Months
       salaryBreakdownId: salaryBreakdowns[0].id, // Per Annum
       availabilityTypeId: availabilityTypes[2].id, // 30 Days
-      salaryAmount: BigInt(2500000),
+      salaryAmount: "2500000",
       country: "India",
       location: "Bangalore, Karnataka",
     },
   });
 
   console.log("✅ BasicDetails seeded");
+
+  // ─── Avtar (profile photo) ─────────────────────────────────────────────────────
+  // NOTE: added — this is where the photo URLs belong per the schema.
+
+  await prisma.avtar.upsert({
+    where: { userId: user1.id },
+    update: {},
+    create: {
+      userId: user1.id,
+      url: "https://example.com/photos/alice.jpg",
+    },
+  });
+
+  console.log("✅ Avtar seeded");
 
   // ─── Headline ─────────────────────────────────────────────────────────────────
 
@@ -304,6 +321,7 @@ async function main() {
   console.log("✅ UserLanguages seeded");
 
   // ─── Education ────────────────────────────────────────────────────────────────
+  // NOTE: startYear/endYear are String? on the schema, so values are quoted.
 
   await prisma.education.createMany({
     data: [
@@ -313,8 +331,8 @@ async function main() {
         university: "Osmania University",
         course: "Bachelor of Engineering",
         specialization: "Computer Science",
-        startYear: 2017,
-        endYear: 2021,
+        startYear: "2017",
+        endYear: "2021",
         gradeSystem: "CGPA",
         marks: "8.5",
       },
@@ -324,8 +342,8 @@ async function main() {
         university: "Anna University",
         course: "B.Tech",
         specialization: "Information Technology",
-        startYear: 2009,
-        endYear: 2013,
+        startYear: "2009",
+        endYear: "2013",
         gradeSystem: "CGPA",
         marks: "9.1",
       },
@@ -335,8 +353,8 @@ async function main() {
         university: "IIT Madras",
         course: "M.Tech",
         specialization: "Software Systems",
-        startYear: 2013,
-        endYear: 2015,
+        startYear: "2013",
+        endYear: "2015",
         gradeSystem: "CGPA",
         marks: "9.4",
       },
@@ -346,49 +364,39 @@ async function main() {
   console.log("✅ Education seeded");
 
   // ─── Experience ───────────────────────────────────────────────────────────────
+  // NOTE: removed availabilityTypeId, department, location, monthlyStipend,
+  // currentSalary, totalExperience — none of these fields exist on Experience.
+  // NOTE: joiningDate/workedTill are String? on the schema, so values are quoted
+  // instead of Date objects.
 
   await prisma.experience.createMany({
     data: [
       {
         userId: user1.id,
         employmentTypeId: employmentTypes[4].id, // Internship
-        availabilityTypeId: availabilityTypes[0].id, // Immediate
         isCurrentEmployment: false,
         companyName: "StartupXYZ",
         jobTitle: "Frontend Intern",
-        department: "Engineering",
-        location: "Hyderabad",
-        joiningDate: new Date("2020-06-01"),
-        workedTill: new Date("2020-12-01"),
-        monthlyStipend: BigInt(15000),
+        joiningDate: "2020-06-01",
+        workedTill: "2020-12-01",
         jobProfile: "Built responsive UI components using React and integrated REST APIs.",
       },
       {
         userId: user1.id,
         employmentTypeId: employmentTypes[0].id, // Full-Time
-        availabilityTypeId: availabilityTypes[1].id, // 15 Days
         isCurrentEmployment: true,
         companyName: "TechCorp Pvt Ltd",
         jobTitle: "Full Stack Developer",
-        department: "Product",
-        location: "Hyderabad",
-        joiningDate: new Date("2021-07-01"),
-        currentSalary: BigInt(1200000),
-        totalExperience: 36,
+        joiningDate: "2021-07-01",
         jobProfile: "Developing and maintaining full stack features using React, Node.js, and PostgreSQL.",
       },
       {
         userId: user2.id,
         employmentTypeId: employmentTypes[0].id, // Full-Time
-        availabilityTypeId: availabilityTypes[2].id, // 30 Days
         isCurrentEmployment: true,
         companyName: "GlobalFintech Inc",
         jobTitle: "Senior Software Engineer",
-        department: "Platform",
-        location: "Bangalore",
-        joiningDate: new Date("2018-03-01"),
-        currentSalary: BigInt(2500000),
-        totalExperience: 120,
+        joiningDate: "2018-03-01",
         jobProfile: "Architecting microservices on AWS, leading a team of 8 engineers, and driving platform reliability initiatives.",
       },
     ],
@@ -397,6 +405,9 @@ async function main() {
   console.log("✅ Experience seeded");
 
   // ─── Projects ─────────────────────────────────────────────────────────────────
+  // NOTE: `type` is a relation to EmploymentType backed by the `employmentTypeId`
+  // scalar, so it's set via employmentTypeId rather than a free-text string.
+  // NOTE: teamSize/startYear/endYear are String? on the schema, so values are quoted.
 
   await prisma.project.createMany({
     data: [
@@ -405,13 +416,13 @@ async function main() {
         title: "E-Commerce Platform",
         client: "RetailCo",
         status: "COMPLETED",
-        startYear: 2022,
-        endYear: 2022,
+        startYear: "2022",
+        endYear: "2022",
         details: "Built a full-featured e-commerce platform with product listings, cart, and payment integration.",
         location: "Hyderabad",
         site: "https://retailco.example.com",
-        type: "Web Application",
-        teamSize: 4,
+        employmentTypeId: employmentTypes[0].id, // Full-Time
+        teamSize: "4",
         role: "Full Stack Developer",
         roleDescription: "Led frontend development and integrated Stripe payment gateway.",
         skillsUsed: "React, Node.js, PostgreSQL, Stripe",
@@ -420,10 +431,10 @@ async function main() {
         userId: user1.id,
         title: "Task Management Tool",
         status: "INPROGRESS",
-        startYear: 2023,
+        startYear: "2023",
         details: "Internal tool for task tracking and team collaboration.",
-        type: "Web Application",
-        teamSize: 2,
+        employmentTypeId: employmentTypes[1].id, // Part-Time
+        teamSize: "2",
         role: "Backend Developer",
         roleDescription: "Designed REST API and database schema using Prisma ORM.",
         skillsUsed: "Node.js, Prisma, PostgreSQL, TypeScript",
@@ -433,11 +444,11 @@ async function main() {
         title: "Payment Gateway Microservice",
         client: "BankCorp",
         status: "COMPLETED",
-        startYear: 2019,
-        endYear: 2020,
+        startYear: "2019",
+        endYear: "2020",
         details: "Designed and deployed a high-availability payment processing microservice handling 10k TPS.",
-        type: "Microservice",
-        teamSize: 6,
+        employmentTypeId: employmentTypes[0].id, // Full-Time
+        teamSize: "6",
         role: "Tech Lead",
         roleDescription: "Owned architecture decisions, CI/CD pipelines, and AWS infrastructure provisioning.",
         skillsUsed: "Python, AWS, Docker, PostgreSQL, Kafka",

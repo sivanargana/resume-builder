@@ -14,6 +14,7 @@ import type { CreateRequest } from "./types";
 
 export function _Form({ input, masterdata, openDialog, setOpenDialog, onSave, onUpdate, onDelete, type }: any) {
   const defaultValues: CreateRequest["data"] = {
+    workStatusId: "",
     experienceYearId: "",
     experienceMonthId: "",
     salaryBreakdownId: "",
@@ -33,6 +34,7 @@ export function _Form({ input, masterdata, openDialog, setOpenDialog, onSave, on
     }
     if (type == "update") {
       form.reset({
+        workStatusId: input?.basicDetails?.workStatus.id,
         experienceYearId: input?.basicDetails?.experienceYear.id,
         experienceMonthId: input?.basicDetails?.experienceMonth.id,
         salaryBreakdownId: input?.basicDetails?.salaryBreakdown.id,
@@ -54,6 +56,24 @@ export function _Form({ input, masterdata, openDialog, setOpenDialog, onSave, on
 
           <FieldSet>
             <FieldGroup>
+              <Controller
+                name="workStatusId"
+                control={form.control}
+                rules={{ required: true }}
+                render={({ field, fieldState }) => (
+                  <Field>
+                    <FieldLabel>Work status</FieldLabel>
+                    <RadioGroup name={field.name} value={field.value} onValueChange={field.onChange} className="flex flex-col gap-2 w-fit">
+                      {masterdata?.data?.workStatus?.map((item: any) => (
+                        <div className="flex items-center gap-3" key={item.id}>
+                          <RadioGroupItem value={item.id} id={item.name} aria-invalid={fieldState.invalid} />
+                          <Label htmlFor={item.name}>{item.name}</Label>
+                        </div>
+                      ))}
+                    </RadioGroup>
+                  </Field>
+                )}
+              />
               <div className="grid grid-cols-2 gap-5">
                 <div>
                   <Controller

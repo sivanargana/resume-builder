@@ -2,7 +2,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia } from "@/components/ui/empty";
 
-import { Briefcase, Calendar, Edit2, File, MapPin, Plus, Wallet } from "lucide-react";
+import { Briefcase, Calendar, Clock, Edit2, File, MapPin, Plus, Wallet } from "lucide-react";
 import { FEATURE } from "./constants";
 
 export function _Card({ input, setOpenDialog, setType }: any) {
@@ -42,6 +42,10 @@ export function _Card({ input, setOpenDialog, setType }: any) {
               <div className="flex items-center gap-2">
                 <Calendar size={18} />
                 {input?.basicDetails?.availabilityType.name}
+              </div>
+              <div className="flex items-center gap-2">
+                <Clock size={18} />
+                {input?.basicDetails?.workStatus?.name}
               </div>
             </div>
           ) : (
