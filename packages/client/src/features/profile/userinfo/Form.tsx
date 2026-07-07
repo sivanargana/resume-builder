@@ -1,17 +1,12 @@
 import { Field, FieldGroup, FieldLabel, FieldSet } from "@/components/ui/field";
 import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Label } from "@/components/ui/label";
 import { Controller, useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { useEffect } from "react";
-import { useContent } from "@/components/ContentProvider";
 import { FEATURE } from "./constants";
 
 export function _Form({ input, openDialog, setOpenDialog, onUpdate, type }: any) {
-  const { masterdata }: any = useContent();
-
   const defaultValues = {
     firstName: "",
     lastName: "",
@@ -53,7 +48,7 @@ export function _Form({ input, openDialog, setOpenDialog, onUpdate, type }: any)
                   rules={{ required: true }}
                   render={({ field, fieldState }) => (
                     <Field>
-                      <FieldLabel htmlFor={field.name}>Name</FieldLabel>
+                      <FieldLabel htmlFor={field.name}>First Name</FieldLabel>
                       <Input {...field} id={field.name} aria-invalid={fieldState.invalid} />
                     </Field>
                   )}
@@ -64,7 +59,7 @@ export function _Form({ input, openDialog, setOpenDialog, onUpdate, type }: any)
                   rules={{ required: true }}
                   render={({ field, fieldState }) => (
                     <Field>
-                      <FieldLabel htmlFor={field.name}>Name</FieldLabel>
+                      <FieldLabel htmlFor={field.name}>Last Name</FieldLabel>
                       <Input {...field} id={field.name} aria-invalid={fieldState.invalid} />
                     </Field>
                   )}

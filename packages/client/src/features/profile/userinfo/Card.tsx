@@ -7,9 +7,10 @@ import { Avtar } from "../avtar";
 export function _Card({ input, setOpenDialog, setType }: any) {
   return (
     <div className="relative">
-      {input?.basicDetails && (
+      {input?.user && (
         <div className="absolute top-2 right-2">
           <Button
+            title="button-edit"
             size="icon-sm"
             variant="outline"
             onClick={() => {
@@ -57,6 +58,7 @@ export function _Card({ input, setOpenDialog, setType }: any) {
               </EmptyHeader>
               <EmptyContent>
                 <Button
+                  data-testid="button-add"
                   onClick={() => {
                     setType("create");
                     setOpenDialog(true);

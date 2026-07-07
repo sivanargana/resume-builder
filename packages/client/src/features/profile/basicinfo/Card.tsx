@@ -11,6 +11,7 @@ export function _Card({ input, setOpenDialog, setType }: any) {
       {input?.basicDetails && (
         <div className="absolute top-2 right-2">
           <Button
+            data-testid="button-edit"
             size="icon-sm"
             variant="outline"
             onClick={() => {
@@ -25,7 +26,9 @@ export function _Card({ input, setOpenDialog, setType }: any) {
 
       <Card>
         <CardContent>
-          <div className="text-base font-bold mb-5">{FEATURE}</div>
+          <div className="text-base font-bold mb-5" data-testid="title">
+            {FEATURE}
+          </div>
           {input?.basicDetails ? (
             <div className="flex flex-col gap-2 pt-3">
               <div className="flex items-center gap-2">
@@ -58,6 +61,7 @@ export function _Card({ input, setOpenDialog, setType }: any) {
               </EmptyHeader>
               <EmptyContent>
                 <Button
+                  data-testid="button-add"
                   onClick={() => {
                     setType("create");
                     setOpenDialog(true);
