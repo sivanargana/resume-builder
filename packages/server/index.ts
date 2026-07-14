@@ -37,7 +37,7 @@ app.use("/api/users", isAuthenticated, userRoutes);
 app.use("/api/skills", isAuthenticated, skillsRoutes);
 app.use("/api/education", isAuthenticated, educationRoutes);
 app.use("/api/experience", isAuthenticated, experienceRoutes);
-app.use("/api/project", isAuthenticated, projectRoutes);
+app.use("/api/projects", isAuthenticated, projectRoutes);
 app.use("/api/workStatus", isAuthenticated, workStatusRoutes);
 app.use("/api/basic-info", isAuthenticated, basicInfoRoutes);
 app.use("/api/headline", isAuthenticated, headlineRoutes);

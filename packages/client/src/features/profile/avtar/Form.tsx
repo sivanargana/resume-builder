@@ -26,7 +26,6 @@ export function _Form({ input, openDialog, setOpenDialog, onSave, onUpdate, onDe
   const onSubmit = () => {
     const formData: any = new FormData();
     formData.append("image", file);
-
     return formData;
   };
 

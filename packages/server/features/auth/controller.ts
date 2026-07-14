@@ -38,19 +38,31 @@ export const controller = {
 
       let token = jwt.sign({ id: result.id, email: result.email }, process.env.JWT_SECRET_KEY ?? "");
 
-      res.status(200).json({ token, role: result.role });
+      res.status(200).json({ token, user: result });
     } catch (err) {
       return res.status(500).json({ errors: err });
     }
   },
   async loginWithGoogle(req: Request, res: Response) {
     try {
-      let result = await service.login({ email: req.body.email });
-      if (!result) {
-        result = await service.createUser(req.body);
+      let finalUser: any = null;
+      let unkownUser: any = await fetch("https://www.googleapis.com/oauth2/v3/userinfo", { headers: { Authorization: `Bearer ${req.body.access_token}` } }).then((res) => res.json());
+
+      let existingUser: any = await service.login({ email: unkownUser.email });
+
+      let newGoogleUser: any = !existingUser ? await service.createUser({ provider: "GOOGLE", ...unkownUser }) : null;
+
+      if (newGoogleUser) {
+        finalUser = newGoogleUser;
+      } else {
+        finalUser = existingUser;
       }
-      let token = jwt.sign({ id: result.id, email: result.email }, process.env.JWT_SECRET_KEY ?? "");
-      res.status(200).json({ token, role: result.role });
+
+      let token = jwt.sign({ id: finalUser.id, email: finalUser.email }, process.env.JWT_SECRET_KEY ?? "");
+
+      delete finalUser.password;
+
+      res.status(200).json({ token, user: finalUser });
     } catch (err) {
       return res.status(500).json({ errors: err });
     }

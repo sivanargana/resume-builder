@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { _Card } from "./Card";
+import user from "@testing-library/user-event";
 
 const mockInput = {
   basicDetails: {
@@ -62,5 +62,13 @@ describe("_Card", () => {
 
     expect(screen.getByTestId("button-add")).toBeInTheDocument();
     expect(screen.queryByTestId("button-edit")).not.toBeInTheDocument();
+  });
+
+  it("render all form elements after click on edit button", async () => {
+    user.setup();
+    renderCard(mockInput);
+    let editbutton: any = screen.queryByTestId("button-edit");
+    await user.click(editbutton);
+    expect(screen.getByTestId("button-edit")).toBeInTheDocument();
   });
 });
