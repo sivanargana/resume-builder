@@ -53,7 +53,10 @@ export const service = {
       },
     });
     const { id, firstName, lastName, mobile, email, provider, picture, avtar, ...rest } = response;
-
+    const checks = [!!(avtar || picture), !!rest?.basicDetails, !!rest?.headline, !!rest?.profileSummary, rest?.userSkills?.length > 0, rest?.experiences?.length > 0, rest?.education?.length > 0, rest?.projects?.length > 0, rest?.userLanguages?.length > 0];
+    const completed = checks.filter(Boolean);
+    const progress = Math.round((completed?.length / checks?.length) * 100);
+    console.log(progress);
     return {
       user: {
         id,
@@ -64,6 +67,7 @@ export const service = {
         provider,
         picture,
         avtar,
+        progress,
       },
       ...rest,
     };

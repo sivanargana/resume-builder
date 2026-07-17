@@ -10,7 +10,7 @@ export const controller = {
   async create(req: Request & { user: any }, res: Response) {
     try {
       let result = await service.create({ userId: req.user.id, url: req.file?.path });
-      res.status(201).json([]);
+      res.status(201).json(result);
     } catch (err) {
       return res.status(500).json({ errors: err });
     }

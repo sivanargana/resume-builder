@@ -7,41 +7,16 @@ export const service = {
     const hashed = await bcrypt.hash(password, 10);
     return await prisma.user.create({
       data: { ...rest, password: hashed },
-      select: {
-        id: true,
-        fullName: true,
-        mobile: true,
-        email: true,
-        workStatus: true,
-        createdAt: true,
-        updatedAt: true,
-      },
     });
   },
   async read() {
-    return await prisma.user.findMany({
-      select: {
-        id: true,
-        fullName: true,
-        mobile: true,
-        email: true,
-        workStatus: true,
-        createdAt: true,
-        updatedAt: true,
-      },
-    });
+    return await prisma.user.findMany({});
   },
   async single(id: any) {
     return await prisma.user.findUnique({
       where: { id },
-      select: {
-        id: true,
-        fullName: true,
-        mobile: true,
-        email: true,
-        workStatus: true,
-        createdAt: true,
-        updatedAt: true,
+      include: {
+        avtar: true,
       },
     });
   },
@@ -54,15 +29,6 @@ export const service = {
     return await prisma.user.update({
       where: { id },
       data,
-      select: {
-        id: true,
-        fullName: true,
-        mobile: true,
-        email: true,
-        workStatus: true,
-        createdAt: true,
-        updatedAt: true,
-      },
     });
   },
   async delete(id: any) {

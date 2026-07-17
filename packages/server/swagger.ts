@@ -12,6 +12,12 @@ import { basicInfoPaths } from "./features/basic-info";
 import { headlinePaths } from "./features/headline";
 import { profileSummaryPaths } from "./features/profile-summary";
 import { userSkillsPaths } from "./features/user-skills";
+import { experienceYearPaths } from "./features/experienceYear";
+import { experienceMonthPaths } from "./features/experienceMonth";
+import { salaryBreakdownPaths } from "./features/salaryBreakdown";
+import { availabilityTypePaths } from "./features/availabilityType";
+import { employmentTypePaths } from "./features/employmentType";
+import { educationTypePaths } from "./features/educationType";
 
 export const swaggerSpec = swaggerJSDoc({
   definition: {
@@ -50,6 +56,12 @@ export const swaggerSpec = swaggerJSDoc({
       ...headlinePaths,
       ...profileSummaryPaths,
       ...userSkillsPaths,
+      ...experienceYearPaths,
+      ...experienceMonthPaths,
+      ...salaryBreakdownPaths,
+      ...availabilityTypePaths,
+      ...employmentTypePaths,
+      ...educationTypePaths,
     },
   },
   apis: [],

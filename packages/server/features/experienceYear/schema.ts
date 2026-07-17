@@ -1,14 +1,12 @@
 import * as z from "zod";
 
-const languageBase = {
-  name: z.string(),
-};
-
 export const schema = {
-  create: z.object(languageBase),
+  create: z.object({
+    name: z.string(),
+  }),
   update: z.object({
     id: z.string(),
-    ...languageBase,
+    name: z.string(),
   }),
   delete: z.object({
     id: z.string(),
