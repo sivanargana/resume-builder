@@ -4,7 +4,7 @@ import { schema } from "./schema";
 
 export const controller = {
   // Create
-  async create(req: Request, res: Response) {
+  async create(req: Request & { user: any }, res: Response) {
     const response = schema.create.safeParse(req.body);
     if (!response.success) {
       return res.status(400).json({
