@@ -18,6 +18,7 @@ import { salaryBreakdownPaths } from "./features/salaryBreakdown";
 import { availabilityTypePaths } from "./features/availabilityType";
 import { employmentTypePaths } from "./features/employmentType";
 import { educationTypePaths } from "./features/educationType";
+import { adminDashboardPaths } from "./features/admin-dashboard";
 
 export const swaggerSpec = swaggerJSDoc({
   definition: {
@@ -62,6 +63,7 @@ export const swaggerSpec = swaggerJSDoc({
       ...availabilityTypePaths,
       ...employmentTypePaths,
       ...educationTypePaths,
+      ...adminDashboardPaths,
     },
   },
   apis: [],
