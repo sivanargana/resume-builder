@@ -39,7 +39,11 @@ export const service = {
             educationType: true,
           },
         },
-        projects: true,
+        projects: {
+          include: {
+            type: true,
+          },
+        },
         userLanguages: {
           select: {
             id: true,
