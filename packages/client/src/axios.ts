@@ -1,11 +1,12 @@
 import axios from "axios";
 import { toast } from "sonner";
+import { API } from "./features/auth/api";
 export const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
 });
 api.interceptors.request.use(
   function (config) {
-    config.headers.set("Authorization", `Bearer ${localStorage.getItem("token")}`);
+    config.headers.set("Authorization", `Bearer ${API.TOKEN}`);
     return config;
   },
   function (error) {

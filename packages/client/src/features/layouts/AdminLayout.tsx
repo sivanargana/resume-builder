@@ -3,6 +3,7 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 import { SidebarInset, SidebarProvider, Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarRail } from "@/components/ui/sidebar";
 import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
+import { API } from "../auth/api";
 
 function AdminLayout() {
   const [confirm, setConfirm] = useState(false);
@@ -10,8 +11,8 @@ function AdminLayout() {
 
   const navigate = useNavigate();
   const logout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("role");
+    API.TOKEN = "";
+    API.USER = "";
     queryClient.clear();
     navigate("/auth");
   };

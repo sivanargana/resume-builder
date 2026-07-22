@@ -49,7 +49,7 @@ export function _Card({ input, setOpenDialog, setType, setSelected }: any) {
                           {item?.client} - {item?.location}
                         </div>
                         <div className="text-xs text-current/50">
-                          {item?.startYear} - {item?.endYear} - {item?.type}
+                          {item?.startYear} - {item?.endYear} - {item?.type?.name}
                         </div>
                         <div>{item?.details}</div>
                       </CardContent>

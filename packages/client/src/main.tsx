@@ -5,6 +5,7 @@ import "./index.css";
 import App from "./App.tsx";
 import { Toaster } from "sonner";
 import ContentProvider from "./components/ContentProvider.tsx";
+import ErrorBoundary from "./components/ErrorBoundry.tsx";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -21,7 +22,9 @@ createRoot(document.getElementById("root")!).render(
     <ContentProvider>
       <GoogleOAuthProvider clientId={import.meta.env.VITE_CLIENT_ID}>
         <Toaster />
-        <App />
+        <ErrorBoundary>
+          <App />
+        </ErrorBoundary>
       </GoogleOAuthProvider>
     </ContentProvider>
   </QueryClientProvider>,

@@ -4,6 +4,7 @@ import { LogOut } from "lucide-react";
 import { Outlet, useNavigate } from "react-router";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { useState } from "react";
+import { API } from "../auth/api";
 
 function AccountLayout() {
   const [confirm, setConfirm] = useState(false);
@@ -11,8 +12,8 @@ function AccountLayout() {
 
   const navigate = useNavigate();
   const logout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("role");
+    API.TOKEN = "";
+    API.USER = "";
     queryClient.clear();
     navigate("/auth");
   };

@@ -11,6 +11,7 @@ import { useGoogleLogin } from "@react-oauth/google";
 import { api } from "@/axios";
 import axios from "axios";
 import { toast } from "sonner";
+import { API } from "./api";
 
 type LoginFormValues = {
   email: string;
@@ -20,13 +21,13 @@ type LoginFormValues = {
 export function Login({ className, ...props }: React.ComponentProps<"div">) {
   let navigate = useNavigate();
   const loginWithEmail = useMutation({
-    mutationFn: (obj) => api.post("auth/login-with-email", obj),
+    mutationFn: (obj) => api.post("auth/login", obj),
     onSuccess: (data) => {
       afterLogin(data);
     },
   });
   const loginWithGoogle = useMutation({
-    mutationFn: (obj) => api.post("auth/login-with-google", obj),
+    mutationFn: (obj) => api.post("auth/continue-with-login", obj),
     onSuccess: (data: any) => {
       afterLogin(data);
     },
@@ -41,12 +42,12 @@ export function Login({ className, ...props }: React.ComponentProps<"div">) {
 
   const afterLogin = (data: any) => {
     toast.success("Logged In Successfully!");
-    localStorage.setItem("token", data?.data?.token);
-    localStorage.setItem("role", data?.data?.role);
-    if (localStorage.getItem("role") == "USER") {
+    API.TOKEN = data?.data?.token;
+    API.USER = data?.data?.user;
+    if (API.USER.role == "USER") {
       navigate("/account/profile");
     }
-    if (localStorage.getItem("role") == "ADMIN") {
+    if (API.USER.role == "ADMIN") {
       navigate("/admin");
     }
   };

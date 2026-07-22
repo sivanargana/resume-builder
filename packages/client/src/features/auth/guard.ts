@@ -1,8 +1,9 @@
 import { redirect } from "react-router";
+import { API } from "./api";
 
 export async function guard(_role: any) {
-  const token = localStorage.getItem("token");
-  const role = localStorage.getItem("role");
+  const token = API.TOKEN;
+  const role = API.USER.role;
 
   if (!token) {
     throw redirect("/auth");
