@@ -6,10 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Link, useNavigate } from "react-router";
 import { Controller, useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
-import { useGoogleLogin } from "@react-oauth/google";
 
-import { api } from "@/axios";
-import axios from "axios";
 import { toast } from "sonner";
 import { API } from "./api";
 
@@ -21,15 +18,19 @@ type LoginFormValues = {
 export function Login({ className, ...props }: React.ComponentProps<"div">) {
   let navigate = useNavigate();
   const loginWithEmail = useMutation({
-    mutationFn: (obj) => api.post("auth/login", obj),
+    mutationFn: (obj) => API.login(obj),
     onSuccess: (data) => {
       afterLogin(data);
     },
   });
-  const loginWithGoogle = useMutation({
-    mutationFn: (obj) => api.post("auth/continue-with-login", obj),
+  const continueWithGoogle = useMutation({
+    mutationFn: (obj) => API.continueWithGoogle(obj),
     onSuccess: (data: any) => {
-      afterLogin(data);
+      API.init((data: any) => {
+        API.continueWithGoogle(data).then((cred) => {
+          afterLogin(cred);
+        });
+      });
     },
   });
 
@@ -55,13 +56,9 @@ export function Login({ className, ...props }: React.ComponentProps<"div">) {
   const onSubmit = form.handleSubmit((values: any) => {
     loginWithEmail.mutate({ provider: "EMAIL", ...values });
   });
-  const login = useGoogleLogin({
-    onSuccess: (response: any) => {
-      axios.get("https://www.googleapis.com/oauth2/v3/userinfo", { headers: { Authorization: `Bearer ${response.access_token}` } }).then((data) => {
-        loginWithGoogle.mutate({ provider: "GOOGLE", ...data.data } as any);
-      });
-    },
-  });
+  const continueWithGoogleFn = () => {
+    continueWithGoogle.mutate({ provider: "GMAIL", ...values });
+  };
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
@@ -113,7 +110,7 @@ export function Login({ className, ...props }: React.ComponentProps<"div">) {
               />
               <Field>
                 <Button type="submit">Login</Button>
-                <Button variant="outline" type="button" onClick={() => login()}>
+                <Button variant="outline" type="button" onClick={continueWithGoogleFn}>
                   Login with Google
                 </Button>
                 <FieldDescription className="text-center">
