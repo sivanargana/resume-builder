@@ -3,7 +3,7 @@ import { API } from "./api";
 
 export async function guard(_role: any) {
   const token = API.TOKEN;
-  const role = API.USER.role;
+  const role = API.USER?.role;
 
   if (!token) {
     throw redirect("/auth");

@@ -17,20 +17,16 @@ type LoginFormValues = {
 
 export function Login({ className, ...props }: React.ComponentProps<"div">) {
   let navigate = useNavigate();
-  const loginWithEmail = useMutation({
+  const loginMutation: any = useMutation({
     mutationFn: (obj) => API.login(obj),
     onSuccess: (data) => {
       afterLogin(data);
     },
   });
-  const continueWithGoogle = useMutation({
-    mutationFn: (obj) => API.continueWithGoogle(obj),
+  const googleMutation: any = useMutation({
+    mutationFn: () => API.init(),
     onSuccess: (data: any) => {
-      API.init((data: any) => {
-        API.continueWithGoogle(data).then((cred) => {
-          afterLogin(cred);
-        });
-      });
+      afterLogin(data);
     },
   });
 
@@ -45,19 +41,12 @@ export function Login({ className, ...props }: React.ComponentProps<"div">) {
     toast.success("Logged In Successfully!");
     API.TOKEN = data?.data?.token;
     API.USER = data?.data?.user;
-    if (API.USER.role == "USER") {
+    if (API.USER?.role == "USER") {
       navigate("/account/profile");
     }
-    if (API.USER.role == "ADMIN") {
+    if (API.USER?.role == "ADMIN") {
       navigate("/admin");
     }
-  };
-
-  const onSubmit = form.handleSubmit((values: any) => {
-    loginWithEmail.mutate({ provider: "EMAIL", ...values });
-  });
-  const continueWithGoogleFn = () => {
-    continueWithGoogle.mutate({ provider: "GMAIL", ...values });
   };
 
   return (
@@ -67,7 +56,7 @@ export function Login({ className, ...props }: React.ComponentProps<"div">) {
           <CardTitle className="text-3xl mb-4">Login</CardTitle>
         </CardHeader>
         <CardContent>
-          <form onSubmit={onSubmit}>
+          <form>
             <FieldGroup>
               <Controller
                 name="email"
@@ -109,8 +98,10 @@ export function Login({ className, ...props }: React.ComponentProps<"div">) {
                 )}
               />
               <Field>
-                <Button type="submit">Login</Button>
-                <Button variant="outline" type="button" onClick={continueWithGoogleFn}>
+                <Button type="button" onClick={() => loginMutation.mutate(form.getValues())}>
+                  Login
+                </Button>
+                <Button variant="outline" type="button" onClick={() => googleMutation.mutate()}>
                   Login with Google
                 </Button>
                 <FieldDescription className="text-center">

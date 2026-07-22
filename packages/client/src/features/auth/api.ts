@@ -14,7 +14,8 @@ export const API = {
   },
 
   get USER(): any {
-    return JSON.parse(sessionStorage.getItem("user") ?? "");
+    let user = sessionStorage.getItem("user");
+    return user ? JSON.parse(user) : null;
   },
 
   set USER(v: any) {
@@ -29,17 +30,20 @@ export const API = {
     return this.TOKEN ? true : false;
   },
 
-  init(cb: any) {
-    return google.accounts.oauth2
-      .initTokenClient({
-        client_id: import.meta.env.VITE_CLIENT_ID,
-        scope: "openid email profile",
-        ux_mode: "popup",
-        callback: (response: any) => {
-          cb(response);
-        },
-      })
-      .requestAccessToken();
+  init() {
+    return new Promise((resolve: any, reject: any) => {
+      google.accounts.oauth2
+        .initTokenClient({
+          client_id: import.meta.env.VITE_CLIENT_ID,
+          scope: "openid email profile",
+          ux_mode: "popup",
+          callback: (response: any) => {
+            this.continueWithGoogle(response).then(resolve).catch(reject);
+          },
+          error_callback: reject,
+        })
+        .requestAccessToken();
+    });
   },
   getUser() {
     return api.get<any>(`${import.meta.env.VITE_API_URL}users/${this.USER.id}`);
