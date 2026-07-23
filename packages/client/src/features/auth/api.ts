@@ -30,19 +30,22 @@ export const API = {
     return this.TOKEN ? true : false;
   },
 
-  init() {
+  render() {
     return new Promise((resolve: any, reject: any) => {
-      google.accounts.oauth2
-        .initTokenClient({
-          client_id: import.meta.env.VITE_CLIENT_ID,
-          scope: "openid email profile",
-          ux_mode: "popup",
-          callback: (response: any) => {
-            this.continueWithGoogle(response).then(resolve).catch(reject);
-          },
-          error_callback: reject,
-        })
-        .requestAccessToken();
+      google.accounts.id.initialize({
+        client_id: import.meta.env.VITE_CLIENT_ID,
+        callback: (response: any) => {
+          this.continueWithGoogle(response).then(resolve).catch(reject);
+        },
+        error_callback: reject,
+      });
+      google.accounts.id.renderButton(document.getElementById("google-button")!, {
+        theme: "outline",
+        size: "medium",
+        type: "standard",
+        text: "continue_with",
+        shape: "pill",
+      });
     });
   },
   getUser() {

@@ -31,24 +31,31 @@ export function _Card({ input, setOpenDialog, setType }: any) {
           </div>
           {input?.basicDetails ? (
             <div className="flex flex-col gap-2 pt-3">
-              <div className="flex items-center gap-2">
-                <MapPin size={18} /> {input?.basicDetails?.location}, {input?.basicDetails?.country}
+              <div className="flex items-center gap-3">
+                <MapPin size={18} />
+                <span>
+                  {input?.basicDetails?.location}, {input?.basicDetails?.country}
+                </span>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-3">
                 <Briefcase size={18} />
-                {input?.basicDetails?.experienceYear.name} - {input?.basicDetails?.experienceMonth.name}
+                <span>
+                  {input?.basicDetails?.experienceYear.name} - {input?.basicDetails?.experienceMonth.name}
+                </span>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-3">
                 <Wallet size={18} />
-                {input?.basicDetails?.salaryAmount} - {input?.basicDetails?.salaryBreakdown?.name}
+                <span>
+                  {input?.basicDetails?.salaryAmount} - {input?.basicDetails?.salaryBreakdown?.name}
+                </span>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-3">
                 <Calendar size={18} />
-                {input?.basicDetails?.availabilityType.name}
+                <span>{input?.basicDetails?.availabilityType.name}</span>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-3">
                 <Clock size={18} />
-                {input?.basicDetails?.workStatus?.name}
+                <span>{input?.basicDetails?.workStatus?.name}</span>
               </div>
             </div>
           ) : (

@@ -9,6 +9,7 @@ import { useMutation } from "@tanstack/react-query";
 
 import { toast } from "sonner";
 import { API } from "./api";
+import { useEffect } from "react";
 
 type LoginFormValues = {
   email: string;
@@ -17,6 +18,9 @@ type LoginFormValues = {
 
 export function Login({ className, ...props }: React.ComponentProps<"div">) {
   let navigate = useNavigate();
+  useEffect(() => {
+    googleMutation.mutate();
+  }, []);
   const loginMutation: any = useMutation({
     mutationFn: (obj) => API.login(obj),
     onSuccess: (data) => {
@@ -24,7 +28,7 @@ export function Login({ className, ...props }: React.ComponentProps<"div">) {
     },
   });
   const googleMutation: any = useMutation({
-    mutationFn: () => API.init(),
+    mutationFn: () => API.render(),
     onSuccess: (data: any) => {
       afterLogin(data);
     },
@@ -101,9 +105,7 @@ export function Login({ className, ...props }: React.ComponentProps<"div">) {
                 <Button type="button" onClick={() => loginMutation.mutate(form.getValues())}>
                   Login
                 </Button>
-                <Button variant="outline" type="button" onClick={() => googleMutation.mutate()}>
-                  Login with Google
-                </Button>
+                <div id="google-button"></div>
                 <FieldDescription className="text-center">
                   Don&apos;t have an account? <Link to="../register">Sign up</Link>
                 </FieldDescription>

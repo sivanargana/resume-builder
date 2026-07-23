@@ -3,6 +3,10 @@ import { service } from "./service";
 import { schema } from "./schema";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
+import { OAuth2Client } from "google-auth-library";
+
+const client = new OAuth2Client(process.env.CLIENT_ID);
+
 export const controller = {
   async registerWithEmail(req: Request, res: Response) {
     const response = schema.register.safeParse(req.body);
@@ -44,7 +48,14 @@ export const controller = {
   async continueWithGoogle(req: Request, res: Response) {
     try {
       let finalUser: any = null;
-      let unkownUser: any = await fetch("https://www.googleapis.com/oauth2/v3/userinfo", { headers: { Authorization: `Bearer ${req.body.access_token}` } }).then((res) => res.json());
+
+      const ticket = await client.verifyIdToken({
+        idToken: req.body.credential,
+        audience: process.env.CLIENT_ID,
+      });
+
+      let unkownUser: any = ticket.getPayload();
+
       let existingUser: any = await service.login({ email: unkownUser.email });
       let newGoogleUser: any = !existingUser ? await service.createUser({ provider: "GOOGLE", ...unkownUser }) : null;
       if (newGoogleUser) {

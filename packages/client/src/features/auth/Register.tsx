@@ -2,19 +2,16 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Field, FieldDescription, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { Controller, useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
-import { api } from "@/axios";
+
 import { toast } from "sonner";
+import { API } from "./api";
+import { useEffect } from "react";
 
 export function Register({ data, ...props }: any) {
-  const mutation = useMutation({
-    mutationFn: (obj) => api.post("auth/register-with-email", obj),
-    onSuccess: (data) => {
-      toast.success("Registered Successfully!");
-    },
-  });
+  let navigate = useNavigate();
 
   const form = useForm({
     defaultValues: {
@@ -26,6 +23,35 @@ export function Register({ data, ...props }: any) {
       confirmPassword: "Surya@1999",
     },
   });
+  useEffect(() => {
+    googleMutation.mutate();
+  }, []);
+
+  const mutation = useMutation({
+    mutationFn: (obj) => API.register(obj),
+    onSuccess: (data) => {
+      toast.success("Registered Successfully!");
+    },
+  });
+
+  const googleMutation: any = useMutation({
+    mutationFn: () => API.render(),
+    onSuccess: (data: any) => {
+      afterLogin(data);
+    },
+  });
+
+  const afterLogin = (data: any) => {
+    toast.success("Logged In Successfully!");
+    API.TOKEN = data?.data?.token;
+    API.USER = data?.data?.user;
+    if (API.USER?.role == "USER") {
+      navigate("/account/profile");
+    }
+    if (API.USER?.role == "ADMIN") {
+      navigate("/admin");
+    }
+  };
 
   const onSubmit = form.handleSubmit(({ confirmPassword, ...values }: any) => {
     mutation.mutate(values);
@@ -114,9 +140,7 @@ export function Register({ data, ...props }: any) {
             <FieldGroup>
               <Field>
                 <Button type="submit">Create Account</Button>
-                <Button variant="outline" type="button">
-                  Sign up with Google
-                </Button>
+                <div id="google-button"></div>
                 <FieldDescription className="px-6 text-center">
                   Already have an account? <Link to="../login">Sign in</Link>
                 </FieldDescription>
