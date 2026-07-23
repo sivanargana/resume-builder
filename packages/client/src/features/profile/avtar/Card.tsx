@@ -14,7 +14,7 @@ export function _Card({ input, setType, setOpenDialog }: any) {
             <Edit2 />
           </div>
         )}
-        <div className="size-20 bg-gray-300 ">
+        <div className="size-25 bg-gray-300 ">
           {input?.user?.provider === "EMAIL" && input?.user?.avtar && <img className="size-full object-cover" src={`${import.meta.env.VITE_UPLOADS_URL}${input?.user?.avtar?.url}`} />}
           {input?.user?.provider === "GOOGLE" && input?.user?.picture && <img className="size-full object-cover" src={input?.user?.picture} />}
         </div>

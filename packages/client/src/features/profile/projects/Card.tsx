@@ -26,10 +26,10 @@ export function _Card({ input, setOpenDialog, setType, setSelected }: any) {
           <div className="text-base font-bold mb-5">{FEATURE}</div>
           {input?.projects.length > 0 ? (
             <>
-              <div className="grid grid-cols-2 gap-5">
+              <div className="grid grid-cols-1 gap-5">
                 {input?.projects?.map((item: any) => (
                   <div className="relative" key={item?.id}>
-                    <div className="absolute top-2 right-2">
+                    <div className="absolute top-0 right-0">
                       <Button
                         size="icon-sm"
                         variant="outline"
@@ -42,18 +42,16 @@ export function _Card({ input, setOpenDialog, setType, setSelected }: any) {
                         <Edit2 />
                       </Button>
                     </div>
-                    <Card key={item?.id}>
-                      <CardContent>
-                        <div className="font-bold">{item?.title}</div>
-                        <div>
-                          {item?.client} - {item?.location}
-                        </div>
-                        <div className="text-xs text-current/50">
-                          {item?.startYear} - {item?.endYear} - {item?.type?.name}
-                        </div>
-                        <div>{item?.details}</div>
-                      </CardContent>
-                    </Card>
+                    <div>
+                      <div className="font-bold">{item?.title}</div>
+                      <div>
+                        {item?.client} - {item?.location}
+                      </div>
+                      <div className="text-xs text-current/50">
+                        {item?.startYear} - {item?.endYear} - {item?.type?.name}
+                      </div>
+                      <div>{item?.details}</div>
+                    </div>
                   </div>
                 ))}
               </div>
