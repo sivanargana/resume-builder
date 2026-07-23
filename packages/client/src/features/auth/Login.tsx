@@ -93,9 +93,9 @@ export function Login({ className, ...props }: React.ComponentProps<"div">) {
                   <Field>
                     <div className="flex items-center">
                       <FieldLabel htmlFor={field.name}>Password</FieldLabel>
-                      <a href="#" className="ml-auto inline-block text-sm underline-offset-4 hover:underline">
+                      {/* <a href="#" className="ml-auto inline-block text-sm underline-offset-4 hover:underline">
                         Forgot your password?
-                      </a>
+                      </a> */}
                     </div>
                     <Input {...field} id={field.name} type="password" aria-invalid={fieldState.invalid} />
                   </Field>

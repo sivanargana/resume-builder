@@ -65,7 +65,7 @@ export function Register({ data, ...props }: any) {
       <CardContent>
         <form onSubmit={onSubmit}>
           <FieldGroup>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-4">
               <Controller
                 name="firstName"
                 control={form.control}
@@ -88,8 +88,7 @@ export function Register({ data, ...props }: any) {
                   </Field>
                 )}
               />
-            </div>
-            <div className="grid grid-cols-2 gap-4">
+
               <Controller
                 name="mobile"
                 control={form.control}
@@ -112,8 +111,7 @@ export function Register({ data, ...props }: any) {
                   </Field>
                 )}
               />
-            </div>
-            <div className="grid grid-cols-2 gap-4">
+
               <Controller
                 name="password"
                 control={form.control}

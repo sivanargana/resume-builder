@@ -44,7 +44,7 @@ export const API = {
         size: "medium",
         type: "standard",
         text: "continue_with",
-        shape: "pill",
+        shape: "rectangular",
       });
     });
   },
